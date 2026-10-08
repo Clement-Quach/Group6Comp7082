@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://885odmgwpqk0"]
+
+[ext_resource type="Script" uid="uid://b4mk5kbj45shi" path="res://tools/tool_main.gd" id="1_vtc64"]
+
+[node name="ToolMain" type="Node" unique_id=1184258772]
+script = ExtResource("1_vtc64")

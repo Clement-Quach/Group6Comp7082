@@ -1,5 +1,7 @@
-extends Button
-@onready var tools:tool_main = $"../../ToolMain"
+extends Node
+class_name tool_main
+
+@onready var virusCheck =  virusCheckTool.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -9,9 +11,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-
-func _on_pressed() -> void:
-	print("you pressed a button")
-	tools.checkForVirus()
 	
+func checkForVirus():
+	virusCheck.checkVirus()

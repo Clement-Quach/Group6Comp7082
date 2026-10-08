@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dq1a14dj1csci"]
+
+[ext_resource type="Script" uid="uid://bhiomdhdkxyou" path="res://gui/main_gui.gd" id="1_4br7b"]
+[ext_resource type="Script" uid="uid://dp41bu34mrmi6" path="res://gui/example_button.gd" id="2_ictiy"]
+
+[node name="Control" type="Control" unique_id=44630022]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4br7b")
+
+[node name="ExampleButton" type="Button" parent="." unique_id=805269481]
+layout_mode = 0
+offset_left = 98.0
+offset_top = 99.0
+offset_right = 230.0
+offset_bottom = 130.0
+size_flags_vertical = 4
+text = "example button"
+script = ExtResource("2_ictiy")
+
+[node name="ExampleButton2" type="Button" parent="." unique_id=515544684]
+layout_mode = 0
+offset_left = 805.0
+offset_top = 103.0
+offset_right = 937.0
+offset_bottom = 134.0
+size_flags_vertical = 4
+text = "example butto2
+"
+
+[connection signal="pressed" from="ExampleButton" to="ExampleButton" method="_on_pressed"]

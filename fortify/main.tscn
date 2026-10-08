@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dxmacha68srts"]
+
+[ext_resource type="PackedScene" uid="uid://dq1a14dj1csci" path="res://gui/mainGui.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://885odmgwpqk0" path="res://tools/toolMain.tscn" id="2_0xm2m"]
+
+[node name="Main" type="Node" unique_id=1736893488]
+
+[node name="Control" parent="." unique_id=44630022 instance=ExtResource("1_ig7tw")]
+
+[node name="ToolMain" parent="." unique_id=1184258772 instance=ExtResource("2_0xm2m")]
