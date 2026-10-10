@@ -11,9 +11,9 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-func checkVirus():
+func checkVirus(filepaths: String):
 	#later on replace this with a method to actually get a file
-	var hash = hash_file("res://tests/test.txt")
+	var hash = hash_file(filepaths)
 	if database.checkDB(hash) :
 		print("checkVirus true")
 	else:
