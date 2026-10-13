@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bhiomdhdkxyou" path="res://gui/main_gui.gd" id="1_4br7b"]
 [ext_resource type="Script" uid="uid://dp41bu34mrmi6" path="res://gui/example_button.gd" id="2_ictiy"]
+[ext_resource type="Script" uid="uid://xpjaahj1ew7t" path="res://gui/example_button_3.gd" id="3_ictiy"]
 
 [node name="Control" type="Control" unique_id=44630022]
 layout_mode = 3
@@ -32,4 +33,16 @@ size_flags_vertical = 4
 text = "example butto2
 "
 
+[node name="ExampleButton3" type="Button" parent="." unique_id=519570319]
+layout_mode = 0
+offset_left = 98.0
+offset_top = 169.0
+offset_right = 230.0
+offset_bottom = 200.0
+pivot_offset = Vector2(205, -163)
+size_flags_vertical = 4
+text = "example button"
+script = ExtResource("3_ictiy")
+
 [connection signal="pressed" from="ExampleButton" to="ExampleButton" method="_on_pressed"]
+[connection signal="pressed" from="ExampleButton3" to="ExampleButton3" method="_on_pressed"]

@@ -25,3 +25,9 @@ func checkForVirus() -> void:
 
 	var path: String = await fileDialog.file_selected
 	virusCheck.checkVirus(path)
+	
+func addFileAsVirus() -> void:
+	startFileDialog(["*.exe", "*.dll", "*.txt"])
+
+	var path: String = await fileDialog.file_selected
+	virusCheck.addFileAsVirus(path)
