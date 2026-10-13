@@ -15,34 +15,44 @@ script = ExtResource("1_4br7b")
 
 [node name="ExampleButton" type="Button" parent="." unique_id=805269481]
 layout_mode = 0
-offset_left = 98.0
-offset_top = 99.0
-offset_right = 230.0
-offset_bottom = 130.0
+offset_left = 11.0
+offset_top = 7.0
+offset_right = 326.0
+offset_bottom = 103.0
 size_flags_vertical = 4
-text = "example button"
+text = "check virus"
 script = ExtResource("2_ictiy")
 
 [node name="ExampleButton2" type="Button" parent="." unique_id=515544684]
 layout_mode = 0
-offset_left = 805.0
-offset_top = 103.0
-offset_right = 937.0
-offset_bottom = 134.0
+offset_left = 12.0
+offset_top = 108.0
+offset_right = 324.0
+offset_bottom = 198.0
 size_flags_vertical = 4
 text = "example butto2
 "
 
 [node name="ExampleButton3" type="Button" parent="." unique_id=519570319]
 layout_mode = 0
-offset_left = 98.0
-offset_top = 169.0
-offset_right = 230.0
-offset_bottom = 200.0
+offset_left = 14.0
+offset_top = 208.0
+offset_right = 324.0
+offset_bottom = 297.0
 pivot_offset = Vector2(205, -163)
 size_flags_vertical = 4
-text = "example button"
+text = "add file"
 script = ExtResource("3_ictiy")
+
+[node name="Label" type="Label" parent="." unique_id=1022467104]
+layout_mode = 0
+offset_left = 374.0
+offset_top = 13.0
+offset_right = 912.0
+offset_bottom = 276.0
+text = "output
+"
+autowrap_mode = 3
 
 [connection signal="pressed" from="ExampleButton" to="ExampleButton" method="_on_pressed"]
 [connection signal="pressed" from="ExampleButton3" to="ExampleButton3" method="_on_pressed"]

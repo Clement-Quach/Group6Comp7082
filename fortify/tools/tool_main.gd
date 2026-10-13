@@ -1,10 +1,17 @@
 extends Node
 class_name tool_main
 
+
 @onready var virusCheck = virusCheckTool.new()
 var fileDialog: FileDialog
+@onready var gui = $"../Control"
+
 
 func _ready() -> void:
+	#attach as children
+	add_child(virusCheck)
+	
+	
 	fileDialog = FileDialog.new()
 	add_child(fileDialog)
 
@@ -31,3 +38,7 @@ func addFileAsVirus() -> void:
 
 	var path: String = await fileDialog.file_selected
 	virusCheck.addFileAsVirus(path)
+	
+func printToTerminal(string: String) ->void:
+	gui.printToTerminal(string)
+	pass

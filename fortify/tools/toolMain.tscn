@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://885odmgwpqk0"]
 
 [ext_resource type="Script" uid="uid://b4mk5kbj45shi" path="res://tools/tool_main.gd" id="1_vtc64"]
+[ext_resource type="Script" uid="uid://d2h2y354qs60o" path="res://tools/virusCheck/virusCheck.gd" id="2_c82mj"]
 
 [node name="ToolMain" type="Node" unique_id=1184258772]
 script = ExtResource("1_vtc64")
+
+[node name="Node" type="Node" parent="." unique_id=1287335476]
+script = ExtResource("2_c82mj")

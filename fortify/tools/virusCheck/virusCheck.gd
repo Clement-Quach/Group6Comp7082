@@ -1,6 +1,7 @@
 extends Node
 class_name virusCheckTool
 
+@onready var toolMain:tool_main = $".."
 var database = virusDB.new()
 	
 func _init() -> void:
@@ -22,13 +23,17 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
+
+
 func checkVirus(filepaths: String):
 	#later on replace this with a method to actually get a file
 	var hash = hash_file(filepaths)
 	if database.lookup(hash) :
-		print("checkVirus true")
+		print(" virus found " + filepaths)
+		toolMain.printToTerminal("virus found " + filepaths + "\n")
 	else:
 		print("checkVirus False")
+		toolMain.printToTerminal("virus false " + filepaths + "\n")
 		
 func addFileAsVirus(filepath: String) -> void:
 	var err := database.add_file(filepath)
