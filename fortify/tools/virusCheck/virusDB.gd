@@ -12,7 +12,7 @@ extends RefCounted
 ##   count x [ 32 bytes hash | string name | string source | u64 added ]
 ##   32 bytes SHA-256 of everything above
 
-const DB_PATH := "res://tools/virusCheck/dbFolder/"
+const DB_PATH := "res://tools/virusCheck/dbFolder/hashes.db"
 const MAGIC := "VHDB"
 const VERSION := 1
 const HASH_BYTES := 32
