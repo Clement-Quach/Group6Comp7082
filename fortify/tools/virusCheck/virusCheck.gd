@@ -3,6 +3,10 @@ class_name virusCheckTool
 
 @onready var toolMain:tool_main = $".."
 var database = virusDB.new()
+
+# extension that would be added to the virus file to lock them in windows
+const EXT = ".quarantine"
+
 	
 func _init() -> void:
 	var err := database.load_db()
@@ -30,7 +34,9 @@ func checkVirus(filepaths: String):
 	var hash = hash_file(filepaths)
 	if database.lookup(hash) :
 		print(" virus found " + filepaths)
+		lockfile(filepaths)
 		toolMain.printToTerminal("virus found " + filepaths + "\n")
+		
 	else:
 		print("checkVirus False")
 		toolMain.printToTerminal("virus false " + filepaths + "\n")
@@ -56,3 +62,42 @@ func hash_file(path: String) -> String:
 
 	return ctx.finish().hex_encode()
 	
+
+# locks a given file
+func lockfile(path: String) -> void:
+	
+	if path.ends_with(EXT):
+		toolMain.printToTerminal("already locked " + path + "\n")
+		return
+		
+	# perform renaming virus file -> adding EXT to the end
+	var err := DirAccess.rename_absolute(path, path + EXT)
+	
+	# checking if virus file renaming is successful
+	if err == OK:
+		toolMain.printToTerminal("locked " + path + EXT + "\n")
+	else:
+		toolMain.printToTerminal("lock failed (%s)\n" % error_string(err))
+		
+
+# unlocks a given file
+func unlockFile(path: String) -> void:
+	
+	if not path.ends_with(EXT):
+		toolMain.printToTerminal("not a locked file " + path + "\n")
+		return
+
+	# get the original name of file -> remove EXT
+	var original := path.trim_suffix(EXT)
+	
+	# check if a file with the original name already exist
+	if FileAccess.file_exists(original):
+		toolMain.printToTerminal("can't restore, a file with that name exists\n")
+		return
+	
+	# else rename it -> remove the EXT if a file with the original name does not exist
+	var err := DirAccess.rename_absolute(path, original)
+	if err == OK:
+		toolMain.printToTerminal("restored " + original + "\n")
+	else:
+		toolMain.printToTerminal("restore failed (%s)\n" % error_string(err))
