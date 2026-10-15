@@ -42,3 +42,10 @@ func addFileAsVirus() -> void:
 func printToTerminal(string: String) ->void:
 	gui.printToTerminal(string)
 	pass
+	
+# dialog to chose a file to unlock
+func restoreFile() -> void:
+	startFileDialog(["*.quarantine"])
+
+	var path: String = await fileDialog.file_selected
+	virusCheck.unlockFile(path)
