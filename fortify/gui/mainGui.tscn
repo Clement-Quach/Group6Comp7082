@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dp41bu34mrmi6" path="res://gui/example_button.gd" id="2_ictiy"]
 [ext_resource type="Script" uid="uid://bvhxxra2n14nj" path="res://gui/unlock_file.gd" id="3_1luyh"]
 [ext_resource type="Script" uid="uid://xpjaahj1ew7t" path="res://gui/example_button_3.gd" id="3_ictiy"]
+[ext_resource type="Script" uid="uid://rub6cp4sm88a" path="res://gui/btn_file_check.gd" id="5_mkyfa"]
 
 [node name="Control" type="Control" unique_id=44630022]
 layout_mode = 3
@@ -64,6 +65,15 @@ offset_bottom = 276.0
 text = "output
 "
 autowrap_mode = 3
+
+[node name="BtnFileCheck" type="Button" parent="." unique_id=600767772]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 409.0
+offset_right = 325.0
+offset_bottom = 499.0
+text = "File Integrity Check"
+script = ExtResource("5_mkyfa")
 
 [connection signal="pressed" from="ExampleButton" to="ExampleButton" method="_on_pressed"]
 [connection signal="pressed" from="UnlockFile" to="UnlockFile" method="_on_pressed"]

@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://dij2e7oct2wjy"]
+
+[ext_resource type="Script" uid="uid://n0vsryqt08ny" path="res://tools/fileIntegrityCheck/UI_connector.gd" id="1_nr1vn"]
+
+[node name="FileIntegrityDashboard" type="Node2D" unique_id=1622237805]
+position = Vector2(235, 38)
+script = ExtResource("1_nr1vn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1280536944]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -222.5
+offset_top = -26.0
+offset_right = 899.0
+offset_bottom = 575.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ActionToolbar" type="HBoxContainer" parent="VBoxContainer" unique_id=1366972756]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="BtnSelectTarget" type="Button" parent="VBoxContainer/ActionToolbar" unique_id=81655136]
+layout_mode = 2
+text = "Slect Target
+"
+
+[node name="BtnAddFile" type="Button" parent="VBoxContainer/ActionToolbar" unique_id=1659850418]
+layout_mode = 2
+text = "Add File"
+
+[node name="BtnRunVerification" type="Button" parent="VBoxContainer/ActionToolbar" unique_id=1820321077]
+layout_mode = 2
+text = "Run Verification"
+
+[node name="BtnSyncDatabase" type="Button" parent="VBoxContainer/ActionToolbar" unique_id=2017845762]
+layout_mode = 2
+text = "Sync DB"
+
+[node name="DropdownAlgorithm" type="OptionButton" parent="VBoxContainer/ActionToolbar" unique_id=2134946619]
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "SHA256"
+popup/item_0/id = 0
+popup/item_1/text = "SHA1"
+popup/item_1/id = 1
+popup/item_2/text = "MD5"
+popup/item_2/id = 2
+
+[node name="VerificationResultsTree" type="Tree" parent="VBoxContainer" unique_id=212109674]
+layout_mode = 2
+size_flags_vertical = 3
+tooltip_text = "Reault"
+
+[node name="TargetSelectorDialog" type="FileDialog" parent="VBoxContainer" unique_id=2077221823]
