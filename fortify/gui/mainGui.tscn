@@ -25,6 +25,7 @@ text = "check virus"
 script = ExtResource("2_ictiy")
 
 [node name="ExampleButton2" type="Button" parent="." unique_id=515544684]
+visible = false
 layout_mode = 0
 offset_left = 12.0
 offset_top = 108.0
@@ -36,20 +37,20 @@ text = "example butto2
 
 [node name="UnlockFile" type="Button" parent="." unique_id=200688607]
 layout_mode = 0
-offset_left = 12.0
-offset_top = 308.0
-offset_right = 324.0
-offset_bottom = 398.0
+offset_left = 15.0
+offset_top = 211.0
+offset_right = 327.0
+offset_bottom = 301.0
 size_flags_vertical = 4
 text = "Unlock a file"
 script = ExtResource("3_1luyh")
 
 [node name="ExampleButton3" type="Button" parent="." unique_id=519570319]
 layout_mode = 0
-offset_left = 14.0
-offset_top = 208.0
-offset_right = 324.0
-offset_bottom = 297.0
+offset_left = 15.0
+offset_top = 112.0
+offset_right = 325.0
+offset_bottom = 201.0
 pivot_offset = Vector2(205, -163)
 size_flags_vertical = 4
 text = "add file"

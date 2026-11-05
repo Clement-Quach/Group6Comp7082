@@ -29,17 +29,26 @@ func _process(delta: float) -> void:
 
 
 
-func checkVirus(filepaths: String):
-	#later on replace this with a method to actually get a file
-	var hash = hash_file(filepaths)
-	if database.lookup(hash) :
-		print(" virus found " + filepaths)
-		lockfile(filepaths)
-		toolMain.printToTerminal("virus found " + filepaths + "\n")
-		
-	else:
-		print("checkVirus False")
-		toolMain.printToTerminal("virus false " + filepaths + "\n")
+func checkVirus(filepaths: PackedStringArray) -> void:
+	for path in filepaths:
+		# Check that the file exists
+		if not FileAccess.file_exists(path):
+			toolMain.printToTerminal("file not found: " + path + "\n")
+			continue
+
+		# Calculate the file's hash
+		var hash := hash_file(path)
+
+		# Check the virus database
+		if database.lookup(hash):
+			print("virus found: " + path)
+			GlobalLogger.InfoLog("virus found")
+			toolMain.printToTerminal("virus found: " + path + "\n")
+			lockfile(path)
+		else:
+			print("virus false: " + path)
+			GlobalLogger.InfoLog("virus found")
+			toolMain.printToTerminal("virus false: " + path + "\n")
 		
 func addFileAsVirus(filepath: String) -> void:
 	var err := database.add_file(filepath)
@@ -58,6 +67,9 @@ func hash_file(path: String) -> String:
 
 	var ctx = HashingContext.new()
 	ctx.start(HashingContext.HASH_SHA256)
+	if data.size() == 0:
+		push_warning("FILE IS EMPTY. hash_file function: %s" % path)
+		return "0"
 	ctx.update(data)
 
 	return ctx.finish().hex_encode()

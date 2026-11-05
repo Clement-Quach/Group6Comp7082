@@ -26,11 +26,24 @@ func startFileDialog(filterArray: Array[String]) -> void:
 		fileDialog.add_filter(filter)
 
 	fileDialog.popup_centered(Vector2i(800, 600))
+	
+func startSingleFileDialog(filterArray: Array[String]) -> void:
+	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	startFileDialog(filterArray)
+	
+func startMultiFileDialog(filterArray: Array[String]) -> void:
+	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILES
+	startFileDialog(filterArray)
+	
+func startAnyFileDialog(filterArray: Array[String]) -> void:
+	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_ANY
+	startFileDialog(filterArray)
+	
 
 func checkForVirus() -> void:
-	startFileDialog(["*.exe", "*.dll", "*.txt"])
+	startMultiFileDialog(["*.exe", "*.dll", "*.txt"])
 
-	var path: String = await fileDialog.file_selected
+	var path:PackedStringArray = await fileDialog.files_selected
 	virusCheck.checkVirus(path)
 	
 func addFileAsVirus() -> void:
