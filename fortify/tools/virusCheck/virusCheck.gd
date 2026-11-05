@@ -33,7 +33,6 @@ func _process(delta: float) -> void:
 
 
 
-<<<<<<< HEAD
 func checkVirus(filepaths: PackedStringArray) -> void:
 	for path in filepaths:
 		# Check that the file exists
@@ -49,29 +48,11 @@ func checkVirus(filepaths: PackedStringArray) -> void:
 			print("virus found: " + path)
 			GlobalLogger.InfoLog("virus found")
 			toolMain.printToTerminal("virus found: " + path + "\n")
-			lockfile(path)
+			lockFile(path)
 		else:
 			print("virus false: " + path)
 			GlobalLogger.InfoLog("virus found")
 			toolMain.printToTerminal("virus false: " + path + "\n")
-=======
-func checkVirus(filepaths: String):
-	# if the file is alreadt locked we can't read it, so it would fail on linux, threfore skip it
-	if filepaths.ends_with(EXT):
-		toolMain.printToTerminal("already locked " + filepaths + "\n")
-		return
-	
-	#later on replace this with a method to actually get a file
-	var hash = hash_file(filepaths)
-	if database.lookup(hash) :
-		print(" virus found " + filepaths)
-		lockFile(filepaths)
-		toolMain.printToTerminal("virus found " + filepaths + "\n")
-		
-	else:
-		print("checkVirus False")
-		toolMain.printToTerminal("virus false " + filepaths + "\n")
->>>>>>> 72cd83383cc8f9d4a1d3bc0b9bbc406d6b686efe
 		
 func addFileAsVirus(filepath: String) -> void:
 	var err := database.add_file(filepath)
