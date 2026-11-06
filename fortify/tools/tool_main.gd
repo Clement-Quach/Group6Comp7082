@@ -5,12 +5,14 @@ class_name tool_main
 @onready var virusCheck = virusCheckTool.new()
 var fileDialog: FileDialog
 @onready var gui = $"../Control"
+@onready var aiManager = AIManager.new()
 
 
 func _ready() -> void:
 	#attach as children
 	add_child(virusCheck)
 	
+	add_child(aiManager)
 	
 	fileDialog = FileDialog.new()
 	add_child(fileDialog)
@@ -62,3 +64,13 @@ func restoreFile() -> void:
 
 	var path: String = await fileDialog.file_selected
 	virusCheck.unlockFile(path)
+
+# sends the prompt to the ai manager, and prints the results
+func askAI(prompt: String) -> void:
+	if prompt.strip_edges().is_empty():
+		printToTerminal("type a question first\n")
+		return
+
+	printToTerminal("you: " + prompt + "\nthinking...\n")
+	var answer: String = await aiManager.ask(prompt)
+	printToTerminal("AI: " + answer + "\n\n")
