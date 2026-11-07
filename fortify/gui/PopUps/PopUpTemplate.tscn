@@ -1,5 +1,9 @@
 [gd_scene format=3 uid="uid://cv4mcbciqecw0"]
 
+[ext_resource type="Script" uid="uid://7at4rkcr5equ" path="res://gui/PopUps/popupExit.gd" id="1_hyp1n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hyp1n"]
+
 [node name="PopUpTemplate" type="Control" unique_id=1695006277]
 layout_mode = 3
 anchors_preset = 15
@@ -12,6 +16,7 @@ grow_vertical = 2
 layout_mode = 0
 offset_right = 1085.0
 offset_bottom = 611.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hyp1n")
 
 [node name="Label" type="Label" parent="Panel" unique_id=1843268669]
 layout_mode = 0
@@ -56,3 +61,14 @@ offset_bottom = 371.0
 text = "Text display box"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="backButton" type="Button" parent="Panel" unique_id=999224139]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 3.0
+offset_right = 150.0
+offset_bottom = 74.0
+text = "Back Button"
+script = ExtResource("1_hyp1n")
+
+[connection signal="pressed" from="Panel/backButton" to="Panel/backButton" method="_on_pressed"]
