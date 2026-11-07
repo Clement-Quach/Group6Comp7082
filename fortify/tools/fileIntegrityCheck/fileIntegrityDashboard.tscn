@@ -36,7 +36,7 @@ text = "Run Verification"
 
 [node name="BtnSyncDatabase" type="Button" parent="VBoxContainer/ActionToolbar" unique_id=2017845762]
 layout_mode = 2
-text = "Sync DB"
+text = "SyncDB"
 
 [node name="DropdownAlgorithm" type="OptionButton" parent="VBoxContainer/ActionToolbar" unique_id=2134946619]
 layout_mode = 2
@@ -48,6 +48,10 @@ popup/item_1/text = "SHA1"
 popup/item_1/id = 1
 popup/item_2/text = "MD5"
 popup/item_2/id = 2
+
+[node name="BtnSchedule" type="Button" parent="VBoxContainer/ActionToolbar" unique_id=1298955122]
+layout_mode = 2
+text = "Schedule"
 
 [node name="VerificationResultsTree" type="Tree" parent="VBoxContainer" unique_id=212109674]
 layout_mode = 2
