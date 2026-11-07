@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://cv4mcbciqecw0"]
+
+[ext_resource type="Script" uid="uid://7at4rkcr5equ" path="res://gui/PopUps/popupExit.gd" id="1_hyp1n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hyp1n"]
+
+[node name="PopUpTemplate" type="Control" unique_id=1695006277]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="." unique_id=818158925]
+layout_mode = 0
+offset_right = 1085.0
+offset_bottom = 611.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hyp1n")
+
+[node name="Label" type="Label" parent="Panel" unique_id=1843268669]
+layout_mode = 0
+offset_left = 352.0
+offset_top = 2.0
+offset_right = 683.0
+offset_bottom = 101.0
+text = "Title"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button3" type="Button" parent="Panel" unique_id=1962286240]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 214.0
+offset_right = 213.0
+offset_bottom = 285.0
+text = "Button"
+
+[node name="Button2" type="Button" parent="Panel" unique_id=731788651]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 303.0
+offset_right = 214.0
+offset_bottom = 374.0
+text = "Button"
+
+[node name="Button" type="Button" parent="Panel" unique_id=1225506140]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 119.0
+offset_right = 213.0
+offset_bottom = 190.0
+text = "Button"
+
+[node name="Label2" type="Label" parent="Panel" unique_id=363430044]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 144.0
+offset_right = 894.0
+offset_bottom = 371.0
+text = "Text display box"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="backButton" type="Button" parent="Panel" unique_id=999224139]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 3.0
+offset_right = 150.0
+offset_bottom = 74.0
+text = "Back Button"
+script = ExtResource("1_hyp1n")
+
+[connection signal="pressed" from="Panel/backButton" to="Panel/backButton" method="_on_pressed"]

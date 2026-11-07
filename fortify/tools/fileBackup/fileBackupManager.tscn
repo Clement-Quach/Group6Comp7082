@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c1b5jm22kuguj"]
+
+[ext_resource type="Script" uid="uid://d06usqbvbmuno" path="res://tools/fileBackup/fileBackupManager.gd" id="1_tmssx"]
+
+[node name="FileBackupManager" type="Node" unique_id=1951935338]
+script = ExtResource("1_tmssx")

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cc03irdg6ikxi"]
+
+[ext_resource type="Script" uid="uid://t8hy56ktmf16" path="res://tools/LogController/logger.gd" id="1_abyds"]
+
+[node name="Logger" type="Node" unique_id=1063309436]
+script = ExtResource("1_abyds")
