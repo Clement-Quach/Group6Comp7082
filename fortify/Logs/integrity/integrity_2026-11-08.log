@@ -1,0 +1,24 @@
+2026-11-08 11:41:36 | RUN START | trigger=scheduled | algorithm=per-record | records=6
+2026-11-08 11:41:36 | VALID    | D:/Python GUI/COMP7082/Group6Comp7082/fortify/tests/Tester/M/Orignial.txt
+2026-11-08 11:41:36 | VALID    | D:/Python GUI/COMP7082/Group6Comp7082/fortify/tests/Tester/O/20230823.jpg.import
+2026-11-08 11:41:36 | VALID    | D:/Python GUI/COMP7082/Group6Comp7082/fortify/tests/Tester/O/Orignial.txt
+2026-11-08 11:41:36 | MISSING  | D:/Python GUI/COMP7082/Group6Comp7082/fortify/tools/fileIntegrityCheck/Tester/O/Orignial.txt
+2026-11-08 11:41:36 | VALID    | D:/Python GUI/TeamWork/file-integrity-check/Tester/M/Orignial.txt
+2026-11-08 11:41:36 | VALID    | D:/Python GUI/TeamWork/file-integrity-check/Tester/O/Orignial.txt
+2026-11-08 11:41:36 | RUN END  | valid=5 tampered=0 missing=1 | exit=1
+2026-11-08 11:41:43 | RUN START | trigger=scheduled | algorithm=per-record | records=6
+2026-11-08 11:41:43 | VALID    | D:/Python GUI/COMP7082/Group6Comp7082/fortify/tests/Tester/M/Orignial.txt
+2026-11-08 11:41:43 | VALID    | D:/Python GUI/COMP7082/Group6Comp7082/fortify/tests/Tester/O/20230823.jpg.import
+2026-11-08 11:41:43 | VALID    | D:/Python GUI/COMP7082/Group6Comp7082/fortify/tests/Tester/O/Orignial.txt
+2026-11-08 11:41:43 | MISSING  | D:/Python GUI/COMP7082/Group6Comp7082/fortify/tools/fileIntegrityCheck/Tester/O/Orignial.txt
+2026-11-08 11:41:43 | VALID    | D:/Python GUI/TeamWork/file-integrity-check/Tester/M/Orignial.txt
+2026-11-08 11:41:43 | VALID    | D:/Python GUI/TeamWork/file-integrity-check/Tester/O/Orignial.txt
+2026-11-08 11:41:43 | RUN END  | valid=5 tampered=0 missing=1 | exit=1
+2026-11-08 11:41:43 | RUN START | trigger=manual | algorithm=per-record | records=6
+2026-11-08 11:41:43 | TAMPERED | D:/Python GUI/COMP7082/Group6Comp7082/fortify/tests/Tester/M/Orignial.txt | expected=f067e443edf17a290f18e3c35235766a | actual=820072f22c934191efc42f3c6bd92a05
+2026-11-08 11:41:43 | VALID    | D:/Python GUI/COMP7082/Group6Comp7082/fortify/tests/Tester/O/20230823.jpg.import
+2026-11-08 11:41:43 | VALID    | D:/Python GUI/COMP7082/Group6Comp7082/fortify/tests/Tester/O/Orignial.txt
+2026-11-08 11:41:43 | MISSING  | D:/Python GUI/COMP7082/Group6Comp7082/fortify/tools/fileIntegrityCheck/Tester/O/Orignial.txt
+2026-11-08 11:41:43 | VALID    | D:/Python GUI/TeamWork/file-integrity-check/Tester/M/Orignial.txt
+2026-11-08 11:41:43 | VALID    | D:/Python GUI/TeamWork/file-integrity-check/Tester/O/Orignial.txt
+2026-11-08 11:41:43 | RUN END  | valid=4 tampered=1 missing=1 | exit=1

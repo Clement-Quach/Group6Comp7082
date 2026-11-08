@@ -82,31 +82,28 @@ func _on_btn_run_verification_pressed() -> void:
 		print("No database found to verify.")
 		return
 		
-	var algo_name = _get_selected_algorithm()
-	var file = FileAccess.open(JSON_DB_PATH, FileAccess.READ)
-	var data = JSON.parse_string(file.get_as_text())
-	
 	results_tree.clear()
 	_setup_tree() # Re-create root after clear
-	
-	if data is Dictionary:
-		for file_path in data.keys():
-			var result = FileIntegrityManager.verify_file(file_path, algo_name)
-			var status_text = ""
-			var color = Color.WHITE
-			
-			match result.status:
-				FileIntegrityManager.VerificationStatus.VALID:
-					status_text = "VALID"
-					color = Color.GREEN
-				FileIntegrityManager.VerificationStatus.TAMPERED:
-					status_text = "TAMPERED"
-					color = Color.RED
-				FileIntegrityManager.VerificationStatus.MISSING_TRUSTED_HASH:
-					status_text = "MISSING/UNREADABLE"
-					color = Color.ORANGE
-					
-			_add_tree_row(file_path, status_text, result.computed_hash, color)
+
+	# Shared with the headless scheduler run; uses each record's stored algorithm and writes the integrity log.
+	var summary = FileIntegrityManager.run_full_check("manual")
+	for entry in summary.entries:
+		var result = entry.result
+		var status_text = ""
+		var color = Color.WHITE
+
+		match result.status:
+			FileIntegrityManager.VerificationStatus.VALID:
+				status_text = "VALID"
+				color = Color.GREEN
+			FileIntegrityManager.VerificationStatus.TAMPERED:
+				status_text = "TAMPERED"
+				color = Color.RED
+			FileIntegrityManager.VerificationStatus.MISSING_TRUSTED_HASH:
+				status_text = "MISSING/UNREADABLE"
+				color = Color.ORANGE
+
+		_add_tree_row(entry.path, status_text, result.computed_hash, color)
 
 func _on_btn_sync_database_pressed() -> void:
 	# "Sync" usually means re-hashing trusted files to update the DB if they changed legitimately.

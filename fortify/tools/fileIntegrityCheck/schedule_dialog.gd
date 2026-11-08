@@ -1,10 +1,10 @@
 extends ConfirmationDialog
 
 ## Schedule editor.
-## Writes res://schedule.json — the bridge file between this module and the
+## Writes res://tools/fileIntegrityCheck/scheduler/schedule.json — the bridge file between this module and the
 ## standalone Python checker.
 
-const SCHEDULE_JSON_PATH := "res://schedule.json"
+const SCHEDULE_JSON_PATH := "res://tools/fileIntegrityCheck/scheduler/schedule.json"
 const MONTHS := ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 const DAYS   := ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
 
@@ -15,11 +15,10 @@ var month_checks: Array[CheckBox] = []
 var day_checks: Array[CheckBox] = []
 var time_edit: LineEdit
 var exe_path_edit: LineEdit
-var target_dir_edit: LineEdit
 var log_path_edit: LineEdit
 var error_label: Label
 
-var _browse_mode := 0          # 0 = exe, 1 = target dir, 2 = log
+var _browse_mode := 0          # 0 = exe, 1 = log
 var _file_dialog: FileDialog
 
 func _ready() -> void:
@@ -113,7 +112,6 @@ func _build_ui() -> void:
 
 	# Path rows
 	exe_path_edit    = _add_path_row(root, "Godot executable path:",     _on_browse_exe)
-	target_dir_edit  = _add_path_row(root, "Target directory to scan:",  _on_browse_target)
 	log_path_edit    = _add_path_row(root, "Log file path:",             _on_browse_log)
 
 	# Inline error label
@@ -182,14 +180,8 @@ func _on_browse_exe() -> void:
 	_file_dialog.title = "Select executable"
 	_file_dialog.popup_centered_ratio(0.6)
 
-func _on_browse_target() -> void:
-	_browse_mode = 1
-	_file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_DIR
-	_file_dialog.title = "Select target directory"
-	_file_dialog.popup_centered_ratio(0.6)
-
 func _on_browse_log() -> void:
-	_browse_mode = 2
+	_browse_mode = 1
 	_file_dialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
 	_file_dialog.title = "Select log file path"
 	_file_dialog.popup_centered_ratio(0.6)
@@ -197,11 +189,10 @@ func _on_browse_log() -> void:
 func _on_file_dialog_file(path: String) -> void:
 	match _browse_mode:
 		0: exe_path_edit.text = path
-		2: log_path_edit.text = path
+		1: log_path_edit.text = path
 
-func _on_file_dialog_dir(path: String) -> void:
-	if _browse_mode == 1:
-		target_dir_edit.text = path
+func _on_file_dialog_dir(_path: String) -> void:
+	pass
 
 # ───────────────────────── Load / save ─────────────────────────
 
@@ -250,7 +241,6 @@ func _apply_to_ui(data: Dictionary) -> void:
 
 	time_edit.text      = str(data.get("schedule_time_24h", "02:30"))
 	exe_path_edit.text  = str(data.get("godot_executable_path", ""))
-	target_dir_edit.text = str(data.get("target_directory_to_scan", ""))
 	log_path_edit.text  = str(data.get("log_file_path", ""))
 
 func _on_confirmed() -> void:
@@ -267,7 +257,6 @@ func _collect_data() -> Dictionary:
 		"schedule_date":  "All" if chk_day_all.button_pressed   else _join_selected(day_checks, DAYS),
 		"schedule_time_24h": time_edit.text.strip_edges(),
 		"godot_executable_path": exe_path_edit.text.strip_edges(),
-		"target_directory_to_scan": target_dir_edit.text.strip_edges(),
 		"log_file_path": log_path_edit.text.strip_edges(),
 	}
 
@@ -287,8 +276,6 @@ func _validate_and_show() -> bool:
 		err = "Time must be HH:MM in 24-hour format (e.g. 02:30)."
 	elif exe_path_edit.text.strip_edges().is_empty():
 		err = "Executable path is required."
-	elif target_dir_edit.text.strip_edges().is_empty():
-		err = "Target directory is required."
 	error_label.text = err
 	error_label.visible = not err.is_empty()
 	return err.is_empty()

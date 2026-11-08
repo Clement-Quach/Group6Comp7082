@@ -1,9 +1,0 @@
-{
-	"godot_executable_path": "D:/Python GUI/COMP7082/Group6Comp7082/fortify/main.tscn",
-	"integrity_check_enabled": true,
-	"log_file_path": "D:/Python GUI/COMP7082/Group6Comp7082/fortify/tests/Tester/M/log.txt",
-	"schedule_date": "All",
-	"schedule_month": "All",
-	"schedule_time_24h": "02:30",
-	"target_directory_to_scan": "D:/Python GUI/COMP7082/Group6Comp7082/fortify/tests/Tester"
-}
