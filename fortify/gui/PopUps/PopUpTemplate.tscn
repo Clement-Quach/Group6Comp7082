@@ -18,7 +18,7 @@ offset_right = 1085.0
 offset_bottom = 611.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_hyp1n")
 
-[node name="Label" type="Label" parent="Panel" unique_id=1843268669]
+[node name="title" type="Label" parent="Panel" unique_id=1843268669]
 layout_mode = 0
 offset_left = 352.0
 offset_top = 2.0
@@ -52,15 +52,15 @@ offset_right = 213.0
 offset_bottom = 190.0
 text = "Button"
 
-[node name="Label2" type="Label" parent="Panel" unique_id=363430044]
+[node name="popupTerminal" type="TextEdit" parent="Panel" unique_id=193258238]
 layout_mode = 0
 offset_left = 450.0
 offset_top = 144.0
 offset_right = 894.0
 offset_bottom = 371.0
 text = "Text display box"
-horizontal_alignment = 1
-vertical_alignment = 1
+editable = false
+wrap_mode = 1
 
 [node name="backButton" type="Button" parent="Panel" unique_id=999224139]
 layout_mode = 0

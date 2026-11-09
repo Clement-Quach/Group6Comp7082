@@ -88,9 +88,13 @@ func decompressFile():
 	startFileDialog([""])
 	
 	var path: String = await fileDialog.file_selected
-	fileBackup.restore_backup(path)
+	fileBackup.restore_by_backup(path)
 
-
+func unpackFile():
+	startFileDialog(["*.bak"])
+	
+	var path: String = await fileDialog.file_selected
+	fileBackup.restore_from_backup(path)
 
 
 #FILE BACKUP SECTION END =========================

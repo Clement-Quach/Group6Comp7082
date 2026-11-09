@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bhiomdhdkxyou" path="res://gui/main_gui.gd" id="1_4br7b"]
 [ext_resource type="PackedScene" uid="uid://41kb78luw8qh" path="res://gui/PopUps/fileBackupDialogue.tscn" id="2_1ds3b"]
-[ext_resource type="Script" uid="uid://dp41bu34mrmi6" path="res://gui/example_button.gd" id="2_ictiy"]
+[ext_resource type="Script" uid="uid://dp41bu34mrmi6" path="res://gui/btn_popup_viruscheck.gd" id="2_ictiy"]
 [ext_resource type="Script" uid="uid://bvhxxra2n14nj" path="res://gui/unlock_file.gd" id="3_1luyh"]
+[ext_resource type="PackedScene" uid="uid://6x0jd0yw800w" path="res://gui/PopUps/virusCheckPopup.tscn" id="3_duyse"]
 [ext_resource type="Script" uid="uid://xpjaahj1ew7t" path="res://gui/example_button_3.gd" id="3_ictiy"]
 [ext_resource type="Script" uid="uid://rub6cp4sm88a" path="res://gui/btn_file_check.gd" id="5_mkyfa"]
 [ext_resource type="Script" uid="uid://cawos1fu28udb" path="res://gui/btn_ask_ai.gd" id="6_vhp5f"]
@@ -18,7 +19,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4br7b")
 
-[node name="ExampleButton" type="Button" parent="." unique_id=805269481]
+[node name="BtnVirusCheck" type="Button" parent="." unique_id=805269481]
 layout_mode = 0
 offset_left = 11.0
 offset_top = 7.0
@@ -27,6 +28,7 @@ offset_bottom = 103.0
 size_flags_vertical = 4
 text = "check virus"
 script = ExtResource("2_ictiy")
+popup_scene = ExtResource("3_duyse")
 
 [node name="ExampleButton2" type="Button" parent="." unique_id=515544684]
 visible = false
@@ -59,16 +61,6 @@ pivot_offset = Vector2(205, -163)
 size_flags_vertical = 4
 text = "add file"
 script = ExtResource("3_ictiy")
-
-[node name="Label" type="Label" parent="." unique_id=1022467104]
-layout_mode = 0
-offset_left = 613.0
-offset_top = 4.0
-offset_right = 1151.0
-offset_bottom = 267.0
-text = "output
-"
-autowrap_mode = 3
 
 [node name="BtnFileCheck" type="Button" parent="." unique_id=600767772]
 layout_mode = 0
@@ -107,7 +99,17 @@ text = "File Backup"
 script = ExtResource("7_3ukpp")
 popup_scene = ExtResource("2_1ds3b")
 
-[connection signal="pressed" from="ExampleButton" to="ExampleButton" method="_on_pressed"]
+[node name="output" type="TextEdit" parent="." unique_id=1851361813]
+layout_mode = 0
+offset_left = 533.0
+offset_top = 13.0
+offset_right = 1122.0
+offset_bottom = 344.0
+editable = false
+wrap_mode = 1
+scroll_smooth = true
+
+[connection signal="pressed" from="BtnVirusCheck" to="BtnVirusCheck" method="_on_pressed"]
 [connection signal="pressed" from="UnlockFile" to="UnlockFile" method="_on_pressed"]
 [connection signal="pressed" from="ExampleButton3" to="ExampleButton3" method="_on_pressed"]
 [connection signal="pressed" from="BtnAskAi" to="BtnAskAi" method="_on_pressed"]
