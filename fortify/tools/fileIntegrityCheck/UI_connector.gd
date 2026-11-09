@@ -10,8 +10,13 @@ const FileIntegrityManager = preload("res://tools/fileIntegrityCheck/file_integr
 @onready var btn_add_file: Button = $VBoxContainer/ActionToolbar/BtnAddFile
 @onready var btn_run_verification: Button = $VBoxContainer/ActionToolbar/BtnRunVerification
 @onready var btn_sync_database: Button = $VBoxContainer/ActionToolbar/BtnSyncDatabase
+@onready var btn_schedule: Button = $VBoxContainer/ActionToolbar/BtnSchedule
 
 const JSON_DB_PATH = "res://tools/fileIntegrityCheck/trusted_hashes.json"
+const ScheduleDialogScene = preload("res://tools/fileIntegrityCheck/schedule_dialog.tscn")
+
+# Created at runtime in _ready() (it is not a node in the dashboard scene)
+var schedule_dialog: ConfirmationDialog
 
 # State to track what the FileDialog is currently being used for
 enum DialogMode { ADD_FILE, SELECT_TARGET }
@@ -32,7 +37,13 @@ func _ready() -> void:
 		btn_run_verification.pressed.connect(_on_btn_run_verification_pressed)
 	if not btn_sync_database.pressed.is_connected(_on_btn_sync_database_pressed):
 		btn_sync_database.pressed.connect(_on_btn_sync_database_pressed)
+	if not btn_schedule.pressed.is_connected(_on_btn_schedule_pressed):
+		btn_schedule.pressed.connect(_on_btn_schedule_pressed)
 		
+	# Create the schedule dialog
+	schedule_dialog = ScheduleDialogScene.instantiate()
+	add_child(schedule_dialog)
+
 	# Initialize the Tree
 	_setup_tree()
 	
@@ -71,31 +82,28 @@ func _on_btn_run_verification_pressed() -> void:
 		print("No database found to verify.")
 		return
 		
-	var algo_name = _get_selected_algorithm()
-	var file = FileAccess.open(JSON_DB_PATH, FileAccess.READ)
-	var data = JSON.parse_string(file.get_as_text())
-	
 	results_tree.clear()
 	_setup_tree() # Re-create root after clear
-	
-	if data is Dictionary:
-		for file_path in data.keys():
-			var result = FileIntegrityManager.verify_file(file_path, algo_name)
-			var status_text = ""
-			var color = Color.WHITE
-			
-			match result.status:
-				FileIntegrityManager.VerificationStatus.VALID:
-					status_text = "VALID"
-					color = Color.GREEN
-				FileIntegrityManager.VerificationStatus.TAMPERED:
-					status_text = "TAMPERED"
-					color = Color.RED
-				FileIntegrityManager.VerificationStatus.MISSING_TRUSTED_HASH:
-					status_text = "MISSING/UNREADABLE"
-					color = Color.ORANGE
-					
-			_add_tree_row(file_path, status_text, result.computed_hash, color)
+
+	# Shared with the headless scheduler run; uses each record's stored algorithm and writes the integrity log.
+	var summary = FileIntegrityManager.run_full_check("manual")
+	for entry in summary.entries:
+		var result = entry.result
+		var status_text = ""
+		var color = Color.WHITE
+
+		match result.status:
+			FileIntegrityManager.VerificationStatus.VALID:
+				status_text = "VALID"
+				color = Color.GREEN
+			FileIntegrityManager.VerificationStatus.TAMPERED:
+				status_text = "TAMPERED"
+				color = Color.RED
+			FileIntegrityManager.VerificationStatus.MISSING_TRUSTED_HASH:
+				status_text = "MISSING/UNREADABLE"
+				color = Color.ORANGE
+
+		_add_tree_row(entry.path, status_text, result.computed_hash, color)
 
 func _on_btn_sync_database_pressed() -> void:
 	# "Sync" usually means re-hashing trusted files to update the DB if they changed legitimately.
@@ -175,3 +183,6 @@ func _add_tree_row(file_name: String, status: String, hash_val: String, text_col
 	# Color the row for better UX
 	for i in range(3):
 		child_item.set_custom_color(i, text_color)
+
+func _on_btn_schedule_pressed() -> void:
+	schedule_dialog.popup_centered()
