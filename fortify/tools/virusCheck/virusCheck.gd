@@ -4,14 +4,13 @@ class_name virusCheckTool
 @onready var toolMain:tool_main = $".."
 var database = virusDB.new()
 
-## extension that would be added to the virus file to lock them in windows
-## It does not lock in linux but good for letting us know which ones are locked
+## Extension that is added to files to lock them in windows
 const EXT = ".quarantine"
 
-## saves the original permessions for linux files
+## Saves file permissions for locked linux files
 const INDEX_PATH = "user://quarantine_index.json"
 
-	
+
 func _init() -> void:
 	var err := database.load_db()
 	match err:
@@ -22,16 +21,6 @@ func _init() -> void:
 		_:
 			push_error("Failed to load DB: %s" % error_string(err))
 	
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
 
 func checkVirus(filepaths: PackedStringArray) -> void:
 	for path in filepaths:
@@ -161,3 +150,37 @@ func _save_index(index: Dictionary) -> void:
 	var f := FileAccess.open(INDEX_PATH, FileAccess.WRITE)
 	if f:
 		f.store_string(JSON.stringify(index))
+
+func get_size():
+	return database.size()
+
+func get_last_update():
+	return database.get_last_pull_time()
+
+
+# ---------------------------------------------------------------------------
+# MalwareBazaar
+# ---------------------------------------------------------------------------
+# The download/import logic lives in virusDB. This is just a wrapper that also
+# logs the outcome. NOTHING runs automatically, call it yourself and `await` it:
+#
+#     # last 48 hours of hashes (small, fast). This is the normal one to use.
+#     var r: Dictionary = await virusCheckNode.pullFromMalwareBazaar()
+#
+#     # every hash ever (~3.5M, takes a while), optionally filtered by type
+#     var r: Dictionary = await virusCheckNode.pullFromMalwareBazaar(true, PackedStringArray(["exe", "dll", "elf"]))
+#
+#     if r["error"] == OK: toolMain.printToTerminal(r["message"] + "\n")
+#
+# abuse.ch asks that "recent" is fetched at most every 5 minutes and "full" at
+# most once per hour, so a pull inside those windows is refused with
+# ERR_UNAVAILABLE. database.get_seconds_until_next_pull() and
+# database.get_last_pull_string() tell you when you can pull again.
+
+func pullFromMalwareBazaar(full: bool = false, file_types: PackedStringArray = PackedStringArray()) -> Dictionary:
+	var result: Dictionary = await database.pull_from_malwarebazaar(self, full, file_types)
+	if result["error"] == OK:
+		GlobalLogger.InfoLog(result["message"])
+	else:
+		push_error(result["message"])
+	return result

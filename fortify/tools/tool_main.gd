@@ -60,11 +60,17 @@ func restoreFile() -> void:
 
 	var path: String = await fileDialog.file_selected
 	virusCheck.unlockFile(path)
+	
+
+func updateDefinitions() -> void:
+	printToTerminal("Attempting to pull definition updates")
+	virusCheck.pullFromMalwareBazaar(true)
+
+
 #VIRUS CHECK SECTION END ============================
 func printToTerminal(string: String) ->void:
 	gui.printToTerminal(string)
 	pass
-	
 
 # sends the prompt to the ai manager, and prints the results
 func askAI(prompt: String) -> void:
