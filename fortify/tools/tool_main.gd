@@ -106,7 +106,7 @@ func decompressFile():
 
 #takes a backup and unpacks it
 func unpackFile():
-	startFileDialog(["*.bak"])
+	startFileDialog(["*.bak_*"])
 	
 	var path: String = await fileDialog.file_selected
 	fileBackup.restore_from_backup(path)

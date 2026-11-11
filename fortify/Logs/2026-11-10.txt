@@ -5,3 +5,25 @@ network scan pressed
 virusCheck popup pressed
 file_backup_restore_button pressed
 virus found
+file_backup_button pressed
+file_backup_restore_button pressed
+file_backup_restore_button pressed
+file_backup_restore_button pressed
+file_backup_restore_button pressed
+file_backup_restore_button pressed
+file_backup_unpack_button pressed
+networkScan popup pressed
+file_backup_button pressed
+file_backup_unpack_button pressed
+file_backup_unpack_button pressed
+file_backup_button pressed
+file_backup_unpack_button pressed
+file_backup_restore_button pressed
+file_backup_restore_button pressed
+file_backup_button pressed
+file_backup_restore_button pressed
+file_backup_restore_button pressed
+file_backup_unpack_button pressed
+file_backup_restore_button pressed
+file_backup_button pressed
+file_backup_restore_button pressed

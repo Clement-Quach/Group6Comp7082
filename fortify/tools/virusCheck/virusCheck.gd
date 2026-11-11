@@ -35,12 +35,12 @@ func checkVirus(filepaths: PackedStringArray) -> void:
 		# Check the virus database
 		if database.lookup(hash):
 			print("virus found: " + path)
-			GlobalLogger.InfoLog("virus found")
+			GlobalLogger.InfoLog("virus found"+ path + "\n")
 			toolMain.printToTerminal("virus found: " + path + "\n")
 			lockFile(path)
 		else:
 			print("virus false: " + path)
-			GlobalLogger.InfoLog("virus found")
+			GlobalLogger.InfoLog("virus found" + path + "\n")
 			toolMain.printToTerminal("virus false: " + path + "\n")
 		
 func addFileAsVirus(filepath: String) -> void:
