@@ -1,0 +1,104 @@
+update definitions pressesd
+database update failed: an update is already running
+
+database update failed: database loaded but could not be saved to disk: Failed
+
+official database updated to 2026-11-11 10:25:53 UTC (1171424 signatures)
+
+virusCheck popup pressed
+virusCheck popup pressed
+update definitions pressesd
+update definitions pressesd
+update definitions pressesd
+database update failed: an update is already running
+
+update definitions pressesd
+update definitions pressesd
+update definitions pressesd
+update definitions pressesd
+database update failed: an update is already running
+
+update definitions pressesd
+database update failed: an update is already running
+
+update definitions pressesd
+database update failed: an update is already running
+
+update definitions pressesd
+update definitions pressesd
+update definitions pressesd
+update definitions pressesd
+update definitions pressesd
+update definitions pressesd
+update definitions pressesd
+database update failed: an update is already running
+
+update definitions pressesd
+update definitions pressesd
+database update failed: an update is already running
+
+update definitions pressesd
+database update failed: an update is already running
+
+update definitions pressesd
+database update failed: an update is already running
+
+update definitions pressesd
+database update failed: an update is already running
+
+update definitions pressesd
+update definitions pressesd
+database update failed: an update is already running
+
+update definitions pressesd
+official database is up to date (2026-11-11 10:25:53 UTC)
+
+update definitions pressesd
+official database is up to date (2026-11-11 10:25:53 UTC)
+
+update definitions pressesd
+official database is up to date (2026-11-11 10:25:53 UTC)
+
+update definitions pressesd
+official database updated to 2026-11-11 10:25:53 UTC (1171424 signatures)
+
+file_backup_button pressed
+virusCheck popup pressed
+virusCheck popup pressed
+virusCheck popup pressed
+virusCheck popup pressed
+virusCheck popup pressed
+virusCheck popup pressed
+networkScan popup pressed
+port scan pressed
+networkScan popup pressed
+port scan pressed
+port scan pressed
+virusCheck popup pressed
+networkScan popup pressed
+port scan pressed
+port scan pressed
+port scan pressed
+network scan pressed
+port scan pressed
+port scan pressed
+networkScan popup pressed
+port scan pressed
+networkScan popup pressed
+port scan pressed
+network scan pressed
+file_backup_button pressed
+file_backup_restore_button pressed
+file_backup_restore_button pressed
+virusCheck popup pressed
+file_backup_restore_button pressed
+virus found: C:/Users/RyRy/Documents/Bsc/Comp7082/Project/Group6Comp7082/fortify/tests/test.txt (UserAdded.test.txt, your database)
+
+file_backup_restore_button pressed
+virusCheck popup pressed
+file_backup_restore_button pressed
+virus false C:/Users/RyRy/Documents/Bsc/Comp7082/Project/Group6Comp7082/fortify/tests/test3.txt
+
+file_backup_restore_button pressed
+virus false C:/Users/RyRy/Documents/Bsc/Comp7082/Project/Group6Comp7082/fortify/tests/backupTest.txt
+

@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://41kb78luw8qh" path="res://gui/PopUps/fileBackupDialogue.tscn" id="2_1ds3b"]
 [ext_resource type="Script" uid="uid://dp41bu34mrmi6" path="res://gui/btn_popup_viruscheck.gd" id="2_ictiy"]
 [ext_resource type="PackedScene" uid="uid://6x0jd0yw800w" path="res://gui/PopUps/virusCheckPopup.tscn" id="3_duyse"]
-[ext_resource type="Script" uid="uid://bnis756s35j1u" path="res://gui/btn_update_definitions.gd" id="4_42qyq"]
 [ext_resource type="Script" uid="uid://rub6cp4sm88a" path="res://gui/btn_file_check.gd" id="5_mkyfa"]
 [ext_resource type="Script" uid="uid://cawos1fu28udb" path="res://gui/btn_ask_ai.gd" id="6_vhp5f"]
 [ext_resource type="Script" uid="uid://c5ud2vkjwptpl" path="res://gui/btn_popup_backup.gd" id="7_3ukpp"]
@@ -30,16 +29,6 @@ size_flags_vertical = 4
 text = "check virus"
 script = ExtResource("2_ictiy")
 popup_scene = ExtResource("3_duyse")
-
-[node name="BtnUpdateDefinitions" type="Button" parent="." unique_id=515544684]
-layout_mode = 0
-offset_left = 901.0
-offset_top = 579.0
-offset_right = 1131.0
-offset_bottom = 632.0
-size_flags_vertical = 4
-text = "Update Definitions"
-script = ExtResource("4_42qyq")
 
 [node name="BtnFileCheck" type="Button" parent="." unique_id=600767772]
 layout_mode = 0
@@ -100,7 +89,6 @@ script = ExtResource("8_1ds3b")
 popup_scene = ExtResource("9_duyse")
 
 [connection signal="pressed" from="BtnVirusCheck" to="BtnVirusCheck" method="_on_pressed"]
-[connection signal="pressed" from="BtnUpdateDefinitions" to="BtnUpdateDefinitions" method="_on_pressed"]
 [connection signal="pressed" from="BtnAskAi" to="BtnAskAi" method="_on_pressed"]
 [connection signal="pressed" from="BtnFileBackup" to="BtnFileBackup" method="_on_pressed"]
 [connection signal="pressed" from="BtnNetworkTools" to="BtnNetworkTools" method="_on_pressed"]
