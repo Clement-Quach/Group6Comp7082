@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://7at4rkcr5equ" path="res://gui/PopUps/popupExit.gd" id="1_opwte"]
 [ext_resource type="Script" uid="uid://bnt0f4tyr7rto" path="res://gui/btn_file_restore_backup.gd" id="1_ra0ir"]
 [ext_resource type="Script" uid="uid://n5kvphphro6v" path="res://gui/btn_file_backup.gd" id="2_2ubql"]
+[ext_resource type="Script" uid="uid://hiry3pb74nw0" path="res://gui/btn_file_unpack_backup.gd" id="2_4tttx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ra0ir"]
 
@@ -20,7 +21,16 @@ offset_right = 1085.0
 offset_bottom = 611.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ra0ir")
 
-[node name="Label" type="Label" parent="Panel" unique_id=1843268669]
+[node name="popupTerminal" type="TextEdit" parent="Panel" unique_id=1934180953]
+layout_mode = 0
+offset_left = 461.0
+offset_top = 130.0
+offset_right = 905.0
+offset_bottom = 357.0
+editable = false
+wrap_mode = 1
+
+[node name="title" type="Label" parent="Panel" unique_id=1843268669]
 layout_mode = 0
 offset_left = 352.0
 offset_top = 2.0
@@ -39,13 +49,14 @@ offset_bottom = 285.0
 text = "Restore File"
 script = ExtResource("1_ra0ir")
 
-[node name="Button2" type="Button" parent="Panel" unique_id=731788651]
+[node name="Unpack Backup button" type="Button" parent="Panel" unique_id=731788651]
 layout_mode = 0
 offset_left = 76.0
 offset_top = 303.0
 offset_right = 214.0
 offset_bottom = 374.0
-text = "Button"
+text = "Unpack Backup"
+script = ExtResource("2_4tttx")
 
 [node name="backup button" type="Button" parent="Panel" unique_id=1225506140]
 layout_mode = 0
@@ -57,16 +68,6 @@ text = "Backup File
 "
 script = ExtResource("2_2ubql")
 
-[node name="Label2" type="Label" parent="Panel" unique_id=363430044]
-layout_mode = 0
-offset_left = 450.0
-offset_top = 144.0
-offset_right = 894.0
-offset_bottom = 371.0
-text = "Text display box"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="backButton" type="Button" parent="Panel" unique_id=1714946093]
 layout_mode = 0
 offset_left = 12.0
@@ -77,5 +78,6 @@ text = "back Button"
 script = ExtResource("1_opwte")
 
 [connection signal="pressed" from="Panel/restore button" to="Panel/restore button" method="_on_pressed"]
+[connection signal="pressed" from="Panel/Unpack Backup button" to="Panel/Unpack Backup button" method="_on_pressed"]
 [connection signal="pressed" from="Panel/backup button" to="Panel/backup button" method="_on_pressed"]
 [connection signal="pressed" from="Panel/backButton" to="Panel/backButton" method="_on_pressed"]
