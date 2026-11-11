@@ -6,7 +6,8 @@ var fileDialog: FileDialog
 @onready var virusCheck = virusCheckTool.new()
 @onready var gui = $"../Control"
 @onready var aiManager = AIManager.new()
-@onready var fileBackup = fileBackupManager.new()
+@onready var fileBackup:fileBackupManager = fileBackupManager.new()
+@onready var networkScanner:NetworkScanner = NetworkScanner.new()
 
 func _ready() -> void:
 	#attach as children
@@ -61,6 +62,7 @@ func restoreFile() -> void:
 	var path: String = await fileDialog.file_selected
 	virusCheck.unlockFile(path)
 #VIRUS CHECK SECTION END ============================
+
 func printToTerminal(string: String) ->void:
 	gui.printToTerminal(string)
 	pass
@@ -84,12 +86,19 @@ func compressFile():
 	var path: String = await fileDialog.file_selected
 	fileBackup.create_backup(path)
 	
+#restores a file
 func decompressFile():
 	startFileDialog([""])
 	
+	#only allow .bak files
 	var path: String = await fileDialog.file_selected
+	if path.get_extension().to_lower() == "bak":
+		printToTerminal("Cannot select .bak files for this operation.\n")
+		return
+		
 	fileBackup.restore_by_backup(path)
 
+#takes a backup and unpacks it
 func unpackFile():
 	startFileDialog(["*.bak"])
 	
@@ -98,3 +107,11 @@ func unpackFile():
 
 
 #FILE BACKUP SECTION END =========================
+
+#NETWORK SCAN SECTION START
+func networkScan():
+	printToTerminal(networkScanner.get_arp_table())
+	
+
+
+#NETWORK SCAN SECTION END

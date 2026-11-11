@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://v687es6c0xjp"]
+
+[ext_resource type="Script" uid="uid://ctd17gytkoyov" path="res://tools/networkScan/network_scanner.gd" id="1_1g33f"]
+
+[node name="NetworkScanner" type="Node" unique_id=1446364106]
+script = ExtResource("1_1g33f")

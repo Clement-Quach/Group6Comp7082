@@ -1591,3 +1591,17 @@ virus found
 virusCheck popup pressed
 file_backup_restore_button pressed
 virus found
+virusCheck popup pressed
+virusCheck popup pressed
+virusCheck popup pressed
+file_backup_restore_button pressed
+virus found
+file_backup_button pressed
+file_backup_restore_button pressed
+file_backup_restore_button pressed
+file_backup_unpack_button pressed
+file_backup_restore_button pressed
+networkScan popup pressed
+network scan pressed
+networkScan popup pressed
+network scan pressed
