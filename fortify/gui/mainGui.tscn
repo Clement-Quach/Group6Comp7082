@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://41kb78luw8qh" path="res://gui/PopUps/fileBackupDialogue.tscn" id="2_1ds3b"]
 [ext_resource type="Script" uid="uid://dp41bu34mrmi6" path="res://gui/btn_popup_viruscheck.gd" id="2_ictiy"]
 [ext_resource type="PackedScene" uid="uid://6x0jd0yw800w" path="res://gui/PopUps/virusCheckPopup.tscn" id="3_duyse"]
+[ext_resource type="Script" uid="uid://bnis756s35j1u" path="res://gui/btn_update_definitions.gd" id="4_42qyq"]
 [ext_resource type="Script" uid="uid://rub6cp4sm88a" path="res://gui/btn_file_check.gd" id="5_mkyfa"]
 [ext_resource type="Script" uid="uid://cawos1fu28udb" path="res://gui/btn_ask_ai.gd" id="6_vhp5f"]
 [ext_resource type="Script" uid="uid://c5ud2vkjwptpl" path="res://gui/btn_popup_backup.gd" id="7_3ukpp"]
@@ -29,6 +30,38 @@ size_flags_vertical = 4
 text = "check virus"
 script = ExtResource("2_ictiy")
 popup_scene = ExtResource("3_duyse")
+
+[node name="ExampleButton2" type="Button" parent="." unique_id=515544684]
+visible = false
+layout_mode = 0
+offset_left = 12.0
+offset_top = 108.0
+offset_right = 324.0
+offset_bottom = 198.0
+size_flags_vertical = 4
+text = "example butto2
+"
+
+[node name="UnlockFile" type="Button" parent="." unique_id=200688607]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 211.0
+offset_right = 327.0
+offset_bottom = 301.0
+size_flags_vertical = 4
+text = "Unlock a file"
+script = ExtResource("3_1luyh")
+
+[node name="ExampleButton3" type="Button" parent="." unique_id=519570319]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 112.0
+offset_right = 325.0
+offset_bottom = 201.0
+pivot_offset = Vector2(205, -163)
+size_flags_vertical = 4
+text = "add file"
+script = ExtResource("3_ictiy")
 
 [node name="BtnFileCheck" type="Button" parent="." unique_id=600767772]
 layout_mode = 0
@@ -88,6 +121,8 @@ script = ExtResource("8_1ds3b")
 popup_scene = ExtResource("9_duyse")
 
 [connection signal="pressed" from="BtnVirusCheck" to="BtnVirusCheck" method="_on_pressed"]
+[connection signal="pressed" from="UnlockFile" to="UnlockFile" method="_on_pressed"]
+[connection signal="pressed" from="ExampleButton3" to="ExampleButton3" method="_on_pressed"]
 [connection signal="pressed" from="BtnAskAi" to="BtnAskAi" method="_on_pressed"]
 [connection signal="pressed" from="BtnFileBackup" to="BtnFileBackup" method="_on_pressed"]
 [connection signal="pressed" from="BtnNetworkScan" to="BtnNetworkScan" method="_on_pressed"]
