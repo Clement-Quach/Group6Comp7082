@@ -3,6 +3,10 @@ extends Node
 const HashGenerator = preload("res://tools/fileIntegrityCheck/hash_generator.gd")
 const FileIntegrityManager = preload("res://tools/fileIntegrityCheck/file_integrity_manager.gd")
 
+# --- ADDED THIS CONSTANT ----------------------
+const MAIN_UI_SCENE = "res://main.tscn"
+#-----------------------------------------------
+
 @onready var results_tree: Tree = $VBoxContainer/VerificationResultsTree
 @onready var dropdown_algorithm: OptionButton = $VBoxContainer/ActionToolbar/DropdownAlgorithm
 @onready var file_dialog: FileDialog = $VBoxContainer/TargetSelectorDialog
@@ -11,6 +15,7 @@ const FileIntegrityManager = preload("res://tools/fileIntegrityCheck/file_integr
 @onready var btn_run_verification: Button = $VBoxContainer/ActionToolbar/BtnRunVerification
 @onready var btn_sync_database: Button = $VBoxContainer/ActionToolbar/BtnSyncDatabase
 @onready var btn_schedule: Button = $VBoxContainer/ActionToolbar/BtnSchedule
+@onready var btn_back: Button = $VBoxContainer/ActionToolbar/BtnBack
 
 const JSON_DB_PATH = "res://tools/fileIntegrityCheck/trusted_hashes.json"
 const ScheduleDialogScene = preload("res://tools/fileIntegrityCheck/schedule_dialog.tscn")
@@ -39,6 +44,8 @@ func _ready() -> void:
 		btn_sync_database.pressed.connect(_on_btn_sync_database_pressed)
 	if not btn_schedule.pressed.is_connected(_on_btn_schedule_pressed):
 		btn_schedule.pressed.connect(_on_btn_schedule_pressed)
+	if not btn_back.pressed.is_connected(_on_btn_back_pressed):
+		btn_back.pressed.connect(_on_btn_back_pressed)
 		
 	# Create the schedule dialog
 	schedule_dialog = ScheduleDialogScene.instantiate()
@@ -116,6 +123,12 @@ func _on_btn_sync_database_pressed() -> void:
 		print("Database is empty.")
 		
 	_add_tree_row("SYSTEM", "SYNCED", "Database contents printed to console", Color.CYAN)
+
+func _on_btn_back_pressed() -> void:
+	if ResourceLoader.exists(MAIN_UI_SCENE):
+		get_tree().change_scene_to_file(MAIN_UI_SCENE)
+	else:
+		push_error("Could not find main UI scene at: " + MAIN_UI_SCENE)
 
 # --- DIALOG & DATA LOGIC ---
 

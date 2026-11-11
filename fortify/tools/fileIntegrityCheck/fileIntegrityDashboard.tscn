@@ -53,6 +53,10 @@ popup/item_2/id = 2
 layout_mode = 2
 text = "Schedule"
 
+[node name="BtnBack" type="Button" parent="VBoxContainer/ActionToolbar" unique_id=175259772]
+layout_mode = 2
+text = "Back to Main"
+
 [node name="VerificationResultsTree" type="Tree" parent="VBoxContainer" unique_id=212109674]
 layout_mode = 2
 size_flags_vertical = 3
