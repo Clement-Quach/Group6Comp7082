@@ -12,12 +12,7 @@
 	"D:/Python GUI/COMP7082/Group6Comp7082/fortify/tests/Tester/O/Orignial.txt": {
 		"algorithm": "sha256",
 		"expected_hash": "a33e9ad1a4361dfafb01b2a41dbfe6b61ef64e8958e234c4af202de983655fb0",
-		"last_updated": "2026-10-22T10:06:44"
-	},
-	"D:/Python GUI/COMP7082/Group6Comp7082/fortify/tools/fileIntegrityCheck/Tester/O/Orignial.txt": {
-		"algorithm": "sha256",
-		"expected_hash": "a33e9ad1a4361dfafb01b2a41dbfe6b61ef64e8958e234c4af202de983655fb0",
-		"last_updated": "2026-10-22T10:03:16"
+		"last_updated": "2026-11-11T18:15:20"
 	},
 	"D:/Python GUI/TeamWork/file-integrity-check/Tester/M/Orignial.txt": {
 		"algorithm": "sha256",
