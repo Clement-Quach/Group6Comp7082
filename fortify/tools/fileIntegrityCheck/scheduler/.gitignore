@@ -1,0 +1,3 @@
+__pycache__/
+scheduler_state.json
+scheduler.lock
