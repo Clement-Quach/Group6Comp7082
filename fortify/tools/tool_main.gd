@@ -64,8 +64,8 @@ func restoreFile() -> void:
 	
 
 func updateDefinitions() -> void:
-	printToTerminal("Attempting to pull definition updates")
-	virusCheck.pullFromMalwareBazaar(true)
+	printToTerminal("Attempting to pull definition updates\n")
+	virusCheck.updateOfficialDatabase()
 
 
 #VIRUS CHECK SECTION END ============================
@@ -118,6 +118,7 @@ func unpackFile():
 func networkScan():
 	printToTerminal(networkScanner.get_arp_table())
 	
-
+func portScan():
+	printToTerminal(networkScanner.get_open_ports())
 
 #NETWORK SCAN SECTION END

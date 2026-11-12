@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://kq6vkbfxdmyq"]
 
+[ext_resource type="Script" uid="uid://dgcs1ilf0jl1e" path="res://gui/btn_scan_port.gd" id="1_02rxf"]
 [ext_resource type="Script" uid="uid://cat24grm1s738" path="res://gui/btn_scan_network.gd" id="1_2xfok"]
 [ext_resource type="Script" uid="uid://7at4rkcr5equ" path="res://gui/PopUps/popupExit.gd" id="1_qdfca"]
 
@@ -29,21 +30,14 @@ text = "network tools"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button3" type="Button" parent="Panel" unique_id=1962286240]
+[node name="BtnScanPort" type="Button" parent="Panel" unique_id=1962286240]
 layout_mode = 0
 offset_left = 75.0
 offset_top = 214.0
 offset_right = 213.0
 offset_bottom = 285.0
-text = "Button"
-
-[node name="Button2" type="Button" parent="Panel" unique_id=731788651]
-layout_mode = 0
-offset_left = 76.0
-offset_top = 303.0
-offset_right = 214.0
-offset_bottom = 374.0
-text = "Button"
+text = "Scan Ports"
+script = ExtResource("1_02rxf")
 
 [node name="Button" type="Button" parent="Panel" unique_id=1225506140]
 layout_mode = 0
@@ -73,5 +67,6 @@ offset_bottom = 74.0
 text = "Back Button"
 script = ExtResource("1_qdfca")
 
+[connection signal="pressed" from="Panel/BtnScanPort" to="Panel/BtnScanPort" method="_on_pressed"]
 [connection signal="pressed" from="Panel/Button" to="Panel/Button" method="_on_pressed"]
 [connection signal="pressed" from="Panel/backButton" to="Panel/backButton" method="_on_pressed"]

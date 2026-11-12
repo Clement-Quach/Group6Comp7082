@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://7at4rkcr5equ" path="res://gui/PopUps/popupExit.gd" id="1_vh05x"]
 [ext_resource type="Script" uid="uid://xpjaahj1ew7t" path="res://gui/tmp_btn_add_virus.gd" id="2_jwgqa"]
 [ext_resource type="Script" uid="uid://bvhxxra2n14nj" path="res://gui/unlock_file.gd" id="3_haaw6"]
+[ext_resource type="Script" uid="uid://bnis756s35j1u" path="res://gui/btn_update_definitions.gd" id="5_o3hwj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hyp1n"]
 
@@ -46,7 +47,7 @@ offset_left = 75.0
 offset_top = 214.0
 offset_right = 213.0
 offset_bottom = 285.0
-text = "add"
+text = "Add Hash"
 script = ExtResource("2_jwgqa")
 
 [node name="remove quarantine" type="Button" parent="Panel" unique_id=731788651]
@@ -55,6 +56,7 @@ offset_left = 76.0
 offset_top = 303.0
 offset_right = 214.0
 offset_bottom = 374.0
+text = "Remove Hash"
 script = ExtResource("3_haaw6")
 
 [node name="backButton" type="Button" parent="Panel" unique_id=999224139]
@@ -75,7 +77,18 @@ offset_bottom = 474.0
 editable = false
 wrap_mode = 1
 
+[node name="BtnUpdateDefinitions" type="Button" parent="Panel" unique_id=342984928]
+layout_mode = 0
+offset_left = 893.0
+offset_top = 542.0
+offset_right = 1050.0
+offset_bottom = 581.0
+size_flags_vertical = 4
+text = "Update Definitions"
+script = ExtResource("5_o3hwj")
+
 [connection signal="pressed" from="Panel/virusCheck" to="Panel/virusCheck" method="_on_pressed"]
 [connection signal="pressed" from="Panel/add" to="Panel/add" method="_on_pressed"]
 [connection signal="pressed" from="Panel/remove quarantine" to="Panel/remove quarantine" method="_on_pressed"]
 [connection signal="pressed" from="Panel/backButton" to="Panel/backButton" method="_on_pressed"]
+[connection signal="pressed" from="Panel/BtnUpdateDefinitions" to="Panel/BtnUpdateDefinitions" method="_on_pressed"]
