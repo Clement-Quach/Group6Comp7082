@@ -1,6 +1,7 @@
 extends Node
 class_name NetworkScanner
 
+
 func get_arp_table() -> String:
 	var output = []
 	var command: String
@@ -26,6 +27,7 @@ func get_arp_table() -> String:
 	if output.is_empty():
 		return "No devices found"
 
+	GlobalLogger.resultLog("ARP scan result: \n"+output[0])
 	return output[0]
 
 func get_open_ports() -> String:
@@ -64,5 +66,5 @@ func get_open_ports() -> String:
 		if lines.size() <= 1:
 			return "No open ports found"
 		result = "\n".join(lines)
-
+	GlobalLogger.resultLog("Port scan result: \n" + result)
 	return result
