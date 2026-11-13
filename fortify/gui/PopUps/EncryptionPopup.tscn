@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://ddg712lq2m7jj"]
+
+[ext_resource type="Script" uid="uid://cixfacpnr22vu" path="res://gui/PopUps/btn_decrypt.gd" id="1_jxgob"]
+[ext_resource type="Script" uid="uid://db5n8cd2k7f8s" path="res://gui/Btn_encrypt.gd" id="1_npa6s"]
+[ext_resource type="Script" uid="uid://7at4rkcr5equ" path="res://gui/PopUps/popupExit.gd" id="1_or18p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hyp1n"]
+
+[node name="PopUpTemplate" type="Control" unique_id=1695006277]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="." unique_id=818158925]
+layout_mode = 0
+offset_right = 1085.0
+offset_bottom = 611.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hyp1n")
+
+[node name="title" type="Label" parent="Panel" unique_id=1843268669]
+layout_mode = 0
+offset_left = 352.0
+offset_top = 2.0
+offset_right = 683.0
+offset_bottom = 101.0
+text = "Title"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="decrypt" type="Button" parent="Panel" unique_id=1962286240]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 214.0
+offset_right = 213.0
+offset_bottom = 285.0
+text = "Decrypt"
+script = ExtResource("1_jxgob")
+
+[node name="encrypt" type="Button" parent="Panel" unique_id=1225506140]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 119.0
+offset_right = 213.0
+offset_bottom = 190.0
+text = "Encrypt"
+script = ExtResource("1_npa6s")
+
+[node name="popupTerminal" type="TextEdit" parent="Panel" unique_id=193258238]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 144.0
+offset_right = 894.0
+offset_bottom = 371.0
+text = "Text display box"
+editable = false
+wrap_mode = 1
+
+[node name="backButton" type="Button" parent="Panel" unique_id=999224139]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 3.0
+offset_right = 150.0
+offset_bottom = 74.0
+text = "Back Button"
+script = ExtResource("1_or18p")
+
+[node name="password" type="TextEdit" parent="Panel" unique_id=1279492235]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 295.0
+offset_right = 368.0
+offset_bottom = 391.0
+placeholder_text = "Enter Password"
+
+[node name="overwriteButton" type="CheckButton" parent="Panel" unique_id=284098408]
+layout_mode = 0
+offset_left = 238.0
+offset_top = 127.0
+offset_right = 364.0
+offset_bottom = 178.0
+text = "Overwrite"
+
+[connection signal="pressed" from="Panel/decrypt" to="Panel/decrypt" method="_on_pressed"]
+[connection signal="pressed" from="Panel/encrypt" to="Panel/encrypt" method="_on_pressed"]
+[connection signal="pressed" from="Panel/backButton" to="Panel/backButton" method="_on_pressed"]

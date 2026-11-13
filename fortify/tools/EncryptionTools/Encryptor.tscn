@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cg28pwivjulgf"]
+
+[ext_resource type="Script" uid="uid://d1g2x6yfuf8sr" path="res://tools/EncryptionTools/Encryptor.gd" id="1_5wgf4"]
+
+[node name="Encryptor" type="Node" unique_id=234523437]
+script = ExtResource("1_5wgf4")

@@ -1,12 +1,15 @@
 [gd_scene format=3 uid="uid://885odmgwpqk0"]
 
 [ext_resource type="Script" uid="uid://b4mk5kbj45shi" path="res://tools/tool_main.gd" id="1_vtc64"]
+[ext_resource type="PackedScene" uid="uid://cg28pwivjulgf" path="res://tools/EncryptionTools/Encryptor.tscn" id="2_0fq0n"]
 [ext_resource type="PackedScene" uid="uid://c1b5jm22kuguj" path="res://tools/fileBackup/fileBackupManager.tscn" id="2_0q0j2"]
 [ext_resource type="Script" uid="uid://d2h2y354qs60o" path="res://tools/virusCheck/virusCheck.gd" id="2_c82mj"]
 [ext_resource type="PackedScene" uid="uid://v687es6c0xjp" path="res://tools/networkScan/networkScanner.tscn" id="4_i55am"]
 
 [node name="ToolMain" type="Node" unique_id=1184258772]
 script = ExtResource("1_vtc64")
+
+[node name="Encryptor" parent="." unique_id=234523437 instance=ExtResource("2_0fq0n")]
 
 [node name="FileBackupManager" parent="." unique_id=630001459 instance=ExtResource("2_0q0j2")]
 
