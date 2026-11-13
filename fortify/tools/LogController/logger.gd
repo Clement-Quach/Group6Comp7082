@@ -1,45 +1,43 @@
 extends Node
 
-var file:FileAccess
-var results:FileAccess
-# Called when the node enters the scene tree for the first time.
+var file: FileAccess
+var results: FileAccess
+
 func _ready() -> void:
-	create_log_file(file)
-	create_log_file(results, "Results/")
+	file = create_log_file("Logs")
+	results = create_log_file("Logs/Results")
 
+func InfoLog(message: String) -> void:
+	file.store_line(message)
 
-func InfoLog(message: String):
-	print("storing log")
-	file.store_string(message)
-	file.store_string("\n")
-	
-func errorLog(message:String):
-	file.store_string(message)
-	file.store_string("\n")
+func ErrorLog(message: String) -> void:
+	file.store_line(message)
 
-func resultLog(message:String):
-	results.store_string(message)
-	results.store_string("\n")
+func resultLog(message: String) -> void:
+	results.store_line(message)
 
-func create_log_file(file:FileAccess, name = "Log/") -> void:
-	var date = Time.get_date_dict_from_system()
+func create_log_file(folder: String) -> FileAccess:
+	var directory := "res://%s" % folder
+	DirAccess.make_dir_recursive_absolute(
+		ProjectSettings.globalize_path(directory)
+	)
 
-	var filename = "%04d-%02d-%02d.txt" % [
-		date.year,
-		date.month,
-		date.day
+	var date := Time.get_date_dict_from_system()
+	var filename := "%04d-%02d-%02d.txt" % [
+		date.year, date.month, date.day
 	]
+	var path := "%s/%s" % [directory, filename]
+	var existed := FileAccess.file_exists(path)
+	var mode := FileAccess.READ_WRITE if existed else FileAccess.WRITE
+	var log_file := FileAccess.open(path, mode)
 
-	file = FileAccess.open("res://" +name+ + filename, FileAccess.READ_WRITE)
+	if log_file == null:
+		push_error("Could not open log file: %s" % path)
+		return null
 
-
-	if file:
-		print("log file found")
-		file.seek_end()
-	elif (file == null ):
-		file = FileAccess.open("res://" +name+ + filename, FileAccess.WRITE)
-		file.store_string("Created on: " + filename + "  \n")
-		print("LOG created: ", filename)
+	if existed:
+		log_file.seek_end()
 	else:
-		print("log file failed to load")
-		push_error("log file failed to load")
+		log_file.store_line("Created on: " + filename)
+
+	return log_file
