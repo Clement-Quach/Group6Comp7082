@@ -4,3 +4,4 @@ android/
 .vscode/
 secrets.cfg
 secrets.example.cfg
+Logs/
