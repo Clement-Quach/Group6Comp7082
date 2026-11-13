@@ -14,7 +14,7 @@ func _process(delta: float) -> void:
 func printToTerminal(input: String) -> void:
 	var popup_terminal: TextEdit = find_popup_terminal(get_tree().root)
 	if popup_terminal != null:
-
+		print("printing to terminal: " + input)
 		popup_terminal.text += input
 
 	#print to main terminal regardless if you find the popup terminal or not

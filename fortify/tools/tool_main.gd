@@ -6,8 +6,8 @@ var fileDialog: FileDialog
 @onready var virusCheck = virusCheckTool.new()
 @onready var gui = $"../Control"
 @onready var aiManager = AIManager.new()
-@onready var fileBackup:fileBackupManager = fileBackupManager.new()
-@onready var networkScanner:NetworkScanner = NetworkScanner.new()
+@onready var fileBackup:fileBackupManager = $FileBackupManager
+@onready var networkScanner:NetworkScanner = $NetworkScanner
 
 func _ready() -> void:
 	#attach as children
@@ -72,8 +72,8 @@ func updateDefinitions() -> void:
 
 func printToTerminal(string: String) ->void:
 	gui.printToTerminal(string)
-	pass
 
+#AI SECTION START ========================
 # sends the prompt to the ai manager, and prints the results
 func askAI(prompt: String) -> void:
 	if prompt.strip_edges().is_empty():

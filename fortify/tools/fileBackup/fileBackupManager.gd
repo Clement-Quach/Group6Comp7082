@@ -12,7 +12,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 func create_backup(path: String) -> Error:
+	print("create backup")
 	if not FileAccess.file_exists(path):
+		print("file not found for backup")
 		return ERR_FILE_NOT_FOUND
 
 	var data := FileAccess.get_file_as_bytes(path)
@@ -29,6 +31,7 @@ func create_backup(path: String) -> Error:
 	)
 
 	if backup == null:
+		toolMain.printToTerminal("backup failed to open")
 		return FileAccess.get_open_error()
 
 
@@ -36,7 +39,7 @@ func create_backup(path: String) -> Error:
 	backup.store_32(data.size())
 	backup.store_buffer(compressed)
 	backup.close()
-
+	toolMain.printToTerminal("backup created for: " + path)
 	return OK
 	
 ##takes a normal file, finds its backup, and then overwrites the original
@@ -107,4 +110,5 @@ func restore_from_backup(backup_path: String) -> Error:
 
 	output.store_buffer(data)
 	output.close()
+	toolMain.printToTerminal("backup restored for: " + backup_path)
 	return OK

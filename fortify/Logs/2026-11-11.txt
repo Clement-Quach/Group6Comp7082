@@ -102,3 +102,119 @@ virus false C:/Users/RyRy/Documents/Bsc/Comp7082/Project/Group6Comp7082/fortify/
 file_backup_restore_button pressed
 virus false C:/Users/RyRy/Documents/Bsc/Comp7082/Project/Group6Comp7082/fortify/tests/backupTest.txt
 
+virusCheck popup pressed
+file_backup_button pressed
+networkScan popup pressed
+virusCheck popup pressed
+file_backup_restore_button pressed
+virus false C:/Users/cleme/OneDrive/Desktop/BCIT/comp 7082/project/Group6Comp7082/fortify/tests/test2.txt
+
+virusCheck popup pressed
+file_backup_restore_button pressed
+virus false C:/Users/cleme/OneDrive/Desktop/BCIT/comp 7082/project/Group6Comp7082/fortify/tests/test3.txt
+
+file_backup_restore_button pressed
+virus false C:/Users/cleme/OneDrive/Desktop/BCIT/comp 7082/project/Group6Comp7082/fortify/tests/test2.txt
+
+file_backup_restore_button pressed
+virus false C:/Users/cleme/OneDrive/Desktop/BCIT/comp 7082/project/Group6Comp7082/fortify/tests/backupTest.txt
+
+file_backup_button pressed
+virusCheck popup pressed
+file_backup_button pressed
+networkScan popup pressed
+virusCheck popup pressed
+virusCheck popup pressed
+file_backup_restore_button pressed
+virus false C:/Users/cleme/OneDrive/Desktop/BCIT/comp 7082/project/Group6Comp7082/fortify/tests/test.txt
+
+file_backup_restore_button pressed
+virus false C:/Users/cleme/OneDrive/Desktop/BCIT/comp 7082/project/Group6Comp7082/fortify/tests/test.txt
+
+file_backup_restore_button pressed
+virus false C:/Users/cleme/OneDrive/Desktop/BCIT/comp 7082/project/Group6Comp7082/fortify/tests/test2.txt
+
+file_backup_button pressed
+file_backup_restore_button pressed
+virusCheck popup pressed
+file_backup_restore_button pressed
+virus false C:/Users/cleme/OneDrive/Desktop/BCIT/comp 7082/project/Group6Comp7082/fortify/tests/test3.txt
+
+file_backup_button pressed
+file_backup_restore_button pressed
+virusCheck popup pressed
+file_backup_restore_button pressed
+virus false C:/Users/cleme/OneDrive/Desktop/BCIT/comp 7082/project/Group6Comp7082/fortify/tests/test3.txt
+
+file_backup_button pressed
+file_backup_restore_button pressed
+virusCheck popup pressed
+file_backup_restore_button pressed
+virus false C:/Users/cleme/OneDrive/Desktop/BCIT/comp 7082/project/Group6Comp7082/fortify/tests/test3.txt
+
+virusCheck popup pressed
+file_backup_restore_button pressed
+virus false C:/Users/cleme/OneDrive/Desktop/BCIT/comp 7082/project/Group6Comp7082/fortify/tests/test2.txt
+
+file_backup_button pressed
+file_backup_restore_button pressed
+file_backup_restore_button pressed
+virusCheck popup pressed
+file_backup_button pressed
+file_backup_restore_button pressed
+networkScan popup pressed
+port scan pressed
+file_backup_button pressed
+file_backup_restore_button pressed
+networkScan popup pressed
+network scan pressed
+virusCheck popup pressed
+virusCheck popup pressed
+virusCheck popup pressed
+file_backup_restore_button pressed
+virus found: C:/Users/cleme/OneDrive/Desktop/BCIT/comp 7082/project/Group6Comp7082/fortify/tests/virus.exe (UserAdded.virus.exe, your database)
+
+file_backup_restore_button pressed
+virus false C:/Users/cleme/OneDrive/Desktop/BCIT/comp 7082/project/Group6Comp7082/fortify/tests/test2.txt
+
+update definitions pressesd
+official database updated to 2026-11-11 19:44:12 UTC (1171606 signatures)
+
+file_backup_button pressed
+file_backup_restore_button pressed
+file_backup_restore_button pressed
+file_backup_button pressed
+file_backup_restore_button pressed
+virusCheck popup pressed
+file_backup_restore_button pressed
+virus false C:/Users/cleme/OneDrive/Desktop/BCIT/comp 7082/project/Group6Comp7082/fortify/tests/backupTest.txt
+
+virusCheck popup pressed
+file_backup_button pressed
+file_backup_restore_button pressed
+virusCheck popup pressed
+file_backup_restore_button pressed
+file_backup_button pressed
+file_backup_restore_button pressed
+virus false C:/Users/cleme/OneDrive/Desktop/BCIT/comp 7082/project/Group6Comp7082/fortify/tests/backupTest.txt
+
+file_backup_restore_button pressed
+file_backup_restore_button pressed
+file_backup_restore_button pressed
+file_backup_button pressed
+file_backup_restore_button pressed
+file_backup_restore_button pressed
+file_backup_unpack_button pressed
+virusCheck popup pressed
+file_backup_restore_button pressed
+virus found: C:/Users/cleme/OneDrive/Desktop/BCIT/comp 7082/project/Group6Comp7082/fortify/tests/virus.exe (UserAdded.virus.exe, your database)
+
+file_backup_restore_button pressed
+virus false C:/Users/cleme/OneDrive/Desktop/BCIT/comp 7082/project/Group6Comp7082/fortify/tests/test2.txt
+
+update definitions pressesd
+official database updated to 2026-11-11 19:44:12 UTC (1171606 signatures)
+
+networkScan popup pressed
+network scan pressed
+port scan pressed

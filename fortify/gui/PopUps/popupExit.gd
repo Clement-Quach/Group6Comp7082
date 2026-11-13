@@ -10,4 +10,4 @@ func _ready() -> void:
 
 
 func _on_pressed() -> void:
-	get_parent().get_parent().hide()
+	get_parent().get_parent().queue_free()

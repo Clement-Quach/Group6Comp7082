@@ -1,4 +1,9 @@
 {
+	"C:/Users/cleme/OneDrive/Desktop/BCIT/comp 7082/project/Group6Comp7082/fortify/tests/test2.txt": {
+		"algorithm": "sha256",
+		"expected_hash": "b5bb9d8014a0f9b1d61e21e796d78dccdf1352f23cd32812f4850b878ae4944c",
+		"last_updated": "2026-11-11T13:08:48"
+	},
 	"D:/Python GUI/COMP7082/Group6Comp7082/fortify/tests/Tester/M/Orignial.txt": {
 		"algorithm": "md5",
 		"expected_hash": "f067e443edf17a290f18e3c35235766a",
