@@ -8,6 +8,7 @@ var fileDialog: FileDialog
 @onready var aiManager = AIManager.new()
 @onready var fileBackup:fileBackupManager = $FileBackupManager
 @onready var networkScanner:NetworkScanner = $NetworkScanner
+@onready var encryptor:Encryptor = $Encryptor
 
 func _ready() -> void:
 	#attach as children
@@ -122,3 +123,28 @@ func portScan():
 	printToTerminal(networkScanner.get_open_ports())
 
 #NETWORK SCAN SECTION END
+
+
+#ENCRYPTION SECTION START
+func encrypt(password: String):
+	startFileDialog([""])
+	
+	var path: String = await fileDialog.file_selected
+	encryptor.encrypt_file(path, password, (path + ".fencrypt"))
+	
+func decrypt(password: String):
+	startFileDialog([""])
+	
+	var path: String = await fileDialog.file_selected
+	encryptor.decrypt_file(path, password, (path + ".dat"))
+
+func encrypt_in_place(password: String):
+	startFileDialog([""])
+	
+	var path: String = await fileDialog.file_selected
+	encryptor.encrypt_file(path, password)
+func decrypt_in_place(password: String):
+	startFileDialog([""])
+	
+	var path: String = await fileDialog.file_selected
+	encryptor.decrypt_file(path, password)

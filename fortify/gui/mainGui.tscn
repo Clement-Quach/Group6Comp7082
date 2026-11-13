@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://c5ud2vkjwptpl" path="res://gui/btn_popup_backup.gd" id="7_3ukpp"]
 [ext_resource type="Script" uid="uid://dt4k0c1dutmpt" path="res://gui/btn_popup_network.gd" id="8_1ds3b"]
 [ext_resource type="PackedScene" uid="uid://kq6vkbfxdmyq" path="res://gui/PopUps/networkToolPopup.tscn" id="9_duyse"]
+[ext_resource type="Script" uid="uid://bc7pqlg8xr15o" path="res://gui/btn_popup_encryption.gd" id="10_42qyq"]
+[ext_resource type="PackedScene" uid="uid://ddg712lq2m7jj" path="res://gui/PopUps/EncryptionPopup.tscn" id="11_or3jx"]
 
 [node name="Control" type="Control" unique_id=44630022]
 layout_mode = 3
@@ -32,19 +34,19 @@ popup_scene = ExtResource("3_duyse")
 
 [node name="BtnFileCheck" type="Button" parent="." unique_id=600767772]
 layout_mode = 0
-offset_left = 13.0
-offset_top = 361.0
-offset_right = 325.0
-offset_bottom = 451.0
+offset_left = 12.0
+offset_top = 307.0
+offset_right = 324.0
+offset_bottom = 397.0
 text = "File Integrity Check"
 script = ExtResource("5_mkyfa")
 
 [node name="BtnAskAi" type="Button" parent="." unique_id=2059441810]
 layout_mode = 0
-offset_left = 13.0
-offset_top = 457.0
-offset_right = 325.0
-offset_bottom = 547.0
+offset_left = 347.0
+offset_top = 450.0
+offset_right = 659.0
+offset_bottom = 540.0
 text = "Ask AI"
 script = ExtResource("6_vhp5f")
 
@@ -69,10 +71,10 @@ popup_scene = ExtResource("2_1ds3b")
 
 [node name="output" type="TextEdit" parent="." unique_id=1851361813]
 layout_mode = 0
-offset_left = 533.0
+offset_left = 668.0
 offset_top = 13.0
 offset_right = 1122.0
-offset_bottom = 344.0
+offset_bottom = 624.0
 editable = false
 wrap_mode = 1
 scroll_smooth = true
@@ -88,7 +90,18 @@ text = "Network Tools"
 script = ExtResource("8_1ds3b")
 popup_scene = ExtResource("9_duyse")
 
+[node name="BtnEncryption" type="Button" parent="." unique_id=516852594]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 401.0
+offset_right = 328.0
+offset_bottom = 500.0
+text = "Encryption"
+script = ExtResource("10_42qyq")
+popup_scene = ExtResource("11_or3jx")
+
 [connection signal="pressed" from="BtnVirusCheck" to="BtnVirusCheck" method="_on_pressed"]
 [connection signal="pressed" from="BtnAskAi" to="BtnAskAi" method="_on_pressed"]
 [connection signal="pressed" from="BtnFileBackup" to="BtnFileBackup" method="_on_pressed"]
 [connection signal="pressed" from="BtnNetworkTools" to="BtnNetworkTools" method="_on_pressed"]
+[connection signal="pressed" from="BtnEncryption" to="BtnEncryption" method="_on_pressed"]
