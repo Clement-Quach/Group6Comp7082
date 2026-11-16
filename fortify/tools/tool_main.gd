@@ -22,7 +22,7 @@ func _ready() -> void:
 	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 	fileDialog.access = FileDialog.ACCESS_FILESYSTEM
 
-func startFileDialog(filterArray: Array[String]) -> void:
+func _startFileDialog(filterArray: Array[String]) -> void:
 	# Clear previously added filters
 	fileDialog.filters.clear()
 
@@ -33,15 +33,15 @@ func startFileDialog(filterArray: Array[String]) -> void:
 	
 func startSingleFileDialog(filterArray: Array[String]) -> void:
 	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
-	startFileDialog(filterArray)
+	_startFileDialog(filterArray)
 	
 func startMultiFileDialog(filterArray: Array[String]) -> void:
 	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILES
-	startFileDialog(filterArray)
+	_startFileDialog(filterArray)
 	
 func startAnyFileDialog(filterArray: Array[String]) -> void:
 	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_ANY
-	startFileDialog(filterArray)
+	_startFileDialog(filterArray)
 	
 #VIRUS CHECK SECTION START ============================
 func checkForVirus() -> void:
