@@ -11,11 +11,13 @@ const EXT = ".quarantine"
 const INDEX_PATH = "user://quarantine_index.json"
 
 
-func checkVirus(filepaths: PackedStringArray) -> void:
+func checkVirus(filepaths: PackedStringArray) -> String:
+	var output:String = ""
 	for path in filepaths:
 		# Check that the file exists
 		if not FileAccess.file_exists(path):
 			toolMain.printToTerminal("file not found: " + path + "\n")
+			output += "file not found: " + path + "\n"
 			continue
 
 		# Calculate the file's hash
@@ -30,16 +32,20 @@ func checkVirus(filepaths: PackedStringArray) -> void:
 				var msg := "virus found: %s (%s, %s)" % [path, res["name"], where]
 				print(msg)
 				GlobalLogger.InfoLog(msg + "\n")
-				toolMain.printToTerminal(msg + "\n")
+				#toolMain.printToTerminal(msg + "\n")
+				output += msg
 				lockFile(path)
 			virusDB.Verdict.WHITELISTED:
 				print("virus false (whitelisted): " + path)
 				GlobalLogger.InfoLog("virus false (whitelisted) " + path + "\n")
-				toolMain.printToTerminal("virus false (whitelisted): " + path + "\n")
+				#toolMain.printToTerminal("virus false (whitelisted): " + path + "\n")
+				output += "virus false (whitelisted): " + path + "\n"
 			_:
 				print("virus false: " + path)
 				GlobalLogger.InfoLog("virus false " + path + "\n")
-				toolMain.printToTerminal("virus false: " + path + "\n")
+				#toolMain.printToTerminal("virus false: " + path + "\n")
+				output +="virus false: " + path + "\n"
+	return output
 
 
 ## Flag a file as malware (adds its hash to YOUR database).

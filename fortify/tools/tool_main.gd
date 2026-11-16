@@ -48,17 +48,17 @@ func checkForVirus() -> void:
 	startMultiFileDialog(["*.exe", "*.dll", "*.txt"])
 
 	var path:PackedStringArray = await fileDialog.files_selected
-	virusCheck.checkVirus(path)
+	printToTerminal(virusCheck.checkVirus(path))
 	
 func addFileAsVirus() -> void:
-	startFileDialog(["*.exe", "*.dll", "*.txt"])
+	startSingleFileDialog(["*.exe", "*.dll", "*.txt"])
 
 	var path: String = await fileDialog.file_selected
 	virusCheck.addFileAsVirus(path)
 
 # dialog to chose a file to unlock
 func restoreFile() -> void:
-	startFileDialog(["*.quarantine"])
+	startSingleFileDialog(["*.quarantine"])
 
 	var path: String = await fileDialog.file_selected
 	virusCheck.unlockFile(path)
@@ -88,14 +88,14 @@ func askAI(prompt: String) -> void:
 	
 #FILE BACKUP SECTION START =======================
 func compressFile():
-	startFileDialog([""])
+	startSingleFileDialog([""])
 	
 	var path: String = await fileDialog.file_selected
 	fileBackup.create_backup(path)
 	
 #restores a file
 func decompressFile():
-	startFileDialog([""])
+	startSingleFileDialog([""])
 	
 	#only allow .bak files
 	var path: String = await fileDialog.file_selected
@@ -107,7 +107,7 @@ func decompressFile():
 
 #takes a backup and unpacks it
 func unpackFile():
-	startFileDialog(["*.bak_*"])
+	startSingleFileDialog(["*.bak_*"])
 	
 	var path: String = await fileDialog.file_selected
 	fileBackup.restore_from_backup(path)
@@ -127,24 +127,24 @@ func portScan():
 
 #ENCRYPTION SECTION START
 func encrypt(password: String):
-	startFileDialog([""])
+	startSingleFileDialog([""])
 	
 	var path: String = await fileDialog.file_selected
 	encryptor.encrypt_file(path, password, (path + ".fencrypt"))
 	
 func decrypt(password: String):
-	startFileDialog([""])
+	startSingleFileDialog([""])
 	
 	var path: String = await fileDialog.file_selected
 	encryptor.decrypt_file(path, password, (path + ".dat"))
 
 func encrypt_in_place(password: String):
-	startFileDialog([""])
+	startSingleFileDialog([""])
 	
 	var path: String = await fileDialog.file_selected
 	encryptor.encrypt_file(path, password)
 func decrypt_in_place(password: String):
-	startFileDialog([""])
+	startSingleFileDialog([""])
 	
 	var path: String = await fileDialog.file_selected
 	encryptor.decrypt_file(path, password)
