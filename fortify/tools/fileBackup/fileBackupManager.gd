@@ -40,6 +40,7 @@ func create_backup(path: String) -> Error:
 	backup.store_buffer(compressed)
 	backup.close()
 	toolMain.printToTerminal("backup created for: " + path)
+	
 	return OK
 	
 ##takes a normal file, finds its backup, and then overwrites the original

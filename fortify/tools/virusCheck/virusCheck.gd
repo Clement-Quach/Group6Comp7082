@@ -38,8 +38,7 @@ func checkVirus(filepaths: PackedStringArray) -> String:
 			virusDB.Verdict.WHITELISTED:
 				print("virus false (whitelisted): " + path)
 				GlobalLogger.InfoLog("virus false (whitelisted) " + path + "\n")
-				#toolMain.printToTerminal("virus false (whitelisted): " + path + "\n")
-				output += "virus false (whitelisted): " + path + "\n"
+				toolMain.printToTerminal("virus false (whitelisted): " + path + "\n")
 			_:
 				print("virus false: " + path)
 				GlobalLogger.InfoLog("virus false " + path + "\n")
@@ -225,8 +224,10 @@ func updateOfficialDatabase(force: bool = true) -> Dictionary:
 	var r: Dictionary = await database.update_official(self, force)
 	if r["error"] != OK:
 		GlobalLogger.InfoLog("database update failed: " + r["message"] + "\n")
+		GlobalLogger.resultLog("virus hash database update failed: " + "\n")
 		toolMain.printToTerminal("database update failed: " + r["message"] + "\n")
 	else:
 		GlobalLogger.InfoLog(r["message"] + "\n")
+		GlobalLogger.resultLog("virus hash database success" + r["message"] + "\n")
 		toolMain.printToTerminal(r["message"] + "\n")
 	return r
