@@ -143,8 +143,8 @@ func portScan():
 	
 # runs a full scan, including the network and port scans, to use for ai scan summary
 func runFullScan() -> Dictionary:
-	var network_results = networkScanner.get_arp_table()
 	var port_results = networkScanner.get_open_ports()
+	var network_results = networkScanner.get_arp_table()
 
 	return {
 		"network": network_results,
