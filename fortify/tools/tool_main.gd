@@ -85,7 +85,26 @@ func askAI(prompt: String) -> void:
 	var answer: String = await aiManager.ask(prompt)
 	printToTerminal("AI: " + answer + "\n\n")
 	
-	
+# runs the runFullScan 
+# then sends the reuslts to the generateReport function of the aiManager
+# then prints the ai generated to the terminal
+func generateReport() -> void:
+	var results: Dictionary = runFullScan()
+
+	var scan_results := """
+	Network Scan:
+	%s
+
+	Port Scan:
+	%s
+	""" % [results["network"], results["ports"]]
+
+	scan_results = scan_results.strip_edges()
+
+	var report = await aiManager.generateReport(scan_results)
+
+	printToTerminal("--- Scan report ---\n" + report + "\n\n")
+
 #FILE BACKUP SECTION START =======================
 func compressFile():
 	startFileDialog([""])
@@ -121,6 +140,16 @@ func networkScan():
 	
 func portScan():
 	printToTerminal(networkScanner.get_open_ports())
+	
+# runs a full scan, including the network and port scans, to use for ai scan summary
+func runFullScan() -> Dictionary:
+	var network_results = networkScanner.get_arp_table()
+	var port_results = networkScanner.get_open_ports()
+
+	return {
+		"network": network_results,
+		"ports": port_results
+	}
 
 #NETWORK SCAN SECTION END
 
