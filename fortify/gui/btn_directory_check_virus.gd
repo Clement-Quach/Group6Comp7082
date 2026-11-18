@@ -11,4 +11,4 @@ func _process(delta: float) -> void:
 	pass
 func _on_pressed() -> void:
 	GlobalLogger.InfoLog("directory virus check pressed")
-	tools.checkForVirus()
+	tools.checkDirForVirus()

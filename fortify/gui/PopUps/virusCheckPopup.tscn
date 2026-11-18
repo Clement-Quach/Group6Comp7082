@@ -102,3 +102,4 @@ script = ExtResource("6_io4sa")
 [connection signal="pressed" from="Panel/remove quarantine" to="Panel/remove quarantine" method="_on_pressed"]
 [connection signal="pressed" from="Panel/backButton" to="Panel/backButton" method="_on_pressed"]
 [connection signal="pressed" from="Panel/BtnUpdateDefinitions" to="Panel/BtnUpdateDefinitions" method="_on_pressed"]
+[connection signal="pressed" from="Panel/check directory" to="Panel/check directory" method="_on_pressed"]
