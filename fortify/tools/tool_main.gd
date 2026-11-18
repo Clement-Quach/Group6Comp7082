@@ -22,7 +22,7 @@ func _ready() -> void:
 	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 	fileDialog.access = FileDialog.ACCESS_FILESYSTEM
 
-func startFileDialog(filterArray: Array[String]) -> void:
+func _startFileDialog(filterArray: Array[String]) -> void:
 	# Clear previously added filters
 	fileDialog.filters.clear()
 
@@ -33,32 +33,32 @@ func startFileDialog(filterArray: Array[String]) -> void:
 	
 func startSingleFileDialog(filterArray: Array[String]) -> void:
 	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
-	startFileDialog(filterArray)
+	_startFileDialog(filterArray)
 	
 func startMultiFileDialog(filterArray: Array[String]) -> void:
 	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILES
-	startFileDialog(filterArray)
+	_startFileDialog(filterArray)
 	
 func startAnyFileDialog(filterArray: Array[String]) -> void:
 	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_ANY
-	startFileDialog(filterArray)
+	_startFileDialog(filterArray)
 	
 #VIRUS CHECK SECTION START ============================
 func checkForVirus() -> void:
 	startMultiFileDialog(["*.exe", "*.dll", "*.txt"])
 
 	var path:PackedStringArray = await fileDialog.files_selected
-	virusCheck.checkVirus(path)
+	printToTerminal(virusCheck.checkVirus(path))
 	
 func addFileAsVirus() -> void:
-	startFileDialog(["*.exe", "*.dll", "*.txt"])
+	startSingleFileDialog(["*.exe", "*.dll", "*.txt"])
 
 	var path: String = await fileDialog.file_selected
 	virusCheck.addFileAsVirus(path)
 
 # dialog to chose a file to unlock
 func restoreFile() -> void:
-	startFileDialog(["*.quarantine"])
+	startSingleFileDialog(["*.quarantine"])
 
 	var path: String = await fileDialog.file_selected
 	virusCheck.unlockFile(path)
@@ -107,14 +107,14 @@ func generateReport() -> void:
 
 #FILE BACKUP SECTION START =======================
 func compressFile():
-	startFileDialog([""])
+	startSingleFileDialog([""])
 	
 	var path: String = await fileDialog.file_selected
 	fileBackup.create_backup(path)
 	
 #restores a file
 func decompressFile():
-	startFileDialog([""])
+	startSingleFileDialog([""])
 	
 	#only allow .bak files
 	var path: String = await fileDialog.file_selected
@@ -126,7 +126,7 @@ func decompressFile():
 
 #takes a backup and unpacks it
 func unpackFile():
-	startFileDialog(["*.bak_*"])
+	startSingleFileDialog(["*.bak_*"])
 	
 	var path: String = await fileDialog.file_selected
 	fileBackup.restore_from_backup(path)
@@ -156,24 +156,24 @@ func runFullScan() -> Dictionary:
 
 #ENCRYPTION SECTION START
 func encrypt(password: String):
-	startFileDialog([""])
+	startSingleFileDialog([""])
 	
 	var path: String = await fileDialog.file_selected
 	encryptor.encrypt_file(path, password, (path + ".fencrypt"))
 	
 func decrypt(password: String):
-	startFileDialog([""])
+	startSingleFileDialog([""])
 	
 	var path: String = await fileDialog.file_selected
 	encryptor.decrypt_file(path, password, (path + ".dat"))
 
 func encrypt_in_place(password: String):
-	startFileDialog([""])
+	startSingleFileDialog([""])
 	
 	var path: String = await fileDialog.file_selected
 	encryptor.encrypt_file(path, password)
 func decrypt_in_place(password: String):
-	startFileDialog([""])
+	startSingleFileDialog([""])
 	
 	var path: String = await fileDialog.file_selected
 	encryptor.decrypt_file(path, password)
