@@ -35,6 +35,10 @@ func startSingleFileDialog(filterArray: Array[String]) -> void:
 	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 	_startFileDialog(filterArray)
 	
+func startDirectoryDialog() -> void:
+	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_DIR
+	_startFileDialog([])
+	
 func startMultiFileDialog(filterArray: Array[String]) -> void:
 	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILES
 	_startFileDialog(filterArray)
@@ -49,6 +53,13 @@ func checkForVirus() -> void:
 
 	var path:PackedStringArray = await fileDialog.files_selected
 	printToTerminal(virusCheck.checkVirus(path))
+	
+func checkDirForVirus() -> void:
+	startDirectoryDialog()
+	
+	var path = await fileDialog.dir_selected
+	printToTerminal(virusCheck.checkDirectory(path))
+	
 	
 func addFileAsVirus() -> void:
 	startSingleFileDialog(["*.exe", "*.dll", "*.txt"])

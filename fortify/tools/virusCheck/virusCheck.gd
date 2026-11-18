@@ -46,6 +46,38 @@ func checkVirus(filepaths: PackedStringArray) -> String:
 				output +="virus false: " + path + "\n"
 	return output
 
+func checkDirectory(directory: String) -> String:
+	var output: String = ""
+
+	var dir := DirAccess.open(directory)
+
+	if dir == null:
+		var msg := "failed to open directory: " + directory
+		toolMain.printToTerminal(msg + "\n")
+		return msg + "\n"
+
+	dir.list_dir_begin()
+
+	var file_name := dir.get_next()
+
+	while file_name != "":
+		# Skip hidden/system navigation entries
+		if file_name == "." or file_name == "..":
+			file_name = dir.get_next()
+			continue
+
+		var full_path := directory.path_join(file_name)
+
+		# Recursively scan subdirectories
+		if dir.current_is_dir():
+			output += checkDirectory(full_path)
+		else:
+			output += checkVirus([full_path])
+
+		file_name = dir.get_next()
+
+	dir.list_dir_end()
+	return output
 
 ## Flag a file as malware (adds its hash to YOUR database).
 func addFileAsVirus(filepath: String) -> void:

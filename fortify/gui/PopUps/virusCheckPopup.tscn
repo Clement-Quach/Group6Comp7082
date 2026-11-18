@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://xpjaahj1ew7t" path="res://gui/tmp_btn_add_virus.gd" id="2_jwgqa"]
 [ext_resource type="Script" uid="uid://bvhxxra2n14nj" path="res://gui/unlock_file.gd" id="3_haaw6"]
 [ext_resource type="Script" uid="uid://bnis756s35j1u" path="res://gui/btn_update_definitions.gd" id="5_o3hwj"]
+[ext_resource type="Script" uid="uid://bgahi350yomme" path="res://gui/btn_directory_check_virus.gd" id="6_io4sa"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hyp1n"]
 
@@ -86,6 +87,15 @@ offset_bottom = 581.0
 size_flags_vertical = 4
 text = "Update Definitions"
 script = ExtResource("5_o3hwj")
+
+[node name="check directory" type="Button" parent="Panel" unique_id=1272329070]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 386.0
+offset_right = 214.0
+offset_bottom = 457.0
+text = "Check Directory"
+script = ExtResource("6_io4sa")
 
 [connection signal="pressed" from="Panel/virusCheck" to="Panel/virusCheck" method="_on_pressed"]
 [connection signal="pressed" from="Panel/add" to="Panel/add" method="_on_pressed"]
