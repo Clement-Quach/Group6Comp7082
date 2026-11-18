@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://kq6vkbfxdmyq" path="res://gui/PopUps/networkToolPopup.tscn" id="9_duyse"]
 [ext_resource type="Script" uid="uid://bc7pqlg8xr15o" path="res://gui/btn_popup_encryption.gd" id="10_42qyq"]
 [ext_resource type="PackedScene" uid="uid://ddg712lq2m7jj" path="res://gui/PopUps/EncryptionPopup.tscn" id="11_or3jx"]
+[ext_resource type="Script" uid="uid://wld6tglbar10" path="res://gui/btn_generate_report.gd" id="12_gdwhq"]
 
 [node name="Control" type="Control" unique_id=44630022]
 layout_mode = 3
@@ -100,8 +101,18 @@ text = "Encryption"
 script = ExtResource("10_42qyq")
 popup_scene = ExtResource("11_or3jx")
 
+[node name="btn_generate_report" type="Button" parent="." unique_id=1882344464]
+layout_mode = 0
+offset_left = 348.0
+offset_top = 355.0
+offset_right = 658.0
+offset_bottom = 443.0
+text = "Generate Scan Report"
+script = ExtResource("12_gdwhq")
+
 [connection signal="pressed" from="BtnVirusCheck" to="BtnVirusCheck" method="_on_pressed"]
 [connection signal="pressed" from="BtnAskAi" to="BtnAskAi" method="_on_pressed"]
 [connection signal="pressed" from="BtnFileBackup" to="BtnFileBackup" method="_on_pressed"]
 [connection signal="pressed" from="BtnNetworkTools" to="BtnNetworkTools" method="_on_pressed"]
 [connection signal="pressed" from="BtnEncryption" to="BtnEncryption" method="_on_pressed"]
+[connection signal="pressed" from="btn_generate_report" to="btn_generate_report" method="_on_pressed"]
