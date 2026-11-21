@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://kq6vkbfxdmyq" path="res://gui/PopUps/networkToolPopup.tscn" id="9_duyse"]
 [ext_resource type="Script" uid="uid://bc7pqlg8xr15o" path="res://gui/btn_popup_encryption.gd" id="10_42qyq"]
 [ext_resource type="PackedScene" uid="uid://ddg712lq2m7jj" path="res://gui/PopUps/EncryptionPopup.tscn" id="11_or3jx"]
-[ext_resource type="Script" uid="uid://wld6tglbar10" path="res://gui/btn_generate_report.gd" id="12_gdwhq"]
+[ext_resource type="Script" path="res://gui/btn_generate_report.gd" id="12_gdwhq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_or3jx"]
 
@@ -113,15 +113,36 @@ text = "Encryption"
 script = ExtResource("10_42qyq")
 popup_scene = ExtResource("11_or3jx")
 
+[node name="BtnNetworkTools" type="Button" parent="Sidebar/VBoxContainer" unique_id=1920255085]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Network Tools"
+script = ExtResource("8_1ds3b")
+popup_scene = ExtResource("9_duyse")
+
+[node name="BtnFileBackup" type="Button" parent="Sidebar/VBoxContainer" unique_id=930562503]
+layout_mode = 2
+size_flags_vertical = 4
+text = "File Backup"
+script = ExtResource("7_3ukpp")
+popup_scene = ExtResource("2_1ds3b")
+
+[node name="BtnFileCheck" type="Button" parent="Sidebar/VBoxContainer" unique_id=1030303118]
+layout_mode = 2
+text = "File Integrity Check"
+script = ExtResource("5_mkyfa")
+
 [node name="btn_generate_report" type="Button" parent="." unique_id=1882344464]
 layout_mode = 0
-offset_left = 348.0
-offset_top = 355.0
-offset_right = 658.0
-offset_bottom = 443.0
+offset_left = 5.0
+offset_top = 567.0
+offset_right = 355.0
+offset_bottom = 636.0
 text = "Generate Scan Report"
 script = ExtResource("12_gdwhq")
 
 [connection signal="pressed" from="BtnVirusCheck" to="BtnVirusCheck" method="_on_pressed"]
 [connection signal="pressed" from="BtnEncryption" to="BtnEncryption" method="_on_pressed"]
+[connection signal="pressed" from="Sidebar/VBoxContainer/BtnNetworkTools" to="Sidebar/VBoxContainer/BtnNetworkTools" method="_on_pressed"]
+[connection signal="pressed" from="Sidebar/VBoxContainer/BtnFileBackup" to="Sidebar/VBoxContainer/BtnFileBackup" method="_on_pressed"]
 [connection signal="pressed" from="btn_generate_report" to="btn_generate_report" method="_on_pressed"]
