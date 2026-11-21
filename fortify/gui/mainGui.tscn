@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://cawos1fu28udb" path="res://gui/btn_ask_ai.gd" id="6_vhp5f"]
 [ext_resource type="PackedScene" uid="uid://kq6vkbfxdmyq" path="res://gui/PopUps/networkToolPopup.tscn" id="9_duyse"]
 [ext_resource type="PackedScene" uid="uid://ddg712lq2m7jj" path="res://gui/PopUps/EncryptionPopup.tscn" id="11_or3jx"]
+[ext_resource type="Script" uid="uid://wld6tglbar10" path="res://gui/btn_generate_report.gd" id="12_gdwhq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_or3jx"]
 
