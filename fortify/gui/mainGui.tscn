@@ -138,6 +138,8 @@ offset_left = 5.0
 offset_top = 567.0
 offset_right = 355.0
 offset_bottom = 636.0
+theme_override_styles/normal = ExtResource("2_gdwhq")
+theme_override_styles/hover = ExtResource("3_26am0")
 text = "Generate Scan Report"
 script = ExtResource("12_gdwhq")
 
