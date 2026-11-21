@@ -1,15 +1,39 @@
 extends Control
 
 @onready var label = $output
+@onready var sidebar: PanelContainer =$Sidebar
+@onready var sidebar_toggle: Button = $SidebarToggle
+var sidebar_open := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	
+	sidebar_toggle.text = "☰"
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+
+
+
+func _on_sidebar_toggle_pressed() -> void:
+	_toggle_sidebar()
+
+func _toggle_sidebar() -> void:
+	sidebar_open = !sidebar_open
+	if sidebar_open:
+		sidebar_toggle.text = "◀"
+	else:
+		sidebar_toggle.text = "☰"
+	var tween = create_tween()
+	tween.tween_property(
+		sidebar,
+		"position:x",
+		0 if sidebar_open else -sidebar.size.x,
+		0.25
+	).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 
 func printToTerminal(input: String) -> void:
 	var popup_terminal: TextEdit = find_popup_terminal(get_tree().root)
