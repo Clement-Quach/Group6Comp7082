@@ -3,17 +3,16 @@
 [ext_resource type="Script" uid="uid://bhiomdhdkxyou" path="res://gui/main_gui.gd" id="1_4br7b"]
 [ext_resource type="PackedScene" uid="uid://41kb78luw8qh" path="res://gui/PopUps/fileBackupDialogue.tscn" id="2_1ds3b"]
 [ext_resource type="StyleBox" uid="uid://c4qio3npn010h" path="res://gui/Styleboxes/main_btn_style_box_flat.tres" id="2_gdwhq"]
-[ext_resource type="Script" path="res://gui/btn_popup_viruscheck.gd" id="2_ictiy"]
 [ext_resource type="StyleBox" uid="uid://7dsih1xnam6t" path="res://gui/Styleboxes/main_hover_btn_style_box_flat.tres" id="3_26am0"]
 [ext_resource type="PackedScene" uid="uid://6x0jd0yw800w" path="res://gui/PopUps/virusCheckPopup.tscn" id="3_duyse"]
+[ext_resource type="Script" path="res://gui/PopupBtn.gd" id="4_01tv1"]
 [ext_resource type="Script" uid="uid://rub6cp4sm88a" path="res://gui/btn_file_check.gd" id="5_mkyfa"]
 [ext_resource type="Script" uid="uid://cawos1fu28udb" path="res://gui/btn_ask_ai.gd" id="6_vhp5f"]
-[ext_resource type="Script" path="res://gui/btn_popup_backup.gd" id="7_3ukpp"]
-[ext_resource type="Script" path="res://gui/btn_popup_network.gd" id="8_1ds3b"]
 [ext_resource type="PackedScene" uid="uid://kq6vkbfxdmyq" path="res://gui/PopUps/networkToolPopup.tscn" id="9_duyse"]
-[ext_resource type="Script" path="res://gui/btn_popup_encryption.gd" id="10_42qyq"]
 [ext_resource type="PackedScene" uid="uid://ddg712lq2m7jj" path="res://gui/PopUps/EncryptionPopup.tscn" id="11_or3jx"]
 [ext_resource type="Script" path="res://gui/btn_generate_report.gd" id="12_gdwhq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_or3jx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_or3jx"]
 
@@ -36,8 +35,9 @@ size_flags_vertical = 4
 theme_override_styles/normal = ExtResource("2_gdwhq")
 theme_override_styles/hover = ExtResource("3_26am0")
 text = "check virus"
-script = ExtResource("2_ictiy")
+script = ExtResource("4_01tv1")
 popup_scene = ExtResource("3_duyse")
+onClickLog = "virus check clicked"
 
 [node name="BtnEncryption" type="Button" parent="." unique_id=516852594]
 layout_mode = 0
@@ -48,19 +48,9 @@ offset_bottom = 345.0
 theme_override_styles/normal = ExtResource("2_gdwhq")
 theme_override_styles/hover = ExtResource("3_26am0")
 text = "Encryption"
-script = ExtResource("10_42qyq")
+script = ExtResource("4_01tv1")
 popup_scene = ExtResource("11_or3jx")
-
-[node name="btn_generate_report" type="Button" parent="." unique_id=1882344464]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 567.0
-offset_right = 355.0
-offset_bottom = 636.0
-theme_override_styles/normal = ExtResource("2_gdwhq")
-theme_override_styles/hover = ExtResource("3_26am0")
-text = "Generate Scan Report"
-script = ExtResource("12_gdwhq")
+onClickLog = "encryption popup pressed"
 
 [node name="BtnAskAi" type="Button" parent="." unique_id=2059441810]
 layout_mode = 0
@@ -115,37 +105,36 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 4
 text = "check virus"
-script = ExtResource("2_ictiy")
+script = ExtResource("4_01tv1")
 popup_scene = ExtResource("3_duyse")
+onClickLog = "virus check popup pressed"
 
 [node name="BtnEncryption" type="Button" parent="Sidebar/VBoxContainer" unique_id=457839141]
 layout_mode = 2
 text = "Encryption"
-script = ExtResource("10_42qyq")
+script = ExtResource("4_01tv1")
 popup_scene = ExtResource("11_or3jx")
+onClickLog = "encryption popup pressed"
 
-[node name="BtnNetworkTools" type="Button" parent="Sidebar/VBoxContainer" unique_id=1920255085]
+[node name="BtnNetworkTools" type="Button" parent="Sidebar/VBoxContainer" unique_id=1132198112]
 layout_mode = 2
 size_flags_vertical = 4
 text = "Network Tools"
-script = ExtResource("8_1ds3b")
+script = ExtResource("4_01tv1")
 popup_scene = ExtResource("9_duyse")
+onClickLog = "network tools popup pressed"
 
-[node name="BtnFileBackup" type="Button" parent="Sidebar/VBoxContainer" unique_id=930562503]
+[node name="BtnFileBackup" type="Button" parent="Sidebar/VBoxContainer" unique_id=1034725411]
 layout_mode = 2
 size_flags_vertical = 4
 text = "File Backup"
-script = ExtResource("7_3ukpp")
+script = ExtResource("4_01tv1")
 popup_scene = ExtResource("2_1ds3b")
+onClickLog = "file backup popup pressed"
 
-[node name="BtnFileCheck" type="Button" parent="Sidebar/VBoxContainer" unique_id=1030303118]
+[node name="BtnFileCheck" type="Button" parent="Sidebar/VBoxContainer" unique_id=600767772]
 layout_mode = 2
 text = "File Integrity Check"
 script = ExtResource("5_mkyfa")
 
-[connection signal="pressed" from="BtnVirusCheck" to="BtnVirusCheck" method="_on_pressed"]
-[connection signal="pressed" from="BtnEncryption" to="BtnEncryption" method="_on_pressed"]
-[connection signal="pressed" from="btn_generate_report" to="btn_generate_report" method="_on_pressed"]
 [connection signal="pressed" from="SidebarToggle" to="." method="_on_sidebar_toggle_pressed"]
-[connection signal="pressed" from="Sidebar/VBoxContainer/BtnNetworkTools" to="Sidebar/VBoxContainer/BtnNetworkTools" method="_on_pressed"]
-[connection signal="pressed" from="Sidebar/VBoxContainer/BtnFileBackup" to="Sidebar/VBoxContainer/BtnFileBackup" method="_on_pressed"]
