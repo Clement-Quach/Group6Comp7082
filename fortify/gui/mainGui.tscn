@@ -104,12 +104,14 @@ size_flags_vertical = 4
 text = "check virus"
 script = ExtResource("4_01tv1")
 popup_scene = ExtResource("3_duyse")
+onClickLog = "virus check popup pressed"
 
 [node name="BtnEncryption" type="Button" parent="Sidebar/VBoxContainer" unique_id=457839141]
 layout_mode = 2
 text = "Encryption"
 script = ExtResource("4_01tv1")
 popup_scene = ExtResource("11_or3jx")
+onClickLog = "encryption popup pressed"
 
 [node name="BtnNetworkTools" type="Button" parent="Sidebar/VBoxContainer" unique_id=1132198112]
 layout_mode = 2
@@ -117,6 +119,7 @@ size_flags_vertical = 4
 text = "Network Tools"
 script = ExtResource("4_01tv1")
 popup_scene = ExtResource("9_duyse")
+onClickLog = "network tools popup pressed"
 
 [node name="BtnFileBackup" type="Button" parent="Sidebar/VBoxContainer" unique_id=1034725411]
 layout_mode = 2
@@ -124,6 +127,7 @@ size_flags_vertical = 4
 text = "File Backup"
 script = ExtResource("4_01tv1")
 popup_scene = ExtResource("2_1ds3b")
+onClickLog = "file backup popup pressed"
 
 [node name="BtnFileCheck" type="Button" parent="Sidebar/VBoxContainer" unique_id=600767772]
 layout_mode = 2
