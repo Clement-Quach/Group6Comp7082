@@ -1,78 +1,75 @@
 extends Node
 class_name tool_main
 
-var fileDialog: FileDialog
 
-@onready var virusCheck = virusCheckTool.new()
+@onready var virusCheck = $virusChecker
 @onready var gui = $"../Control"
 @onready var aiManager = AIManager.new()
 @onready var fileBackup:fileBackupManager = $FileBackupManager
 @onready var networkScanner:NetworkScanner = $NetworkScanner
 @onready var encryptor:Encryptor = $Encryptor
 
+@onready var fileDialogManager: FileDialogManager =$FileDialogManager
+
+
+
+
 func _ready() -> void:
 	#attach as children
-	add_child(virusCheck)
+
 	
 	add_child(aiManager)
 	
-	fileDialog = FileDialog.new()
-	add_child(fileDialog)
 
-	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
-	fileDialog.access = FileDialog.ACCESS_FILESYSTEM
 
-func _startFileDialog(filterArray: Array[String]) -> void:
-	# Clear previously added filters
-	fileDialog.filters.clear()
-
-	for filter in filterArray:
-		fileDialog.add_filter(filter)
-
-	fileDialog.popup_centered(Vector2i(800, 600))
-	
-func startSingleFileDialog(filterArray: Array[String]) -> void:
-	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
-	_startFileDialog(filterArray)
-	
-func startDirectoryDialog() -> void:
-	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_DIR
-	_startFileDialog([])
-	
-func startMultiFileDialog(filterArray: Array[String]) -> void:
-	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILES
-	_startFileDialog(filterArray)
-	
-func startAnyFileDialog(filterArray: Array[String]) -> void:
-	fileDialog.file_mode = FileDialog.FILE_MODE_OPEN_ANY
-	_startFileDialog(filterArray)
 	
 #VIRUS CHECK SECTION START ============================
 func checkForVirus() -> void:
-	startMultiFileDialog(["*.exe", "*.dll", "*.txt"])
+	var result: Dictionary = await fileDialogManager.openDialog(
+		FileDialog.FILE_MODE_OPEN_FILES,
+		["*.exe", "*.dll", "*.txt"]
+	)
 
-	var path:PackedStringArray = await fileDialog.files_selected
-	printToTerminal(virusCheck.checkVirus(path))
+	if result["cancelled"]:
+		return
+
+	var paths: PackedStringArray = result["paths"]
+	printToTerminal(virusCheck.checkVirus(paths))
 	
 func checkDirForVirus() -> void:
-	startDirectoryDialog()
-	
-	var path = await fileDialog.dir_selected
+	var result: Dictionary = await fileDialogManager.openDialog(
+		FileDialog.FILE_MODE_OPEN_DIR
+	)
+
+	if result["cancelled"]:
+		return
+
+	var path: String = result["path"]
 	printToTerminal(virusCheck.checkDirectory(path))
 	
 	
 func addFileAsVirus() -> void:
-	startSingleFileDialog(["*.exe", "*.dll", "*.txt"])
+	var result: Dictionary = await fileDialogManager.openDialog(
+		FileDialog.FILE_MODE_OPEN_FILE,
+		["*.exe", "*.dll", "*.txt"]
+	)
 
-	var path: String = await fileDialog.file_selected
-	virusCheck.addFileAsVirus(path)
+	if result["cancelled"]:
+		return
+
+	virusCheck.addFileAsVirus(result["path"])
 
 # dialog to chose a file to unlock
 func restoreFile() -> void:
-	startSingleFileDialog(["*.quarantine"])
+	var result: Dictionary = await fileDialogManager.openDialog(
+		FileDialog.FILE_MODE_OPEN_FILE,
+		["*.quarantine"]
+	)
 
-	var path: String = await fileDialog.file_selected
-	virusCheck.unlockFile(path)
+	if result["cancelled"]:
+		return
+
+	virusCheck.unlockFile(result["path"])
 	
 
 func updateDefinitions() -> void:
@@ -118,29 +115,44 @@ func generateReport() -> void:
 
 #FILE BACKUP SECTION START =======================
 func compressFile():
-	startSingleFileDialog([""])
-	
-	var path: String = await fileDialog.file_selected
-	fileBackup.create_backup(path)
+	var result: Dictionary = await fileDialogManager.openDialog(
+		FileDialog.FILE_MODE_OPEN_FILE
+	)
+
+	if result["cancelled"]:
+		printToTerminal("file backup cancelled")
+		return
+
+	fileBackup.create_backup(result["path"])
 	
 #restores a file
 func decompressFile():
-	startSingleFileDialog([""])
-	
-	#only allow .bak files
-	var path: String = await fileDialog.file_selected
+	var result: Dictionary = await fileDialogManager.openDialog(
+		FileDialog.FILE_MODE_OPEN_FILE
+	)
+
+	if result["cancelled"]:
+		return
+
+	var path: String = result["path"]
+
 	if path.get_extension().to_lower() == "bak":
 		printToTerminal("Cannot select .bak files for this operation.\n")
 		return
-		
+
 	fileBackup.restore_by_backup(path)
 
-#takes a backup and unpacks it
+#takes a backup and unzips it into a new copy of the backup. used for if you have a backup and no original
 func unpackFile():
-	startSingleFileDialog(["*.bak_*"])
-	
-	var path: String = await fileDialog.file_selected
-	fileBackup.restore_from_backup(path)
+	var result: Dictionary = await fileDialogManager.openDialog(
+		FileDialog.FILE_MODE_OPEN_FILE,
+		["*.bak_*"]
+	)
+
+	if result["cancelled"]:
+		return
+
+	fileBackup.restore_from_backup(result["path"])
 
 
 #FILE BACKUP SECTION END =========================
@@ -167,24 +179,42 @@ func runFullScan() -> Dictionary:
 
 #ENCRYPTION SECTION START
 func encrypt(password: String):
-	startSingleFileDialog([""])
-	
-	var path: String = await fileDialog.file_selected
-	encryptor.encrypt_file(path, password, (path + ".fencrypt"))
+	var result: Dictionary = await fileDialogManager.openDialog(
+		FileDialog.FILE_MODE_OPEN_FILE
+	)
+
+	if result["cancelled"]:
+		return
+
+	var path: String = result["path"]
+	encryptor.encrypt_file(path, password, path + ".fencrypt")
 	
 func decrypt(password: String):
-	startSingleFileDialog([""])
-	
-	var path: String = await fileDialog.file_selected
-	encryptor.decrypt_file(path, password, (path + ".dat"))
+	var result: Dictionary = await fileDialogManager.openDialog(
+		FileDialog.FILE_MODE_OPEN_FILE
+	)
+
+	if result["cancelled"]:
+		return
+
+	var path: String = result["path"]
+	encryptor.decrypt_file(path, password, path + ".dat")
 
 func encrypt_in_place(password: String):
-	startSingleFileDialog([""])
-	
-	var path: String = await fileDialog.file_selected
-	encryptor.encrypt_file(path, password)
+	var result: Dictionary = await fileDialogManager.openDialog(
+		FileDialog.FILE_MODE_OPEN_FILE
+	)
+
+	if result["cancelled"]:
+		return
+
+	encryptor.encrypt_file(result["path"], password)
 func decrypt_in_place(password: String):
-	startSingleFileDialog([""])
-	
-	var path: String = await fileDialog.file_selected
-	encryptor.decrypt_file(path, password)
+	var result: Dictionary = await fileDialogManager.openDialog(
+		FileDialog.FILE_MODE_OPEN_FILE
+	)
+
+	if result["cancelled"]:
+		return
+
+	encryptor.decrypt_file(result["path"], password)
