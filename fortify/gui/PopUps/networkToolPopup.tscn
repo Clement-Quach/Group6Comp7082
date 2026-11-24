@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dgcs1ilf0jl1e" path="res://gui/btn_scan_port.gd" id="1_02rxf"]
 [ext_resource type="Script" uid="uid://cat24grm1s738" path="res://gui/btn_scan_network.gd" id="1_2xfok"]
+[ext_resource type="Theme" uid="uid://doma5pg8wcoit" path="res://gui/Styleboxes/main_theme.tres" id="1_fxiwu"]
 [ext_resource type="Script" uid="uid://7at4rkcr5equ" path="res://gui/PopUps/popupExit.gd" id="1_qdfca"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hyp1n"]
@@ -13,6 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_fxiwu")
 
 [node name="Panel" type="Panel" parent="." unique_id=818158925]
 layout_mode = 0
@@ -54,7 +56,7 @@ offset_left = 450.0
 offset_top = 144.0
 offset_right = 894.0
 offset_bottom = 371.0
-text = "Text display box"
+placeholder_text = "Text display box"
 editable = false
 wrap_mode = 1
 

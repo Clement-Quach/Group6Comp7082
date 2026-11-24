@@ -17,6 +17,10 @@
 [ext_resource type="Texture2D" uid="uid://dii35vjyvec1a" path="res://assets/icons/file-backup.svg" id="13_thxfq"]
 [ext_resource type="Texture2D" uid="uid://dtxbmaxs8hfl0" path="res://assets/icons/file-integrity.svg" id="15_thxfq"]
 
+[sub_resource type="Theme" id="Theme_thxfq"]
+Button/styles/hover = ExtResource("3_26am0")
+Button/styles/normal = ExtResource("2_gdwhq")
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_or3jx"]
 
 [node name="Control" type="Control" unique_id=44630022]
@@ -24,8 +28,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = 23.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_thxfq")
 script = ExtResource("1_4br7b")
 
 [node name="BtnVirusCheck" type="Button" parent="." unique_id=1574892675]
