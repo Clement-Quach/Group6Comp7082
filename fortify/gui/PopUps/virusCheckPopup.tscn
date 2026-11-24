@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://6x0jd0yw800w"]
 
+[ext_resource type="Theme" uid="uid://niwv3juw0yu4" path="res://gui/Styleboxes/main_theme.tres" id="1_jh3ru"]
 [ext_resource type="Script" uid="uid://c65o6gbk4nmhu" path="res://gui/btn_check_virus.gd" id="1_p2a5u"]
 [ext_resource type="Script" uid="uid://7at4rkcr5equ" path="res://gui/PopUps/popupExit.gd" id="1_vh05x"]
 [ext_resource type="Script" uid="uid://xpjaahj1ew7t" path="res://gui/tmp_btn_add_virus.gd" id="2_jwgqa"]
@@ -16,6 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_jh3ru")
 
 [node name="Panel" type="Panel" parent="." unique_id=818158925]
 layout_mode = 0

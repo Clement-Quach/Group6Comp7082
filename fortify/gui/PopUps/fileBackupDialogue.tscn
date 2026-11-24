@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://41kb78luw8qh"]
 
+[ext_resource type="Theme" uid="uid://niwv3juw0yu4" path="res://gui/Styleboxes/main_theme.tres" id="1_4tttx"]
 [ext_resource type="Script" uid="uid://7at4rkcr5equ" path="res://gui/PopUps/popupExit.gd" id="1_opwte"]
 [ext_resource type="Script" uid="uid://bnt0f4tyr7rto" path="res://gui/btn_file_restore_backup.gd" id="1_ra0ir"]
 [ext_resource type="Script" uid="uid://n5kvphphro6v" path="res://gui/btn_file_backup.gd" id="2_2ubql"]
@@ -14,6 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_4tttx")
 
 [node name="Panel" type="Panel" parent="." unique_id=818158925]
 layout_mode = 0
