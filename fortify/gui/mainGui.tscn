@@ -5,14 +5,11 @@
 [ext_resource type="StyleBox" uid="uid://c4qio3npn010h" path="res://gui/Styleboxes/main_btn_style_box_flat.tres" id="2_gdwhq"]
 [ext_resource type="StyleBox" uid="uid://7dsih1xnam6t" path="res://gui/Styleboxes/main_hover_btn_style_box_flat.tres" id="3_26am0"]
 [ext_resource type="PackedScene" uid="uid://6x0jd0yw800w" path="res://gui/PopUps/virusCheckPopup.tscn" id="3_duyse"]
-[ext_resource type="Script" path="res://gui/PopupBtn.gd" id="4_01tv1"]
+[ext_resource type="Script" uid="uid://12da2l1jqigk" path="res://gui/PopupBtn.gd" id="4_01tv1"]
 [ext_resource type="Script" uid="uid://rub6cp4sm88a" path="res://gui/btn_file_check.gd" id="5_mkyfa"]
 [ext_resource type="Script" uid="uid://cawos1fu28udb" path="res://gui/btn_ask_ai.gd" id="6_vhp5f"]
 [ext_resource type="PackedScene" uid="uid://kq6vkbfxdmyq" path="res://gui/PopUps/networkToolPopup.tscn" id="9_duyse"]
 [ext_resource type="PackedScene" uid="uid://ddg712lq2m7jj" path="res://gui/PopUps/EncryptionPopup.tscn" id="11_or3jx"]
-[ext_resource type="Script" path="res://gui/btn_generate_report.gd" id="12_gdwhq"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_or3jx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_or3jx"]
 
@@ -137,4 +134,5 @@ layout_mode = 2
 text = "File Integrity Check"
 script = ExtResource("5_mkyfa")
 
+[connection signal="pressed" from="BtnAskAi" to="BtnAskAi" method="_on_pressed"]
 [connection signal="pressed" from="SidebarToggle" to="." method="_on_sidebar_toggle_pressed"]

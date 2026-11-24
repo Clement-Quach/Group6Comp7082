@@ -89,6 +89,7 @@ func ask(prompt: String, system_prompt: String = CHAT_SYSTEM) -> String:
 
 # Sends the scan results to ai to generate the report
 func generateReport(log_text: String) -> String:
+	
 	if log_text.strip_edges().is_empty():
 		return "The scan log is empty. Run a scan first."
 	# check if the scan results text file goes over the maximum characters for log,
