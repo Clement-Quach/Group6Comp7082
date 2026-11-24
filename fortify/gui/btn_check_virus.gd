@@ -10,5 +10,5 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 func _on_pressed() -> void:
-	GlobalLogger.InfoLog("file_backup_restore_button pressed")
+	GlobalLogger.InfoLog("virus check button pressed")
 	tools.checkForVirus()

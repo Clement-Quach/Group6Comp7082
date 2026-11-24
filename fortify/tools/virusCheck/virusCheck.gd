@@ -11,11 +11,13 @@ const EXT = ".quarantine"
 const INDEX_PATH = "user://quarantine_index.json"
 
 
-func checkVirus(filepaths: PackedStringArray) -> void:
+func checkVirus(filepaths: PackedStringArray) -> String:
+	var output:String = ""
 	for path in filepaths:
 		# Check that the file exists
 		if not FileAccess.file_exists(path):
 			toolMain.printToTerminal("file not found: " + path + "\n")
+			output += "file not found: " + path + "\n"
 			continue
 
 		# Calculate the file's hash
@@ -30,20 +32,52 @@ func checkVirus(filepaths: PackedStringArray) -> void:
 				var msg := "virus found: %s (%s, %s)" % [path, res["name"], where]
 				print(msg)
 				GlobalLogger.InfoLog(msg + "\n")
-				GlobalLogger.resultLog(msg + "\n")
-				toolMain.printToTerminal(msg + "\n")
+				#toolMain.printToTerminal(msg + "\n")
+				output += msg
 				lockFile(path)
 			virusDB.Verdict.WHITELISTED:
 				print("virus false (whitelisted): " + path)
 				GlobalLogger.InfoLog("virus false (whitelisted) " + path + "\n")
-				GlobalLogger.resultLog("virus false (whitelisted) " + path + "\n")
 				toolMain.printToTerminal("virus false (whitelisted): " + path + "\n")
 			_:
 				print("virus false: " + path)
 				GlobalLogger.InfoLog("virus false " + path + "\n")
-				GlobalLogger.resultLog("virus false, no hash hit " + path + "\n")
-				toolMain.printToTerminal("virus false: " + path + "\n")
+				#toolMain.printToTerminal("virus false: " + path + "\n")
+				output +="virus false: " + path + "\n"
+	return output
 
+func checkDirectory(directory: String) -> String:
+	var output: String = ""
+
+	var dir := DirAccess.open(directory)
+
+	if dir == null:
+		var msg := "failed to open directory: " + directory
+		toolMain.printToTerminal(msg + "\n")
+		return msg + "\n"
+
+	dir.list_dir_begin()
+
+	var file_name := dir.get_next()
+
+	while file_name != "":
+		# Skip hidden/system navigation entries
+		if file_name == "." or file_name == "..":
+			file_name = dir.get_next()
+			continue
+
+		var full_path := directory.path_join(file_name)
+
+		# Recursively scan subdirectories
+		if dir.current_is_dir():
+			output += checkDirectory(full_path)
+		else:
+			output += checkVirus([full_path])
+
+		file_name = dir.get_next()
+
+	dir.list_dir_end()
+	return output
 
 ## Flag a file as malware (adds its hash to YOUR database).
 func addFileAsVirus(filepath: String) -> void:
