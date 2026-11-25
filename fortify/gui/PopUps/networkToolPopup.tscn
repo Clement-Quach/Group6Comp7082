@@ -28,7 +28,7 @@ offset_left = 352.0
 offset_top = 2.0
 offset_right = 683.0
 offset_bottom = 101.0
-text = "network tools"
+text = "Network tools"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -38,6 +38,7 @@ offset_left = 75.0
 offset_top = 214.0
 offset_right = 213.0
 offset_bottom = 285.0
+tooltip_text = "See what can come and go from your computer"
 text = "Scan Ports"
 script = ExtResource("1_02rxf")
 
@@ -47,6 +48,7 @@ offset_left = 75.0
 offset_top = 119.0
 offset_right = 213.0
 offset_bottom = 190.0
+tooltip_text = "Check who is on your wifi"
 text = "Scan Network"
 script = ExtResource("1_2xfok")
 

@@ -31,6 +31,7 @@ offset_left = 75.0
 offset_top = 119.0
 offset_right = 213.0
 offset_bottom = 190.0
+tooltip_text = "Check if a file has a virus"
 text = "Check Virus"
 script = ExtResource("1_p2a5u")
 
@@ -59,6 +60,7 @@ offset_left = 76.0
 offset_top = 303.0
 offset_right = 214.0
 offset_bottom = 374.0
+tooltip_text = "Take a file out of quarantine"
 text = "Remove Hash"
 script = ExtResource("3_haaw6")
 
@@ -96,6 +98,7 @@ offset_left = 76.0
 offset_top = 386.0
 offset_right = 214.0
 offset_bottom = 457.0
+tooltip_text = "See if a folder has a virus inside of it"
 text = "Check Directory"
 script = ExtResource("6_io4sa")
 

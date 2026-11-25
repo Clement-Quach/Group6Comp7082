@@ -41,6 +41,7 @@ offset_top = 37.0
 offset_right = 352.0
 offset_bottom = 187.0
 size_flags_vertical = 4
+tooltip_text = "Choose a file and scan it for a virus"
 theme_override_styles/normal = ExtResource("2_gdwhq")
 theme_override_styles/hover = ExtResource("3_26am0")
 text = "check virus"
@@ -54,6 +55,7 @@ offset_left = 1.0
 offset_top = 195.0
 offset_right = 351.0
 offset_bottom = 345.0
+tooltip_text = "Lock or unlock a file with a password"
 theme_override_styles/normal = ExtResource("2_gdwhq")
 theme_override_styles/hover = ExtResource("3_26am0")
 text = "Encryption"
@@ -67,6 +69,7 @@ offset_left = 3.0
 offset_top = 353.0
 offset_right = 353.0
 offset_bottom = 478.0
+tooltip_text = "Click to send your message to our AI"
 theme_override_styles/normal = ExtResource("2_gdwhq")
 theme_override_styles/hover = ExtResource("3_26am0")
 text = "Ask AI"
@@ -124,6 +127,7 @@ layout_mode = 2
 [node name="BtnVirusCheck" type="Button" parent="Sidebar/VBoxContainer" unique_id=805269481]
 layout_mode = 2
 size_flags_vertical = 4
+tooltip_text = "Choose a file and scan it for a virus"
 text = "check virus"
 icon = ExtResource("9_26am0")
 script = ExtResource("4_01tv1")
@@ -132,6 +136,7 @@ onClickLog = "virus check popup pressed"
 
 [node name="BtnEncryption" type="Button" parent="Sidebar/VBoxContainer" unique_id=457839141]
 layout_mode = 2
+tooltip_text = "Lock or unlock a file with a password"
 text = "Encryption"
 icon = ExtResource("10_01tv1")
 script = ExtResource("4_01tv1")
@@ -141,6 +146,7 @@ onClickLog = "encryption popup pressed"
 [node name="BtnNetworkTools" type="Button" parent="Sidebar/VBoxContainer" unique_id=1132198112]
 layout_mode = 2
 size_flags_vertical = 4
+tooltip_text = "See who's on your wifi, or what comes and goes from your computer"
 text = "Network Tools"
 icon = ExtResource("11_tmc8b")
 script = ExtResource("4_01tv1")
@@ -150,6 +156,7 @@ onClickLog = "network tools popup pressed"
 [node name="BtnFileBackup" type="Button" parent="Sidebar/VBoxContainer" unique_id=1034725411]
 layout_mode = 2
 size_flags_vertical = 4
+tooltip_text = "Make a backup of a file that you dont want to lose"
 text = "File Backup"
 icon = ExtResource("13_thxfq")
 script = ExtResource("4_01tv1")
@@ -158,6 +165,7 @@ onClickLog = "file backup popup pressed"
 
 [node name="BtnFileCheck" type="Button" parent="Sidebar/VBoxContainer" unique_id=600767772]
 layout_mode = 2
+tooltip_text = "Check if your file has been changed since last time"
 text = "File Integrity Check"
 icon = ExtResource("15_thxfq")
 script = ExtResource("5_mkyfa")
