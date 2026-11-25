@@ -21,8 +21,12 @@ Godot dialog --writes--> schedule.json <--reads-- integrity_scheduler.py --launc
 
 ## Requirements
 - Python 3.9+ on PATH.
-- `godot_executable_path` in the dialog must be the Godot **console** build
-  (`Godot_v4.x-stable_win64_console.exe`), not the game and not `main.tscn`.
+- Godot is **auto-detected** (`godot_locator.py`). Each candidate is verified with `--version`; the first
+  that works is used. Order: `godot_executable_path` from the dialog, `GODOT_PATH` env var, `godot`/`godot4`
+  on PATH, then common install folders. On Windows the `*_console.exe` build next to a candidate is
+  preferred, and a console wrapper whose `Godot_v4.x-stable_win64.exe` is missing is skipped. If the
+  configured path is unusable the scheduler logs a warning and uses what it found; if nothing works the
+  error lists every path tried.
 - The Godot project must have been opened in the editor at least once (so `.godot/` exists).
 
 ## Run it manually

@@ -25,6 +25,7 @@ HERE = Path(__file__).resolve().parent
 if str(HERE) not in sys.path:  # allow launching from any working directory / in isolated mode
     sys.path.insert(0, str(HERE))
 
+import godot_locator  # noqa: E402
 import schedule_logic as sl  # noqa: E402
 
 DEFAULT_PROJECT = HERE.parents[2]          # .../fortify  (scheduler -> fileIntegrityCheck -> tools -> fortify)
@@ -40,9 +41,9 @@ log = logging.getLogger("integrity_scheduler")
 
 # ───────────────────────── running Godot ─────────────────────────
 
-def build_command(schedule: sl.Schedule, project_dir: Path) -> list[str]:
+def build_command(schedule: sl.Schedule, project_dir: Path, exe: str | Path | None = None) -> list[str]:
     cmd = [
-        schedule.godot_executable_path,
+        str(exe) if exe else schedule.godot_executable_path,
         "--headless",
         "--path", str(project_dir),
         "--script", RUNNER_SCRIPT,
@@ -55,17 +56,23 @@ def build_command(schedule: sl.Schedule, project_dir: Path) -> list[str]:
 
 def run_godot(schedule: sl.Schedule, project_dir: Path, timeout: int) -> int | None:
     """Run the headless check. Returns Godot's exit code, or None if it could not run."""
-    exe = Path(schedule.godot_executable_path) if schedule.godot_executable_path else None
-    if exe is None or not exe.is_file():
-        log.error("Godot executable not found: %r (set it in the Schedule dialog)", schedule.godot_executable_path)
+    configured = schedule.godot_executable_path
+    exe, rejected = godot_locator.resolve_godot(configured)
+    if exe is None:
+        tried = "\n".join(f"  {p} -> {why}" for p, why in rejected) or "  (no candidates)"
+        log.error("No working Godot executable found (configured: %r). Tried:\n%s\n"
+                  "Set the path in the Schedule dialog or the GODOT_PATH environment variable.", configured, tried)
         return None
+    if not configured or os.path.normcase(str(exe)) != os.path.normcase(str(Path(configured))):
+        skipped = "".join(f"\n  skipped {p}: {why}" for p, why in rejected)
+        log.warning("Configured Godot %r is not usable; using %s instead%s", configured, exe, skipped)
     if not (project_dir / "project.godot").is_file():
         log.error("Not a Godot project folder (no project.godot): %s", project_dir)
         return None
     if "console" not in exe.name.lower():
         log.warning("%s is not the *_console.exe build; exit code/output may be unavailable", exe.name)
 
-    cmd = build_command(schedule, project_dir)
+    cmd = build_command(schedule, project_dir, exe)
     log.info("Launching: %s", " ".join(f'"{c}"' if " " in c else c for c in cmd))
     try:
         proc = subprocess.run(
