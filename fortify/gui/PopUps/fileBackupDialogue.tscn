@@ -25,10 +25,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_ra0ir")
 
 [node name="popupTerminal" type="TextEdit" parent="Panel" unique_id=1934180953]
 layout_mode = 0
-offset_left = 461.0
-offset_top = 130.0
-offset_right = 905.0
-offset_bottom = 357.0
+offset_left = 400.0
+offset_top = 100.0
+offset_right = 1000.0
+offset_bottom = 500.0
 editable = false
 wrap_mode = 1
 

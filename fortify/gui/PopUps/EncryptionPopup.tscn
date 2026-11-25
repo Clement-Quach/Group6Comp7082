@@ -54,10 +54,10 @@ script = ExtResource("1_npa6s")
 
 [node name="popupTerminal" type="TextEdit" parent="Panel" unique_id=193258238]
 layout_mode = 0
-offset_left = 450.0
-offset_top = 144.0
-offset_right = 894.0
-offset_bottom = 371.0
+offset_left = 400.0
+offset_top = 100.0
+offset_right = 1000.0
+offset_bottom = 500.0
 placeholder_text = "Text display box"
 editable = false
 wrap_mode = 1
