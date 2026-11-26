@@ -1,5 +1,5 @@
 class_name virusDB
-extends RefCounted
+extends Node
 ## Black box for ALL signature data. virusCheck only talks to this class.
 ##
 ## It owns three databases (all stored in user://dbs/):

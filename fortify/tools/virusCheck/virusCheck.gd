@@ -2,16 +2,10 @@ extends Node
 class_name virusCheckTool
 
 @onready var toolMain:tool_main = $".."
-var database := virusDB.new()
-var quarantine := virusQuarantine.new()
+@export var database:virusDB
+@export var quarantine:virusQuarantineTool
 var suspicionDetector := SuspiciousStringDetector.new()
 var entropyDetector:= EntropyChecker.new()
-
-## Extension that is added to files to lock them in windows
-const EXT = ".quarantine"
-
-## Saves file permissions for locked linux files
-const INDEX_PATH = "user://quarantine_index.json"
 
 
 func checkVirus(filepaths: PackedStringArray) -> String:

@@ -1,28 +1,24 @@
 extends Node
 class_name tool_main
 
-
-@onready var virusCheck = $virusChecker
 @onready var gui = $"../Control"
-@onready var aiManager = AIManager.new()
-@onready var fileBackup:fileBackupManager = $FileBackupManager
-@onready var networkScanner:NetworkScanner = $NetworkScanner
-@onready var encryptor:Encryptor = $Encryptor
+@onready var fileDialogManager:FileDialogManager =$FileDialogManager
 
-@onready var fileDialogManager: FileDialogManager =$FileDialogManager
-
-
-
-
-func _ready() -> void:
-	#attach as children
-
-	
-	add_child(aiManager)
-	
+@export var aiManager:AIManager
+@export var encryptor:Encryptor
+@export var fileBackup:fileBackupManager
+@export var networkScanner:NetworkScanner
+@export var virusCheck:virusCheckTool
+@export var virusDatabase:virusDB
+@export var virusQuarantine:virusQuarantineTool
 
 
-	
+
+
+func printToTerminal(string: String) ->void:
+	gui.printToTerminal(string)
+
+
 #VIRUS CHECK SECTION START ============================
 func checkForVirus() -> void:
 	var result: Dictionary = await fileDialogManager.openDialog(
@@ -76,11 +72,9 @@ func updateDefinitions() -> void:
 	printToTerminal("Attempting to pull definition updates\n")
 	virusCheck.updateOfficialDatabase()
 
-
 #VIRUS CHECK SECTION END ============================
 
-func printToTerminal(string: String) ->void:
-	gui.printToTerminal(string)
+
 
 #AI SECTION START ========================
 # sends the prompt to the ai manager, and prints the results

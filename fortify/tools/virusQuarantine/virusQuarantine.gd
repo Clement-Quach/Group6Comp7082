@@ -1,5 +1,5 @@
 extends Node
-class_name virusQuarantine
+class_name virusQuarantineTool
 
 ## Extension that is added to files to lock them in windows
 const EXT = ".quarantine"
