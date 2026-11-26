@@ -37,9 +37,8 @@ func checkVirus(filepaths: PackedStringArray) -> String:
 				msg = "virus found: %s (%s, %s)" % [path, res["name"], where]
 				print(msg)
 				GlobalLogger.InfoLog(msg + "\n")
-				#toolMain.printToTerminal(msg + "\n")
 				output += msg
-				lockFile(path)
+				quarantine.lockFile(path)
 			virusDB.Verdict.WHITELISTED:
 				print("virus false (whitelisted): " + path)
 				GlobalLogger.InfoLog("virus false (whitelisted) " + path + "\n")
@@ -47,7 +46,6 @@ func checkVirus(filepaths: PackedStringArray) -> String:
 			_:
 				print("virus false: " + path)
 				GlobalLogger.InfoLog("virus false " + path + "\n")
-				#toolMain.printToTerminal("virus false: " + path + "\n")
 				output +="virus false: " + path + "\n"
 	
 		output += susRes
@@ -87,7 +85,7 @@ func checkDirectory(directory: String) -> String:
 	dir.list_dir_end()
 	return output
 
-## Flag a file as malware (adds its hash to YOUR database).
+## TODO: remove this function once hash function location gets sorted out
 func addFileAsVirus(filepath: String) -> void:
 	match database.add_user_hash(hash_file(filepath), "UserAdded." + filepath.get_file()):
 		OK:
@@ -127,74 +125,3 @@ func hash_file(path: String) -> String:
 	ctx.update(data)
 
 	return ctx.finish().hex_encode()
-
-
-# ---------------------------------------------------------------------------
-# Quarantine
-# ---------------------------------------------------------------------------
-
-func lockFile(path: String) -> void:
-	var res = quarantine.lockFile(path)
-
-	if res != OK:
-		toolMain.printToTerminal("Failed to lock file: " + res)
-	else:
-		toolMain.printToTerminal("Locked file: " + path)
-		
-
-
-func unlockFile(path: String) -> void:
-	var res = quarantine.unlockFile(path)
-
-	if res != OK:
-		toolMain.printToTerminal("Failed to unlock file: " + res)
-	else:
-		toolMain.printToTerminal("Locked file: " + path)
-
-
-
-
-# ---------------------------------------------------------------------------
-# Info for the UI
-# ---------------------------------------------------------------------------
-
-## Signatures that can flag a file (official + user). Whitelist is separate.
-func get_size() -> int:
-	return database.size()
-
-func get_official_size() -> int:
-	return database.official_size()
-
-func get_user_size() -> int:
-	return database.user_size()
-
-func get_whitelist_size() -> int:
-	return database.whitelist_size()
-
-## Unix time of the official database build that is installed (0 = none yet).
-func get_last_update() -> int:
-	return database.get_official_version()
-
-
-# ---------------------------------------------------------------------------
-# Official database updates (from GitHub)
-# ---------------------------------------------------------------------------
-# Runs on its own at startup and every UPDATE_CHECK_INTERVAL (see _ready).
-# You can also call it yourself, e.g. from an "Update now" button:
-#
-#     var r: Dictionary = await virusCheckNode.updateOfficialDatabase()
-#     var r: Dictionary = await virusCheckNode.updateOfficialDatabase(true)   # force re-download
-#
-# r = {error, message, updated, local_version, remote_version}
-
-func updateOfficialDatabase(force: bool = true) -> Dictionary:
-	var r: Dictionary = await database.update_official(self, force)
-	if r["error"] != OK:
-		GlobalLogger.InfoLog("database update failed: " + r["message"] + "\n")
-		GlobalLogger.resultLog("virus hash database update failed: " + "\n")
-		toolMain.printToTerminal("database update failed: " + r["message"] + "\n")
-	else:
-		GlobalLogger.InfoLog(r["message"] + "\n")
-		GlobalLogger.resultLog("virus hash database success" + r["message"] + "\n")
-		toolMain.printToTerminal(r["message"] + "\n")
-	return r

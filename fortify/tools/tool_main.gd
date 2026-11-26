@@ -42,8 +42,9 @@ func checkDirForVirus() -> void:
 
 	var path: String = result["path"]
 	printToTerminal(virusCheck.checkDirectory(path))
+#VIRUS CHECK SECTION END ============================
 	
-	
+#VIRUS DATABASE SECTION START ============================
 func addFileAsVirus() -> void:
 	var result: Dictionary = await fileDialogManager.openDialog(
 		FileDialog.FILE_MODE_OPEN_FILE,
@@ -53,9 +54,32 @@ func addFileAsVirus() -> void:
 	if result["cancelled"]:
 		return
 
-	virusCheck.addFileAsVirus(result["path"])
+	virusCheck.addFileAsVirus(result["path"]) # TODO change to virusDB
+	
 
-# dialog to chose a file to unlock
+func updateDefinitions() -> void:
+	printToTerminal("Attempting to pull definition updates\n")
+	var r: Dictionary = await virusDatabase.update_official(self, false)
+	if r["error"] != OK:
+		GlobalLogger.InfoLog("database update failed: " + r["message"] + "\n")
+		printToTerminal("database update failed: " + r["message"] + "\n")
+	else:
+		GlobalLogger.InfoLog(r["message"] + "\n")
+		printToTerminal(r["message"] + "\n")
+#VIRUS DATABASE SECTION END ============================
+
+#VIRUS QUARANTINE SECTION START ============================
+func lockFile() -> void:
+	var result: Dictionary = await fileDialogManager.openDialog(
+		FileDialog.FILE_MODE_OPEN_FILE,
+		["*.exe", "*.dll", "*.txt"]
+	)
+
+	if result["cancelled"]:
+		return
+
+	virusQuarantine.lockFile(result["path"])
+
 func restoreFile() -> void:
 	var result: Dictionary = await fileDialogManager.openDialog(
 		FileDialog.FILE_MODE_OPEN_FILE,
@@ -65,15 +89,8 @@ func restoreFile() -> void:
 	if result["cancelled"]:
 		return
 
-	virusCheck.unlockFile(result["path"])
-	
-
-func updateDefinitions() -> void:
-	printToTerminal("Attempting to pull definition updates\n")
-	virusCheck.updateOfficialDatabase()
-
-#VIRUS CHECK SECTION END ============================
-
+	virusQuarantine.unlockFile(result["path"])
+#VIRUS QUARANTINE SECTION END ============================
 
 
 #AI SECTION START ========================
