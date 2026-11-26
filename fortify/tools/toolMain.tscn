@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c1b5jm22kuguj" path="res://tools/fileBackup/fileBackupManager.tscn" id="2_0q0j2"]
 [ext_resource type="Script" uid="uid://d2h2y354qs60o" path="res://tools/virusCheck/virusCheck.gd" id="2_c82mj"]
 [ext_resource type="PackedScene" uid="uid://v687es6c0xjp" path="res://tools/networkScan/networkScanner.tscn" id="4_i55am"]
+[ext_resource type="Script" uid="uid://dkrtq507vaog3" path="res://tools/FileDialogManager/FileDialogManager.gd" id="6_4mdkh"]
 
 [node name="ToolMain" type="Node" unique_id=1184258772]
 script = ExtResource("1_vtc64")
@@ -17,3 +18,6 @@ script = ExtResource("1_vtc64")
 script = ExtResource("2_c82mj")
 
 [node name="NetworkScanner" parent="." unique_id=1446364106 instance=ExtResource("4_i55am")]
+
+[node name="FileDialogManager" type="Node" parent="." unique_id=863907797]
+script = ExtResource("6_4mdkh")
