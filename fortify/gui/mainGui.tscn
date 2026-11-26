@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dq1a14dj1csci"]
 
 [ext_resource type="Script" uid="uid://bhiomdhdkxyou" path="res://gui/main_gui.gd" id="1_4br7b"]
+[ext_resource type="Theme" uid="uid://niwv3juw0yu4" path="res://gui/Styleboxes/main_theme.tres" id="1_gdwhq"]
 [ext_resource type="PackedScene" uid="uid://41kb78luw8qh" path="res://gui/PopUps/fileBackupDialogue.tscn" id="2_1ds3b"]
 [ext_resource type="StyleBox" uid="uid://c4qio3npn010h" path="res://gui/Styleboxes/main_btn_style_box_flat.tres" id="2_gdwhq"]
 [ext_resource type="StyleBox" uid="uid://7dsih1xnam6t" path="res://gui/Styleboxes/main_hover_btn_style_box_flat.tres" id="3_26am0"]
@@ -21,6 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_gdwhq")
 script = ExtResource("1_4br7b")
 
 [node name="BtnVirusCheck" type="Button" parent="." unique_id=1574892675]

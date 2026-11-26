@@ -18,7 +18,7 @@ func encrypt_file(path: String, password: String, output_path: String = "") -> E
 	output.store_buffer(data)
 	output.close()
 	
-	toolMain.printToTerminal("file encrypted: " + output_path)
+	toolMain.printToTerminal("file encrypted, placed at: " + destination)
 	return OK
 
 

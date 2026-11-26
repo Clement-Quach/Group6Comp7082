@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cv4mcbciqecw0"]
 
 [ext_resource type="Script" uid="uid://7at4rkcr5equ" path="res://gui/PopUps/popupExit.gd" id="1_hyp1n"]
+[ext_resource type="Theme" uid="uid://niwv3juw0yu4" path="res://gui/Styleboxes/main_theme.tres" id="1_wmn42"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hyp1n"]
 
@@ -11,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_wmn42")
 
 [node name="Panel" type="Panel" parent="." unique_id=818158925]
 layout_mode = 0

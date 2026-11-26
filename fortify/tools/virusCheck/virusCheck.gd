@@ -4,6 +4,15 @@ class_name virusCheckTool
 @onready var toolMain:tool_main = $".."
 var database := virusDB.new()
 var quarantine := virusQuarantine.new()
+var suspicionDetector := SuspiciousStringDetector.new()
+var entropyDetector:= EntropyChecker.new()
+
+## Extension that is added to files to lock them in windows
+const EXT = ".quarantine"
+
+## Saves file permissions for locked linux files
+const INDEX_PATH = "user://quarantine_index.json"
+
 
 func checkVirus(filepaths: PackedStringArray) -> String:
 	var output:String = ""
@@ -19,11 +28,19 @@ func checkVirus(filepaths: PackedStringArray) -> String:
 
 		# Whitelist -> user database -> official database (decided inside virusDB)
 		var res := database.classify(file_hash)
-
+		
+		#Running heuristics section
+		#check file suspicion
+		var susRes := suspicionDetector.check_strings(path)
+		#check entropy
+		var entropyRes := entropyDetector.check_entropy(path)
+		
+		var msg:String
 		match res["verdict"]:
+			
 			virusDB.Verdict.USER, virusDB.Verdict.OFFICIAL:
 				var where: String = "your database" if res["verdict"] == virusDB.Verdict.USER else "official database"
-				var msg := "virus found: %s (%s, %s)" % [path, res["name"], where]
+				msg = "virus found: %s (%s, %s)" % [path, res["name"], where]
 				print(msg)
 				GlobalLogger.InfoLog(msg + "\n")
 				#toolMain.printToTerminal(msg + "\n")
@@ -38,6 +55,9 @@ func checkVirus(filepaths: PackedStringArray) -> String:
 				GlobalLogger.InfoLog("virus false " + path + "\n")
 				#toolMain.printToTerminal("virus false: " + path + "\n")
 				output +="virus false: " + path + "\n"
+	
+		output += susRes
+		output += entropyRes
 	return output
 
 func checkDirectory(directory: String) -> String:

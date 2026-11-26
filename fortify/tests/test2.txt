@@ -1,1 +1,5 @@
 foo
+https://example.com
+<script>
+	print hello world
+</script>
