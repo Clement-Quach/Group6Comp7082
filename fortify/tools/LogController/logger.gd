@@ -17,7 +17,7 @@ func resultLog(message: String) -> void:
 	results.store_line(message)
 
 func create_log_file(folder: String) -> FileAccess:
-	var directory := "res://%s" % folder
+	var directory := "user://%s" % folder
 	DirAccess.make_dir_recursive_absolute(
 		ProjectSettings.globalize_path(directory)
 	)

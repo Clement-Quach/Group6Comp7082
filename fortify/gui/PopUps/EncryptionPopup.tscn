@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cixfacpnr22vu" path="res://gui/PopUps/btn_decrypt.gd" id="1_jxgob"]
 [ext_resource type="Script" uid="uid://db5n8cd2k7f8s" path="res://gui/Btn_encrypt.gd" id="1_npa6s"]
+[ext_resource type="Theme" uid="uid://niwv3juw0yu4" path="res://gui/Styleboxes/main_theme.tres" id="1_ohgju"]
 [ext_resource type="Script" uid="uid://7at4rkcr5equ" path="res://gui/PopUps/popupExit.gd" id="1_or18p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hyp1n"]
@@ -13,6 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_ohgju")
 
 [node name="Panel" type="Panel" parent="." unique_id=818158925]
 layout_mode = 0
