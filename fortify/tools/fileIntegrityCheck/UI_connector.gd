@@ -23,8 +23,11 @@ const ScheduleDialogScene = preload("res://tools/fileIntegrityCheck/schedule_dia
 # Created at runtime in _ready() (it is not a node in the dashboard scene)
 var schedule_dialog: ConfirmationDialog
 
+# Created at runtime next to the "Add File" button
+var btn_add_folder: Button
+
 # State to track what the FileDialog is currently being used for
-enum DialogMode { ADD_FILE, SELECT_TARGET }
+enum DialogMode { ADD_FILE, ADD_FOLDER, SELECT_TARGET }
 var current_dialog_mode: DialogMode = DialogMode.ADD_FILE
 
 func _ready() -> void:
@@ -32,6 +35,17 @@ func _ready() -> void:
 	file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 	file_dialog.access = FileDialog.ACCESS_FILESYSTEM
 	file_dialog.file_selected.connect(_on_file_selected)
+	file_dialog.dir_selected.connect(_on_dir_selected)
+	
+	# "Add Folder" button (not in the scene file): registers every file under a folder
+	btn_add_folder = Button.new()
+	btn_add_folder.text = "Add Folder"
+	btn_add_folder.pressed.connect(_on_btn_add_folder_pressed)
+	btn_add_file.get_parent().add_child(btn_add_folder)
+	btn_add_file.get_parent().move_child(btn_add_folder, btn_add_file.get_index() + 1)
+	
+	# Convert any old absolute-path keys to portable project-relative keys
+	FileIntegrityManager.migrate_database()
 	
 	# Connect UI Buttons (Assuming they weren't connected in the editor)
 	if not btn_add_file.pressed.is_connected(_on_btn_add_file_pressed):
@@ -77,15 +91,22 @@ func _setup_tree() -> void:
 
 func _on_btn_add_file_pressed() -> void:
 	current_dialog_mode = DialogMode.ADD_FILE
+	file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	file_dialog.popup_centered(Vector2(600, 400))
+
+func _on_btn_add_folder_pressed() -> void:
+	current_dialog_mode = DialogMode.ADD_FOLDER
+	file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_DIR
 	file_dialog.popup_centered(Vector2(600, 400))
 
 func _on_btn_select_target_pressed() -> void:
 	current_dialog_mode = DialogMode.SELECT_TARGET
+	file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 	file_dialog.popup_centered(Vector2(600, 400))
 
 func _on_btn_run_verification_pressed() -> void:
 	# For a simple demo, we verify all files currently listed in the JSON database
-	if not FileAccess.file_exists(JSON_DB_PATH):
+	if not FileIntegrityManager.database_exists():
 		print("No database found to verify.")
 		return
 		
@@ -114,11 +135,10 @@ func _on_btn_run_verification_pressed() -> void:
 
 func _on_btn_sync_database_pressed() -> void:
 	# "Sync" usually means re-hashing trusted files to update the DB if they changed legitimately.
-	# For this demo, we will just print the contents of the JSON to the console.
-	print("--- Current Trusted Hash Database ---")
-	if FileAccess.file_exists(JSON_DB_PATH):
-		var file = FileAccess.open(JSON_DB_PATH, FileAccess.READ)
-		print(file.get_as_text())
+	# For this demo, we will just print the contents of both databases to the console.
+	print("--- Current Trusted Hash Database (project + local) ---")
+	if FileIntegrityManager.database_exists():
+		print(JSON.stringify(FileIntegrityManager.load_database(), "	"))
 	else:
 		print("Database is empty.")
 		
@@ -145,6 +165,20 @@ func _on_file_selected(path: String) -> void:
 		
 		_add_tree_row(path, status_text, result.computed_hash, color)
 
+func _on_dir_selected(dir_path: String) -> void:
+	if current_dialog_mode == DialogMode.ADD_FOLDER:
+		add_folder_to_database(dir_path)
+
+## Registers every file under dir_path (recursive) with one DB write.
+func add_folder_to_database(dir_path: String) -> void:
+	if dir_path.is_empty(): return
+	var result = FileIntegrityManager.register_folder(dir_path, _get_selected_algorithm())
+	for item in result.registered:
+		_add_tree_row(item.key, "REGISTERED", item.hash, Color.LIGHT_BLUE)
+	for path in result.failed:
+		_add_tree_row(path, "FAILED", "Could not hash file", Color.ORANGE)
+	_add_tree_row(dir_path, "FOLDER", "%d registered, %d failed" % [result.registered.size(), result.failed.size()], Color.CYAN)
+
 func add_file_to_database(file_path: String) -> void:
 	if file_path.is_empty(): return
 		
@@ -156,7 +190,7 @@ func add_file_to_database(file_path: String) -> void:
 		return
 		
 	_save_json_record(file_path, algo_name, computed_hash)
-	_add_tree_row(file_path, "REGISTERED", computed_hash, Color.LIGHT_BLUE)
+	_add_tree_row(FileIntegrityManager.to_db_key(file_path), "REGISTERED", computed_hash, Color.LIGHT_BLUE)
 
 func _get_selected_algorithm() -> String:
 	if dropdown_algorithm and dropdown_algorithm.selected >= 0:
@@ -166,23 +200,14 @@ func _get_selected_algorithm() -> String:
 		return text
 	return "sha256"
 
-func _save_json_record(file_key: String, algo: String, hash_value: String) -> void:
-	var data = {}
-	
-	if FileAccess.file_exists(JSON_DB_PATH):
-		var file = FileAccess.open(JSON_DB_PATH, FileAccess.READ)
-		var parsed = JSON.parse_string(file.get_as_text())
-		if parsed is Dictionary:
-			data = parsed
-			
-	data[file_key] = {
+func _save_json_record(file_path: String, algo: String, hash_value: String) -> void:
+	var data = FileIntegrityManager.load_database()
+	data[FileIntegrityManager.to_db_key(file_path)] = {
 		"algorithm": algo,
 		"expected_hash": hash_value,
 		"last_updated": Time.get_datetime_string_from_system()
 	}
-	
-	var file = FileAccess.open(JSON_DB_PATH, FileAccess.WRITE)
-	file.store_string(JSON.stringify(data, "\t"))
+	FileIntegrityManager.save_database(data)
 
 func _add_tree_row(file_name: String, status: String, hash_val: String, text_color: Color = Color.WHITE) -> void:
 	var root = results_tree.get_root()

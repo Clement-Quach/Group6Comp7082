@@ -5,6 +5,9 @@ import unittest
 from datetime import datetime
 from pathlib import Path
 
+from unittest import mock
+
+import godot_locator
 import integrity_scheduler as isch
 import schedule_logic as sl
 
@@ -108,7 +111,73 @@ class CommandTests(unittest.TestCase):
 
     def test_missing_exe_returns_none(self):
         s = sl.parse_schedule({"godot_executable_path": "Z:/nope/godot.exe"})
-        self.assertIsNone(isch.run_godot(s, Path("."), 5))
+        with mock.patch.object(isch.godot_locator, "resolve_godot", return_value=(None, [])):
+            self.assertIsNone(isch.run_godot(s, Path("."), 5))
+
+    def test_build_command_uses_resolved_exe(self):
+        s = sl.parse_schedule({"godot_executable_path": "broken.exe"})
+        self.assertEqual(isch.build_command(s, Path("p"), "good.exe")[0], "good.exe")
+
+
+class GodotLocatorTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.dir = Path(self.tmp.name)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def touch(self, name):
+        p = self.dir / name
+        p.write_text("")
+        return p
+
+    def resolve(self, configured, working, env=None):
+        """working = set of file names whose probe succeeds."""
+        probed = []
+
+        def prober(p):
+            probed.append(p.name)
+            return (p.name in working, "ok" if p.name in working else "broken")
+        env = {} if env is None else env
+        exe, rejected = godot_locator.resolve_godot(str(configured), env=env, which=lambda n: None, prober=prober)
+        return exe, rejected, probed
+
+    def test_configured_working_path_is_used(self):
+        exe = self.touch("godot")
+        with mock.patch.object(godot_locator, "IS_WINDOWS", False),              mock.patch.object(godot_locator, "_common_dirs", return_value=[]):
+            got, rejected, _ = self.resolve(exe, {"godot"})
+        self.assertEqual(got, exe)
+        self.assertEqual(rejected, [])
+
+    def test_windows_broken_console_wrapper_falls_back_to_godot_exe(self):
+        wrapper = self.touch("Godot_v4.7.2-stable_win64_console.exe")   # real editor exe is missing
+        editor = self.touch("Godot.exe")
+        with mock.patch.object(godot_locator, "IS_WINDOWS", True),              mock.patch.object(godot_locator, "_common_dirs", return_value=[]):
+            got, rejected, _ = self.resolve(wrapper, {"Godot.exe"})
+        self.assertEqual(got, editor)
+        self.assertEqual([p.name for p, _ in rejected], [wrapper.name])
+
+    def test_windows_prefers_console_build_next_to_configured_editor(self):
+        editor = self.touch("Godot.exe")
+        console = self.touch("Godot_v4.7.2-stable_win64_console.exe")
+        with mock.patch.object(godot_locator, "IS_WINDOWS", True),              mock.patch.object(godot_locator, "_common_dirs", return_value=[]):
+            got, _, _ = self.resolve(editor, {"Godot.exe", console.name})
+        self.assertEqual(got, console)
+
+    def test_env_var_used_when_configured_missing(self):
+        exe = self.touch("godot")
+        with mock.patch.object(godot_locator, "IS_WINDOWS", False),              mock.patch.object(godot_locator, "_common_dirs", return_value=[]):
+            got, rejected, _ = self.resolve(self.dir / "nope.exe", {"godot"}, env={"GODOT_PATH": str(exe)})
+        self.assertEqual(got, exe)
+        self.assertEqual(rejected[0][1], "file does not exist")
+
+    def test_nothing_works_returns_none_with_reasons(self):
+        exe = self.touch("godot")
+        with mock.patch.object(godot_locator, "IS_WINDOWS", False),              mock.patch.object(godot_locator, "_common_dirs", return_value=[]):
+            got, rejected, _ = self.resolve(exe, set())
+        self.assertIsNone(got)
+        self.assertEqual(rejected[0][1], "broken")
 
 
 class LockTests(unittest.TestCase):

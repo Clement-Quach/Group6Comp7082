@@ -5,3 +5,5 @@ android/
 secrets.cfg
 secrets.example.cfg
 Logs/
+# File integrity: per-machine hash DB for files outside the project (normally lives in user://, outside the repo)
+fortify/tools/fileIntegrityCheck/local_hashes.json
