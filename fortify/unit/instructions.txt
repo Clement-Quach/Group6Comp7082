@@ -1,0 +1,2 @@
+to run main tests
+godot --headless --path . -s addons/gut/gut_cmdln.gd -gdir=res://unit/main_tests -gexit
