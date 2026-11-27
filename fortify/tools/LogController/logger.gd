@@ -2,10 +2,12 @@ extends Node
 
 var file: FileAccess
 var results: FileAccess
+var virusResults: FileAccess
 
 func _ready() -> void:
 	file = create_log_file("Logs")
 	results = create_log_file("Logs/Results")
+	virusResults = create_log_file("Logs/VirusResults")
 
 func InfoLog(message: String) -> void:
 	file.store_line(message)
@@ -15,6 +17,9 @@ func ErrorLog(message: String) -> void:
 
 func resultLog(message: String) -> void:
 	results.store_line(message)
+
+func virusLog(message:String) -> void:
+	virusResults.store_line(message)
 
 func create_log_file(folder: String) -> FileAccess:
 	var directory := "user://%s" % folder
