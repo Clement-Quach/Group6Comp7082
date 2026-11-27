@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://c65o6gbk4nmhu" path="res://gui/btn_check_virus.gd" id="1_p2a5u"]
 [ext_resource type="Script" uid="uid://7at4rkcr5equ" path="res://gui/PopUps/popupExit.gd" id="1_vh05x"]
 [ext_resource type="Script" uid="uid://xpjaahj1ew7t" path="res://gui/tmp_btn_add_virus.gd" id="2_jwgqa"]
+[ext_resource type="Script" uid="uid://dehkrq35jb6l0" path="res://gui/PopUps/ai_virus_check.gd" id="3_ei3ix"]
 [ext_resource type="Script" uid="uid://bvhxxra2n14nj" path="res://gui/unlock_file.gd" id="3_haaw6"]
 [ext_resource type="Script" uid="uid://bnis756s35j1u" path="res://gui/btn_update_definitions.gd" id="5_o3hwj"]
 [ext_resource type="Script" uid="uid://bgahi350yomme" path="res://gui/btn_directory_check_virus.gd" id="6_io4sa"]
@@ -28,11 +29,21 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_hyp1n")
 [node name="virusCheck" type="Button" parent="Panel" unique_id=1225506140]
 layout_mode = 0
 offset_left = 75.0
-offset_top = 119.0
+offset_top = 87.0
 offset_right = 213.0
-offset_bottom = 190.0
+offset_bottom = 158.0
 text = "Check Virus"
 script = ExtResource("1_p2a5u")
+
+[node name="aiVirusCheck" type="Button" parent="Panel" unique_id=140724155]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 167.0
+offset_right = 213.0
+offset_bottom = 238.0
+tooltip_text = "Sends today's virus check results to ai for analyzation"
+text = "AI analyzation"
+script = ExtResource("3_ei3ix")
 
 [node name="title" type="Label" parent="Panel" unique_id=1843268669]
 layout_mode = 0
@@ -47,18 +58,18 @@ vertical_alignment = 1
 [node name="add" type="Button" parent="Panel" unique_id=1962286240]
 layout_mode = 0
 offset_left = 75.0
-offset_top = 214.0
+offset_top = 246.0
 offset_right = 213.0
-offset_bottom = 285.0
+offset_bottom = 317.0
 text = "Add Hash"
 script = ExtResource("2_jwgqa")
 
 [node name="remove quarantine" type="Button" parent="Panel" unique_id=731788651]
 layout_mode = 0
 offset_left = 76.0
-offset_top = 303.0
+offset_top = 327.0
 offset_right = 214.0
-offset_bottom = 374.0
+offset_bottom = 398.0
 text = "Remove Hash"
 script = ExtResource("3_haaw6")
 
@@ -93,13 +104,14 @@ script = ExtResource("5_o3hwj")
 [node name="check directory" type="Button" parent="Panel" unique_id=1272329070]
 layout_mode = 0
 offset_left = 76.0
-offset_top = 386.0
+offset_top = 410.0
 offset_right = 214.0
-offset_bottom = 457.0
+offset_bottom = 481.0
 text = "Check Directory"
 script = ExtResource("6_io4sa")
 
 [connection signal="pressed" from="Panel/virusCheck" to="Panel/virusCheck" method="_on_pressed"]
+[connection signal="pressed" from="Panel/aiVirusCheck" to="Panel/aiVirusCheck" method="_on_pressed"]
 [connection signal="pressed" from="Panel/add" to="Panel/add" method="_on_pressed"]
 [connection signal="pressed" from="Panel/remove quarantine" to="Panel/remove quarantine" method="_on_pressed"]
 [connection signal="pressed" from="Panel/backButton" to="Panel/backButton" method="_on_pressed"]
