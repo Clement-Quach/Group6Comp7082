@@ -50,7 +50,7 @@ func checkVirus(filepaths: PackedStringArray) -> String:
 	
 		output += susRes
 		output += entropyRes
-	GlobalLogger.resultLog(output)
+	GlobalLogger.virusLog(output)
 	return output
 
 func checkDirectory(directory: String) -> String:
