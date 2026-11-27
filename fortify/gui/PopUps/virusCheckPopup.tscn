@@ -10,7 +10,7 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hyp1n"]
 
-[node name="PopUpTemplate" type="Control" unique_id=1695006277]
+[node name="PopUp" type="Control" unique_id=1695006277]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,8 +21,8 @@ theme = ExtResource("1_jh3ru")
 
 [node name="Panel" type="Panel" parent="." unique_id=818158925]
 layout_mode = 0
-offset_right = 1085.0
-offset_bottom = 611.0
+offset_right = 1000.0
+offset_bottom = 800.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_hyp1n")
 
 [node name="virusCheck" type="Button" parent="Panel" unique_id=1225506140]
@@ -75,19 +75,19 @@ script = ExtResource("1_vh05x")
 
 [node name="popupTerminal" type="TextEdit" parent="Panel" unique_id=2019362535]
 layout_mode = 0
-offset_left = 400.0
+offset_left = 380.0
 offset_top = 100.0
-offset_right = 1000.0
+offset_right = 980.0
 offset_bottom = 500.0
 editable = false
 wrap_mode = 1
 
 [node name="BtnUpdateDefinitions" type="Button" parent="Panel" unique_id=342984928]
 layout_mode = 0
-offset_left = 893.0
-offset_top = 542.0
-offset_right = 1050.0
-offset_bottom = 581.0
+offset_left = 700.0
+offset_top = 550.0
+offset_right = 900.0
+offset_bottom = 590.0
 size_flags_vertical = 4
 text = "Update Definitions"
 script = ExtResource("5_o3hwj")

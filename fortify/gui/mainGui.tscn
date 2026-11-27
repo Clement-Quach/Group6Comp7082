@@ -6,8 +6,10 @@
 [ext_resource type="StyleBox" uid="uid://7dsih1xnam6t" path="res://gui/Styleboxes/main_hover_btn_style_box_flat.tres" id="3_26am0"]
 [ext_resource type="PackedScene" uid="uid://6x0jd0yw800w" path="res://gui/PopUps/virusCheckPopup.tscn" id="3_duyse"]
 [ext_resource type="Script" uid="uid://12da2l1jqigk" path="res://gui/PopupBtn.gd" id="4_01tv1"]
+[ext_resource type="Script" uid="uid://c65o6gbk4nmhu" path="res://gui/btn_check_virus.gd" id="4_lof7a"]
 [ext_resource type="Script" uid="uid://rub6cp4sm88a" path="res://gui/btn_file_check.gd" id="5_mkyfa"]
 [ext_resource type="Script" uid="uid://cawos1fu28udb" path="res://gui/btn_ask_ai.gd" id="6_vhp5f"]
+[ext_resource type="Script" uid="uid://d20bemcdc1e4y" path="res://gui/home_btn.gd" id="9_0gahw"]
 [ext_resource type="Texture2D" uid="uid://blj2r4rmu22qm" path="res://assets/icons/scan-file.svg" id="9_26am0"]
 [ext_resource type="PackedScene" uid="uid://kq6vkbfxdmyq" path="res://gui/PopUps/networkToolPopup.tscn" id="9_duyse"]
 [ext_resource type="Texture2D" uid="uid://dtr2gdwkh87gb" path="res://assets/icons/encryption.svg" id="10_01tv1"]
@@ -22,39 +24,44 @@ Button/styles/hover = ExtResource("3_26am0")
 Button/styles/normal = ExtResource("2_gdwhq")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_or3jx"]
+bg_color = Color(0.5561062, 0.61429524, 0.6238795, 1)
 
 [node name="Control" type="Control" unique_id=44630022]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = 23.0
+offset_right = -2.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_thxfq")
 script = ExtResource("1_4br7b")
 
-[node name="BtnVirusCheck" type="Button" parent="." unique_id=1574892675]
+[node name="Panel" type="Panel" parent="." unique_id=398714134]
 layout_mode = 0
-offset_left = 2.0
-offset_top = 37.0
-offset_right = 352.0
-offset_bottom = 187.0
+offset_right = 1200.0
+offset_bottom = 800.0
+
+[node name="Scan File" type="Button" parent="." unique_id=1574892675]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 50.0
+offset_right = 500.0
+offset_bottom = 200.0
 size_flags_vertical = 4
 tooltip_text = "Choose a file and scan it for a virus"
 theme_override_styles/normal = ExtResource("2_gdwhq")
 theme_override_styles/hover = ExtResource("3_26am0")
-text = "check virus"
-script = ExtResource("4_01tv1")
-popup_scene = ExtResource("3_duyse")
-onClickLog = "virus check clicked"
+text = "Scan File"
+script = ExtResource("4_lof7a")
 
 [node name="BtnEncryption" type="Button" parent="." unique_id=516852594]
 layout_mode = 0
-offset_left = 1.0
-offset_top = 195.0
-offset_right = 351.0
-offset_bottom = 345.0
+offset_left = 200.0
+offset_top = 210.0
+offset_right = 500.0
+offset_bottom = 360.0
 tooltip_text = "Lock or unlock a file with a password"
 theme_override_styles/normal = ExtResource("2_gdwhq")
 theme_override_styles/hover = ExtResource("3_26am0")
@@ -65,10 +72,10 @@ onClickLog = "encryption popup pressed"
 
 [node name="BtnAskAi" type="Button" parent="." unique_id=2059441810]
 layout_mode = 0
-offset_left = 3.0
-offset_top = 353.0
-offset_right = 353.0
-offset_bottom = 478.0
+offset_left = 200.0
+offset_top = 370.0
+offset_right = 500.0
+offset_bottom = 495.0
 tooltip_text = "Click to send your message to our AI"
 theme_override_styles/normal = ExtResource("2_gdwhq")
 theme_override_styles/hover = ExtResource("3_26am0")
@@ -77,19 +84,18 @@ script = ExtResource("6_vhp5f")
 
 [node name="PromptInput" type="LineEdit" parent="BtnAskAi" unique_id=1682451149]
 layout_mode = 0
-offset_left = -1.0
 offset_top = 127.0
-offset_right = 349.0
+offset_right = 300.0
 offset_bottom = 217.0
 theme_override_styles/normal = ExtResource("2_gdwhq")
 placeholder_text = "Ask the AI..."
 
 [node name="BtnGenReport" type="Button" parent="." unique_id=1276280019]
 layout_mode = 0
-offset_left = 2.0
-offset_top = 576.0
-offset_right = 352.0
-offset_bottom = 640.0
+offset_left = 200.0
+offset_top = 600.0
+offset_right = 500.0
+offset_bottom = 664.0
 theme_override_styles/normal = ExtResource("2_gdwhq")
 theme_override_styles/hover = ExtResource("3_26am0")
 text = "Generate AI Report"
@@ -97,31 +103,38 @@ script = ExtResource("12_gdwhq")
 
 [node name="output" type="TextEdit" parent="." unique_id=1851361813]
 layout_mode = 0
-offset_left = 367.0
-offset_top = 13.0
-offset_right = 1122.0
-offset_bottom = 624.0
+offset_left = 525.0
+offset_top = 50.0
+offset_right = 1175.0
+offset_bottom = 750.0
 editable = false
 wrap_mode = 1
 scroll_smooth = true
-
-[node name="SidebarToggle" type="Button" parent="." unique_id=1021276726]
-layout_mode = 0
-offset_right = 67.0
-offset_bottom = 38.0
 
 [node name="Sidebar" type="PanelContainer" parent="." unique_id=683898475]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -284.0
-offset_bottom = 320.5
+offset_top = -401.0
+offset_right = 200.0
+offset_bottom = 399.0
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_or3jx")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Sidebar" unique_id=1983739350]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Spacer2" type="Control" parent="Sidebar/VBoxContainer" unique_id=536911162]
+layout_mode = 2
+
+[node name="Home" type="Button" parent="Sidebar/VBoxContainer" unique_id=1215486340]
+layout_mode = 2
+text = "Home"
+script = ExtResource("9_0gahw")
+
+[node name="Spacer" type="Control" parent="Sidebar/VBoxContainer" unique_id=2100710083]
 layout_mode = 2
 
 [node name="BtnVirusCheck" type="Button" parent="Sidebar/VBoxContainer" unique_id=805269481]
@@ -172,4 +185,3 @@ script = ExtResource("5_mkyfa")
 
 [connection signal="pressed" from="BtnAskAi" to="BtnAskAi" method="_on_pressed"]
 [connection signal="pressed" from="BtnGenReport" to="BtnGenReport" method="_on_pressed"]
-[connection signal="pressed" from="SidebarToggle" to="." method="_on_sidebar_toggle_pressed"]

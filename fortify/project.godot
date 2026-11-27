@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 GlobalLogger="*uid://cc03irdg6ikxi"
 
+[display]
+
+window/size/viewport_width=1200
+window/size/viewport_height=800
+
 [dotnet]
 
 project/assembly_name="fortify"

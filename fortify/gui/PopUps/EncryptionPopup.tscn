@@ -7,19 +7,20 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hyp1n"]
 
-[node name="PopUpTemplate" type="Control" unique_id=1695006277]
+[node name="PopUp" type="Control" unique_id=1695006277]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -150.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_ohgju")
 
 [node name="Panel" type="Panel" parent="." unique_id=818158925]
 layout_mode = 0
-offset_right = 1085.0
-offset_bottom = 611.0
+offset_right = 1000.0
+offset_bottom = 800.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_hyp1n")
 
 [node name="title" type="Label" parent="Panel" unique_id=1843268669]
@@ -54,9 +55,9 @@ script = ExtResource("1_npa6s")
 
 [node name="popupTerminal" type="TextEdit" parent="Panel" unique_id=193258238]
 layout_mode = 0
-offset_left = 400.0
+offset_left = 380.0
 offset_top = 100.0
-offset_right = 1000.0
+offset_right = 980.0
 offset_bottom = 500.0
 placeholder_text = "Text display box"
 editable = false
