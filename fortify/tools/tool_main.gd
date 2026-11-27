@@ -123,6 +123,13 @@ func generateReport() -> void:
 	var report = await aiManager.generateReport(scan_results)
 
 	printToTerminal("--- Scan report ---\n" + report + "\n\n")
+	
+
+# Calls the generateVirusReport from the ai manager, and prints the results to the terminal
+func generateVirusReport() -> void:
+	printToTerminal("generating virus scan report...\n")
+	var report: String = await aiManager.generateVirusReport()
+	printToTerminal("--- Virus scan report ---\n" + report + "\n\n")
 
 #FILE BACKUP SECTION START =======================
 func compressFile():

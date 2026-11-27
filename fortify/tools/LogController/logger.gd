@@ -11,15 +11,19 @@ func _ready() -> void:
 
 func InfoLog(message: String) -> void:
 	file.store_line(message)
+	file.flush()
 
 func ErrorLog(message: String) -> void:
 	file.store_line(message)
+	file.flush()
 
 func resultLog(message: String) -> void:
 	results.store_line(message)
+	results.flush()
 
 func virusLog(message:String) -> void:
-	virusResults.store_line(message)
+	virusResults.store_line("[%s] %s" % [Time.get_time_string_from_system(), message])
+	virusResults.flush()
 
 func create_log_file(folder: String) -> FileAccess:
 	var directory := "user://%s" % folder

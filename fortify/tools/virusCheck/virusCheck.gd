@@ -37,7 +37,7 @@ func checkVirus(filepaths: PackedStringArray) -> String:
 				msg = "virus found: %s (%s, %s)" % [path, res["name"], where]
 				print(msg)
 				GlobalLogger.InfoLog(msg + "\n")
-				output += msg
+				output += msg + "\n"
 				quarantine.lockFile(path)
 			virusDB.Verdict.WHITELISTED:
 				print("virus false (whitelisted): " + path)
@@ -48,8 +48,8 @@ func checkVirus(filepaths: PackedStringArray) -> String:
 				GlobalLogger.InfoLog("virus false " + path + "\n")
 				output +="virus false: " + path + "\n"
 	
-		output += susRes
-		output += entropyRes
+		output += susRes + "\n"
+		output += entropyRes + "\n"
 	GlobalLogger.virusLog(output)
 	return output
 
