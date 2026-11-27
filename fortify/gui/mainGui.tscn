@@ -45,9 +45,9 @@ offset_bottom = 800.0
 
 [node name="Scan File" type="Button" parent="." unique_id=1574892675]
 layout_mode = 0
-offset_left = 200.0
+offset_left = 210.0
 offset_top = 50.0
-offset_right = 500.0
+offset_right = 510.0
 offset_bottom = 200.0
 size_flags_vertical = 4
 tooltip_text = "Choose a file and scan it for a virus"
@@ -58,9 +58,9 @@ script = ExtResource("4_lof7a")
 
 [node name="BtnEncryption" type="Button" parent="." unique_id=516852594]
 layout_mode = 0
-offset_left = 200.0
+offset_left = 210.0
 offset_top = 210.0
-offset_right = 500.0
+offset_right = 510.0
 offset_bottom = 360.0
 tooltip_text = "Lock or unlock a file with a password"
 theme_override_styles/normal = ExtResource("2_gdwhq")
@@ -72,9 +72,9 @@ onClickLog = "encryption popup pressed"
 
 [node name="BtnAskAi" type="Button" parent="." unique_id=2059441810]
 layout_mode = 0
-offset_left = 200.0
+offset_left = 210.0
 offset_top = 370.0
-offset_right = 500.0
+offset_right = 510.0
 offset_bottom = 495.0
 tooltip_text = "Click to send your message to our AI"
 theme_override_styles/normal = ExtResource("2_gdwhq")
@@ -92,9 +92,9 @@ placeholder_text = "Ask the AI..."
 
 [node name="BtnGenReport" type="Button" parent="." unique_id=1276280019]
 layout_mode = 0
-offset_left = 200.0
+offset_left = 210.0
 offset_top = 600.0
-offset_right = 500.0
+offset_right = 510.0
 offset_bottom = 664.0
 theme_override_styles/normal = ExtResource("2_gdwhq")
 theme_override_styles/hover = ExtResource("3_26am0")
@@ -117,7 +117,7 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_top = -401.0
-offset_right = 180.0
+offset_right = 200.0
 offset_bottom = 399.0
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_or3jx")
