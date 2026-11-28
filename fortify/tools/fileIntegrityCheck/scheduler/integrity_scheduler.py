@@ -31,9 +31,9 @@ import schedule_logic as sl  # noqa: E402
 DEFAULT_PROJECT = HERE.parents[2]          # .../fortify  (scheduler -> fileIntegrityCheck -> tools -> fortify)
 RUNNER_SCRIPT = "res://tools/fileIntegrityCheck/headless_runner.gd"
 EXIT_MEANING = {
-    0: "all files valid",
+    0: "all files valid (or no files registered yet)",
     1: "tampered or missing files found - see the integrity log",
-    2: "runner error (e.g. trusted hash database missing)",
+    2: "runner error",
 }
 
 log = logging.getLogger("integrity_scheduler")

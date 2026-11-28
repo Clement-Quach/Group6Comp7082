@@ -2,6 +2,18 @@
 
 [ext_resource type="Script" uid="uid://n0vsryqt08ny" path="res://tools/fileIntegrityCheck/UI_connector.gd" id="1_nr1vn"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3erpg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c42ea"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1cqp0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_60n8q"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_87aaj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uj3cd"]
+
 [node name="FileIntegrityDashboard" type="Node2D" unique_id=1622237805]
 position = Vector2(235, 38)
 script = ExtResource("1_nr1vn")
@@ -18,25 +30,24 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ActionToolbar" type="HBoxContainer" parent="VBoxContainer" unique_id=1366972756]
+custom_minimum_size = Vector2(0, -20)
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="BtnSelectTarget" type="Button" parent="VBoxContainer/ActionToolbar" unique_id=81655136]
+[node name="BtnBack" type="Button" parent="VBoxContainer/ActionToolbar" unique_id=175259772]
 layout_mode = 2
-text = "Slect Target
-"
+theme_override_styles/hover = SubResource("StyleBoxFlat_3erpg")
+text = "Back to Main"
 
 [node name="BtnAddFile" type="Button" parent="VBoxContainer/ActionToolbar" unique_id=1659850418]
 layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_c42ea")
 text = "Add File"
 
 [node name="BtnRunVerification" type="Button" parent="VBoxContainer/ActionToolbar" unique_id=1820321077]
 layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_1cqp0")
 text = "Run Verification"
-
-[node name="BtnSyncDatabase" type="Button" parent="VBoxContainer/ActionToolbar" unique_id=2017845762]
-layout_mode = 2
-text = "SyncDB"
 
 [node name="DropdownAlgorithm" type="OptionButton" parent="VBoxContainer/ActionToolbar" unique_id=2134946619]
 layout_mode = 2
@@ -51,11 +62,19 @@ popup/item_2/id = 2
 
 [node name="BtnSchedule" type="Button" parent="VBoxContainer/ActionToolbar" unique_id=1298955122]
 layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_60n8q")
 text = "Schedule"
 
-[node name="BtnBack" type="Button" parent="VBoxContainer/ActionToolbar" unique_id=175259772]
+[node name="BtnSyncDatabase" type="Button" parent="VBoxContainer/ActionToolbar" unique_id=2017845762]
 layout_mode = 2
-text = "Back to Main"
+theme_override_styles/hover = SubResource("StyleBoxFlat_87aaj")
+text = "SyncDB"
+
+[node name="BtnSelectTarget" type="Button" parent="VBoxContainer/ActionToolbar" unique_id=81655136]
+layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_uj3cd")
+text = "Slect Target
+"
 
 [node name="VerificationResultsTree" type="Tree" parent="VBoxContainer" unique_id=212109674]
 layout_mode = 2

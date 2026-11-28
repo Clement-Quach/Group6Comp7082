@@ -22,11 +22,21 @@ class VerificationResult:
 		expected_hash = p_expected
 		timestamp = Time.get_unix_time_from_system()
 
-## Project DB: records for files inside the project ("res://" keys). Shared via git.
+## Project DB (DEBUG ONLY): "res://" records, shared via git. Only read/written in the
+## editor or a debug build; in a release build it is ignored completely (res:// is
+## read-only there). It may be missing or empty - that is never an error.
 const JSON_DB_PATH = "res://tools/fileIntegrityCheck/trusted_hashes.json"
-## Local DB: records for files outside the project (absolute-path keys). Per machine,
-## lives in Godot's user data folder, so it is never part of the repository.
+## Local DB (the real database in every build): lives in Godot's user data folder, per
+## machine and per user, so it is never part of the repository. Holds absolute-path
+## records and, in a release build, the "res://" records too.
 const LOCAL_DB_PATH = "user://local_hashes.json"
+
+## Tests can set this to true to behave like a release build.
+static var force_release_mode := false
+
+## True when the project DB (res://) may be used: editor or debug build only.
+static func project_db_enabled() -> bool:
+	return not force_release_mode and (OS.has_feature("editor") or OS.is_debug_build())
 
 static func verify_file(file_path: String, algorithm_name: String = "sha256") -> VerificationResult:
 	var computed_hash = HashGenerator.generate_hash(file_path, algorithm_name)
@@ -105,13 +115,14 @@ static func _normalize_keys(db: Dictionary) -> Dictionary:
 		out[new_key] = db[key]
 	return out
 
-## Loads BOTH databases merged into one dictionary ({} if none exist). Keys are
-## normalised in memory; call migrate_database() to persist the normalised keys.
+## Loads the databases merged into one dictionary ({} if none exist). Debug/editor:
+## project DB + local DB. Release: local DB only. Keys are normalised in memory; call
+## migrate_database() to persist the normalised keys.
 static func load_database() -> Dictionary:
 	return _normalize_keys(_load_raw_database())
 
 static func database_exists() -> bool:
-	return FileAccess.file_exists(JSON_DB_PATH) or FileAccess.file_exists(LOCAL_DB_PATH)
+	return FileAccess.file_exists(LOCAL_DB_PATH) or (project_db_enabled() and FileAccess.file_exists(JSON_DB_PATH))
 
 static func _read_json_file(path: String) -> Dictionary:
 	if not FileAccess.file_exists(path):
@@ -122,19 +133,21 @@ static func _read_json_file(path: String) -> Dictionary:
 	var parsed = JSON.parse_string(file.get_as_text())
 	return parsed if parsed is Dictionary else {}
 
-static func _write_json_file(path: String, db: Dictionary) -> bool:
+## silent = true: a failed write is not reported (used for the optional project DB).
+static func _write_json_file(path: String, db: Dictionary, silent: bool = false) -> bool:
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	if file == null:
-		push_error("Cannot write %s (error %d)" % [path, FileAccess.get_open_error()])
+		if not silent:
+			push_error("Cannot write %s (error %d)" % [path, FileAccess.get_open_error()])
 		return false
 	file.store_string(JSON.stringify(db, "	"))
 	file.close()
 	return true
 
-## Project DB + local DB merged. res:// keys and absolute keys never collide.
+## Project DB (debug only) + local DB merged.
 static func _load_raw_database() -> Dictionary:
-	var merged := _read_json_file(JSON_DB_PATH)
-	merged.merge(_read_json_file(LOCAL_DB_PATH))
+	var merged := _read_json_file(JSON_DB_PATH) if project_db_enabled() else {}
+	merged.merge(_read_json_file(LOCAL_DB_PATH), true)
 	return merged
 
 ## Splits a merged DB by key: "res://" keys -> project DB, everything else -> local DB.
@@ -148,31 +161,41 @@ static func _split_database(db: Dictionary) -> Array[Dictionary]:
 			local_part[key] = db[key]
 	return [project_part, local_part]
 
-## Writes a merged DB back to the two files. The local file is only created when
-## it has records (or already exists).
+## Writes a merged DB back.
+## Debug/editor: "res://" records -> project DB (silently skipped when empty or not
+## writable), everything else -> local DB.
+## Release: everything -> local DB; the project DB is never touched.
+## The local file is only created when it has records (or already exists).
 static func save_database(db: Dictionary) -> bool:
-	var parts := _split_database(db)
-	var ok := _write_json_file(JSON_DB_PATH, parts[0])
-	if not parts[1].is_empty() or FileAccess.file_exists(LOCAL_DB_PATH):
-		ok = _write_json_file(LOCAL_DB_PATH, parts[1]) and ok
-	return ok
+	var project_part := {}
+	var local_part := db
+	if project_db_enabled():
+		var parts := _split_database(db)
+		project_part = parts[0]
+		local_part = parts[1]
+		if not project_part.is_empty() or FileAccess.file_exists(JSON_DB_PATH):
+			_write_json_file(JSON_DB_PATH, project_part, true)   # optional: never an error
+	if not local_part.is_empty() or FileAccess.file_exists(LOCAL_DB_PATH):
+		return _write_json_file(LOCAL_DB_PATH, local_part)
+	return true
 
 ## Normalises keys and moves records into the right file (e.g. old absolute keys
 ## that were stored in the project DB). Returns true if anything was rewritten.
 static func migrate_database() -> bool:
-	var project_raw := _read_json_file(JSON_DB_PATH)
+	var project_raw := _read_json_file(JSON_DB_PATH) if project_db_enabled() else {}
 	var local_raw := _read_json_file(LOCAL_DB_PATH)
 	var merged := project_raw.duplicate()
-	merged.merge(local_raw)
-	var parts := _split_database(_normalize_keys(merged))
-	if parts[0].keys() == project_raw.keys() and parts[1].keys() == local_raw.keys():
+	merged.merge(local_raw, true)
+	var normalized := _normalize_keys(merged)
+	var new_project := {}
+	var new_local := normalized
+	if project_db_enabled():
+		var parts := _split_database(normalized)
+		new_project = parts[0]
+		new_local = parts[1]
+	if new_project.keys() == project_raw.keys() and new_local.keys() == local_raw.keys():
 		return false
-	return save_database(merged_normalized(parts))
-
-static func merged_normalized(parts: Array[Dictionary]) -> Dictionary:
-	var out: Dictionary = parts[0].duplicate()
-	out.merge(parts[1])
-	return out
+	return save_database(normalized)
 
 ## ---------------------------------------------------------------------------
 ## Registering files / folders
@@ -198,7 +221,7 @@ static func _collect_files_into(dir_path: String, result: Array[String]) -> void
 			var full := dir_path + "/" + name
 			if dir.current_is_dir():
 				_collect_files_into(full, result)
-			elif to_db_key(full) != JSON_DB_PATH:
+			elif to_db_key(full) != JSON_DB_PATH and full != ProjectSettings.globalize_path(LOCAL_DB_PATH):
 				result.append(full)
 		name = dir.get_next()
 	dir.list_dir_end()
@@ -240,7 +263,7 @@ static func verify_record(file_path: String, record: Dictionary) -> Verification
 ## Verifies every record in the DB and writes the integrity log.
 ## trigger: "scheduled" or "manual". log_path: "" -> default daily log.
 ## Returns { "entries": [{path, algorithm, result}], "valid", "tampered", "missing", "exit_code" }
-## exit_code: 0 = all valid, 1 = tampered/missing found, 2 = error (no database).
+## exit_code: 0 = all valid (or nothing registered yet), 1 = tampered/missing found.
 static func run_full_check(trigger: String = "manual", log_path: String = "") -> Dictionary:
 	if log_path.is_empty():
 		log_path = IntegrityLogger.default_log_path()
@@ -250,11 +273,7 @@ static func run_full_check(trigger: String = "manual", log_path: String = "") ->
 		IntegrityLogger.write_line(log_path, "MIGRATE", "database keys normalised / records moved to the right database")
 	var db := load_database()
 
-	if db.is_empty() and not database_exists():
-		IntegrityLogger.write_line(log_path, "ERROR", "trusted hash database not found: " + JSON_DB_PATH)
-		summary.exit_code = 2
-		return summary
-
+	# No database / no records simply means nothing has been registered yet: not an error.
 	IntegrityLogger.write_line(log_path, "RUN START", "trigger=%s | algorithm=per-record | records=%d" % [trigger, db.size()])
 
 	for path in db.keys():
