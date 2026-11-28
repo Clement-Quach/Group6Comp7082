@@ -106,15 +106,15 @@ func _on_btn_select_target_pressed() -> void:
 
 func _on_btn_run_verification_pressed() -> void:
 	# For a simple demo, we verify all files currently listed in the JSON database
-	if not FileIntegrityManager.database_exists():
-		print("No database found to verify.")
-		return
-		
 	results_tree.clear()
 	_setup_tree() # Re-create root after clear
 
 	# Shared with the headless scheduler run; uses each record's stored algorithm and writes the integrity log.
 	var summary = FileIntegrityManager.run_full_check("manual")
+	if summary.entries.is_empty():
+		# Nothing registered yet (or no database files): not an error.
+		_add_tree_row("SYSTEM", "NO RECORDS", "No files registered yet", Color.CYAN)
+		return
 	for entry in summary.entries:
 		var result = entry.result
 		var status_text = ""
@@ -137,10 +137,11 @@ func _on_btn_sync_database_pressed() -> void:
 	# "Sync" usually means re-hashing trusted files to update the DB if they changed legitimately.
 	# For this demo, we will just print the contents of both databases to the console.
 	print("--- Current Trusted Hash Database (project + local) ---")
-	if FileIntegrityManager.database_exists():
-		print(JSON.stringify(FileIntegrityManager.load_database(), "	"))
-	else:
+	var db = FileIntegrityManager.load_database()
+	if db.is_empty():
 		print("Database is empty.")
+	else:
+		print(JSON.stringify(db, "	"))
 		
 	_add_tree_row("SYSTEM", "SYNCED", "Database contents printed to console", Color.CYAN)
 
